@@ -1,0 +1,411 @@
+---
+/**
+ * Beam Angle Calculator
+ *
+ * Pure client-side lighting calculator with two modes:
+ *  - Beam angle  : distance + beam diameter -> beam angle (full angle, degrees)
+ *  - Beam diameter: beam angle + distance -> beam diameter
+ *
+ * Formulas (Cone geometry):
+ *   diameter = 2 * distance * tan(angle / 2)
+ *   angle    = 2 * atan(diameter / (2 * distance))   (radians -> degrees)
+ */
+
+export interface Props {
+  /** Show unit toggle (° / cm-m / in-ft) */
+  enableUnitToggle?: boolean;
+}
+
+const { enableUnitToggle = false } = Astro.props;
+
+const options = [
+  { value: '15', label: '15° — Ultra narrow spot' },
+  { value: '24', label: '24° — Narrow spot' },
+  { value: '36', label: '36° — Medium flood' },
+  { value: '60', label: '60° — Wide flood' },
+  { value: '90', label: '90° — Extra wide flood' },
+  { value: 'custom', label: 'Custom angle…' },
+];
+---
+
+<div
+  class="beam-angle-calculator not-prose rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-10"
+>
+  <!-- Tabs -->
+  <div class="mb-8 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <div class="inline-flex rounded-full bg-gray-100 p-1 dark:bg-slate-800">
+      <button type="button" id="bac-tab-angle" class="rounded-full px-5 py-2 text-sm font-semibold transition">
+        Calculate Beam Angle
+      </button>
+      <button type="button" id="bac-tab-diameter" class="rounded-full px-5 py-2 text-sm font-semibold transition">
+        Calculate Beam Diameter
+      </button>
+    </div>
+
+    {
+      enableUnitToggle && (
+        <label class="flex items-center gap-2 text-sm text-muted dark:text-slate-400">
+          <input id="bac-unit" type="checkbox" class="h-4 w-4 accent-primary" />
+          Metric (cm · m)
+        </label>
+      )
+    }
+  </div>
+
+  <!-- Mode 1: Beam Angle -->
+  <div id="bac-panel-angle" class="grid gap-8 lg:grid-cols-2">
+    <div>
+      <div class="mb-5">
+        <label for="bac-angle-distance" class="mb-1.5 block text-sm font-medium">
+          Mounting distance <span class="text-muted dark:text-slate-400">(from fixture to surface)</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            id="bac-angle-distance"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="e.g. 3"
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base dark:border-slate-600 dark:bg-slate-800"
+          />
+          <span class="w-10 shrink-0 text-sm text-muted dark:text-slate-400" data-bac-unit="m">m</span>
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label for="bac-angle-diameter" class="mb-1.5 block text-sm font-medium"> Beam diameter on surface </label>
+        <div class="flex items-center gap-2">
+          <input
+            id="bac-angle-diameter"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="e.g. 1.2"
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base dark:border-slate-600 dark:bg-slate-800"
+          />
+          <span class="w-10 shrink-0 text-sm text-muted dark:text-slate-400" data-bac-unit="m">m</span>
+        </div>
+      </div>
+
+      <button id="bac-angle-calculate" type="button" class="btn btn-primary w-full sm:w-auto"> Calculate </button>
+    </div>
+
+    <div>
+      <div
+        id="bac-angle-result"
+        class="hidden rounded-xl border border-primary/20 bg-primary/5 p-6 text-center dark:border-primary/40 dark:bg-primary/10"
+      >
+        <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Beam angle</p>
+        <p id="bac-angle-value" class="my-2 text-5xl font-bold text-primary"></p>
+        <p id="bac-angle-hint" class="text-sm text-muted dark:text-slate-400"></p>
+        <p class="mt-3 text-sm text-muted dark:text-slate-400">
+          Nearest standard: <span id="bac-angle-standard" class="font-semibold text-default dark:text-white"></span>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mode 2: Beam Diameter -->
+  <div id="bac-panel-diameter" class="hidden grid gap-8 lg:grid-cols-2">
+    <div>
+      <div class="mb-5">
+        <label for="bac-diameter-angle" class="mb-1.5 block text-sm font-medium">Beam angle</label>
+        <div class="flex items-center gap-2">
+          <input
+            id="bac-diameter-angle"
+            type="number"
+            min="0.1"
+            max="180"
+            step="any"
+            placeholder="e.g. 36"
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base dark:border-slate-600 dark:bg-slate-800"
+          />
+          <span class="w-10 shrink-0 text-sm text-muted dark:text-slate-400">°</span>
+        </div>
+        <div class="mt-2 flex flex-wrap gap-2">
+          {
+            options.map((opt) => (
+              <button
+                type="button"
+                class="bac-angle-preset rounded-full border border-gray-300 px-3 py-1 text-xs font-medium transition hover:border-primary hover:text-primary dark:border-slate-600 dark:hover:border-primary"
+                data-angle={opt.value}
+              >
+                {opt.label}
+              </button>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="mb-5">
+        <label for="bac-diameter-distance" class="mb-1.5 block text-sm font-medium">
+          Mounting distance <span class="text-muted dark:text-slate-400">(from fixture to surface)</span>
+        </label>
+        <div class="flex items-center gap-2">
+          <input
+            id="bac-diameter-distance"
+            type="number"
+            min="0"
+            step="any"
+            placeholder="e.g. 3"
+            class="w-full rounded-lg border border-gray-300 bg-white px-4 py-2.5 text-base dark:border-slate-600 dark:bg-slate-800"
+          />
+          <span class="w-10 shrink-0 text-sm text-muted dark:text-slate-400" data-bac-unit="m">m</span>
+        </div>
+      </div>
+
+      <button id="bac-diameter-calculate" type="button" class="btn btn-primary w-full sm:w-auto"> Calculate </button>
+    </div>
+
+    <div>
+      <div
+        id="bac-diameter-result"
+        class="hidden rounded-xl border border-primary/20 bg-primary/5 p-6 text-center dark:border-primary/40 dark:bg-primary/10"
+      >
+        <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Beam diameter at distance</p>
+        <p id="bac-diameter-value" class="my-2 text-5xl font-bold text-primary"></p>
+        <p id="bac-diameter-hint" class="text-sm text-muted dark:text-slate-400"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SVG beam visualization -->
+  <div class="mt-10 border-t border-gray-200 pt-8 dark:border-slate-700">
+    <h3 class="mb-4 text-center text-sm font-semibold uppercase tracking-wide text-muted dark:text-slate-400">
+      Beam visualization
+    </h3>
+    <svg id="bac-svg" viewBox="0 0 400 260" class="mx-auto max-w-md" role="img" aria-label="Beam angle visualization">
+      <defs>
+        <linearGradient id="bac-beam-fill" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="currentColor" stop-opacity="0.25"></stop>
+          <stop offset="100%" stop-color="currentColor" stop-opacity="0.05"></stop>
+        </linearGradient>
+      </defs>
+      <line x1="20" y1="240" x2="380" y2="240" stroke="currentColor" stroke-opacity="0.15" stroke-width="1.5"></line>
+      <path
+        id="bac-beam-path"
+        d="M200,30 L200,240 L200,240 L200,30 Z"
+        fill="url(#bac-beam-fill)"
+        stroke="currentColor"
+        stroke-opacity="0.4"
+        stroke-width="1.5"></path>
+      <line
+        id="bac-beam-axis"
+        x1="200"
+        y1="30"
+        x2="200"
+        y2="240"
+        stroke="currentColor"
+        stroke-opacity="0.5"
+        stroke-width="1"
+        stroke-dasharray="4 3"></line>
+      <line
+        id="bac-beam-target"
+        x1="170"
+        y1="240"
+        x2="230"
+        y2="240"
+        stroke="currentColor"
+        stroke-opacity="0.8"
+        stroke-width="3"></line>
+      <circle id="bac-beam-source" cx="200" cy="30" r="5" fill="currentColor"></circle>
+      <text id="bac-svg-angle" x="330" y="120" font-size="13" fill="currentColor" text-anchor="middle" opacity="0.75"
+      ></text>
+      <text id="bac-svg-width" x="330" y="235" font-size="13" fill="currentColor" text-anchor="middle" opacity="0.75"
+      ></text>
+    </svg>
+  </div>
+</div>
+
+<style>
+  .beam-angle-calculator {
+    --bac-svg-color: #64748b;
+  }
+  .dark .beam-angle-calculator {
+    --bac-svg-color: #cbd5e1;
+  }
+  #bac-svg {
+    color: var(--bac-svg-color);
+  }
+
+  #bac-tab-angle.active,
+  #bac-tab-diameter.active {
+    background-color: var(--aw-color-primary, #2563eb);
+    color: #fff;
+  }
+  .dark #bac-tab-angle.active,
+  .dark #bac-tab-diameter.active {
+    background-color: var(--aw-color-primary, #2563eb);
+    color: #fff;
+  }
+
+  #bac-angle-result.show,
+  #bac-diameter-result.show {
+    display: block;
+  }
+  #bac-panel-diameter.show {
+    display: grid;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const ANGLE_STANDARDS = [10, 15, 24, 30, 36, 45, 60, 90];
+    const PRESETS = {
+      '15': 'Ultra narrow spot',
+      '24': 'Narrow spot',
+      '36': 'Medium flood',
+      '60': 'Wide flood',
+      '90': 'Extra wide flood',
+    };
+
+    const $ = (id) => document.getElementById(id);
+    const isMetric = () => {
+      const unit = $('bac-unit');
+      return unit ? unit.checked : true;
+    };
+
+    const toMeters = (value) => (isMetric() ? value : value * 0.3048);
+
+    const fmt = (value, digits = 2) => {
+      const v = Number(value);
+      if (!isFinite(v)) return '—';
+      return v.toLocaleString('en-US', { maximumFractionDigits: digits });
+    };
+
+    const nearestStandard = (angle) =>
+      ANGLE_STANDARDS.reduce((best, current) => (Math.abs(current - angle) < Math.abs(best - angle) ? current : best));
+
+    const setUnitLabels = () => {
+      const unit = isMetric() ? 'm' : 'ft';
+      document.querySelectorAll('[data-bac-unit]').forEach((el) => (el.textContent = unit));
+    };
+
+    const renderSVG = (angle, widthMeters, distanceMeters) => {
+      const svg = $('bac-svg');
+      if (!svg) return;
+      const clamped = Math.min(Math.max(Number(angle) || 24, 5), 120);
+      const half = (clamped * Math.PI) / 360;
+      const dx = Math.tan(half) * 210;
+      const left = 200 - dx;
+      const right = 200 + dx;
+      const path = $('bac-beam-path');
+      const target = $('bac-beam-target');
+      const angleText = $('bac-svg-angle');
+      const widthText = $('bac-svg-width');
+      if (path) path.setAttribute('d', `M200,30 L${left},240 L${right},240 Z`);
+      if (target) target.setAttribute('x1', String(left));
+      if (target) target.setAttribute('x2', String(right));
+      if (angleText) angleText.textContent = `${fmt(clamped, 0)}°`;
+      if (widthText) {
+        const metric = isMetric();
+        const d = widthMeters != null && isFinite(widthMeters) ? widthMeters : 2 * distanceMeters * Math.tan(half);
+        widthText.textContent = metric ? `⌀ ${fmt(d)} m` : `⌀ ${fmt(d / 0.3048)} ft`;
+      }
+    };
+
+    const calculateAngle = () => {
+      const distance = Number($('bac-angle-distance').value);
+      const diameter = Number($('bac-angle-diameter').value);
+      if (!(distance > 0) || !(diameter > 0)) {
+        $('bac-angle-result').classList.remove('show');
+        return;
+      }
+      const distM = toMeters(distance);
+      const diaM = toMeters(diameter);
+      const angle = (2 * Math.atan(diaM / (2 * distM)) * 180) / Math.PI;
+      $('bac-angle-value').textContent = `${fmt(angle, 1)}°`;
+      $('bac-angle-hint').textContent = `at ${fmt(distance)} ${isMetric() ? 'm' : 'ft'} mounting distance`;
+      $('bac-angle-standard').textContent = `${nearestStandard(angle)}°`;
+      $('bac-angle-result').classList.add('show');
+      renderSVG(angle, diaM, distM);
+    };
+
+    const calculateDiameter = () => {
+      const angle = Number($('bac-diameter-angle').value);
+      const distance = Number($('bac-diameter-distance').value);
+      if (!(angle > 0) || !(angle <= 180) || !(distance > 0)) {
+        $('bac-diameter-result').classList.remove('show');
+        return;
+      }
+      const distM = toMeters(distance);
+      const diaM = 2 * distM * Math.tan((angle * Math.PI) / 360);
+      const metric = isMetric();
+      $('bac-diameter-value').textContent = `⌀ ${fmt(diaM)} ${metric ? 'm' : 'ft'}`;
+      $('bac-diameter-hint').textContent = `at ${fmt(distance)} ${metric ? 'm' : 'ft'} mounting distance`;
+      $('bac-diameter-result').classList.add('show');
+      renderSVG(angle, diaM, distM);
+    };
+
+    const setMode = (mode) => {
+      const isAngle = mode === 'angle';
+      $('bac-tab-angle').classList.toggle('active', isAngle);
+      $('bac-tab-diameter').classList.toggle('active', !isAngle);
+      $('bac-panel-angle').classList.toggle('show', isAngle);
+      $('bac-panel-diameter').classList.toggle('show', !isAngle);
+      $('bac-tab-angle').setAttribute('aria-pressed', String(isAngle));
+      $('bac-tab-diameter').setAttribute('aria-pressed', String(!isAngle));
+    };
+
+    const bind = (id, fn, event = 'click') => {
+      const el = $(id);
+      if (el) el.addEventListener(event, fn);
+    };
+
+    // Enter key support
+    const keydown = (fn) => (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        fn();
+      }
+    };
+
+    // Re-bind with proper Enter handling
+    const elAngleDistance = $('bac-angle-distance');
+    if (elAngleDistance) elAngleDistance.addEventListener('keydown', keydown(calculateAngle));
+    const elAngleDiameter = $('bac-angle-diameter');
+    if (elAngleDiameter) elAngleDiameter.addEventListener('keydown', keydown(calculateAngle));
+    const elDiaAngle = $('bac-diameter-angle');
+    if (elDiaAngle) elDiaAngle.addEventListener('keydown', keydown(calculateDiameter));
+    const elDiaDistance = $('bac-diameter-distance');
+    if (elDiaDistance) elDiaDistance.addEventListener('keydown', keydown(calculateDiameter));
+
+    // Presets
+    document.querySelectorAll('.bac-angle-preset').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const val = btn.getAttribute('data-angle');
+        if (val === 'custom') {
+          $('bac-diameter-angle').value = '';
+          $('bac-diameter-angle').focus();
+        } else {
+          $('bac-diameter-angle').value = val;
+          const label = PRESETS[val];
+          if (label) {
+            // Reflect selection visually
+            document
+              .querySelectorAll('.bac-angle-preset')
+              .forEach((b) => b.classList.toggle('border-primary', b === btn));
+          }
+        }
+      });
+    });
+
+    bind('bac-angle-calculate', calculateAngle);
+    bind('bac-diameter-calculate', calculateDiameter);
+    bind('bac-tab-angle', () => setMode('angle'));
+    bind('bac-tab-diameter', () => setMode('diameter'));
+    if ($('bac-unit'))
+      bind(
+        'bac-unit',
+        () => {
+          setUnitLabels();
+        },
+        'change'
+      );
+
+    // Init
+    setMode('angle');
+    setUnitLabels();
+    renderSVG(24, null, 3);
+  })();
+</script>
