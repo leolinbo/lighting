@@ -74,12 +74,15 @@ main:
             printf '{"orgId":"%s","projectId":"%s"}\n' \
               "team_o0BtTLWzAHnGL2hIHk6iMnZs" \
               "prj_cpAHrPXwDLRBSEMietKswTgknpFx" > .vercel/project.json
-            # 部署前先备份现有 dist，失败时回滚，避免部署中断留下残缺产物
-            if [ -d dist ]; then
-              rm -rf /tmp/vercel-dist-backup
-              cp -r dist /tmp/vercel-dist-backup
+            export VERCEL_ORG_ID="team_o0BtTLWzAHnGL2hIHk6iMnZs"
+            export VERCEL_PROJECT_ID="prj_cpAHrPXwDLRBSEMietKswTgknpFx"
+            # 先构建 Vercel 部署包（生成 .vercel/output），再以 prebuilt 方式部署，
+            # 避免 CLI 在无关联项目时误建名为 dist 的新项目。
+            if ! npx --yes vercel build --prod --token="${VERCEL_TOKEN}" --yes; then
+              echo "==> vercel build 失败"
+              exit 1
             fi
-            if ! npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes; then
+            if ! npx --yes vercel deploy --prebuilt --prod --token="${VERCEL_TOKEN}" --yes; then
               echo "==> Vercel 部署失败"
               exit 1
             fi
