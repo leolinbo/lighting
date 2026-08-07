@@ -16,20 +16,20 @@ export interface Props {
   showHowTo?: boolean;
 }
 
+import { requiredLumens, fixtureCount, gridLayout } from '~/utils/lighting';
+
 const { idPrefix = 'lux', showHowTo = true } = Astro.props;
 
-// SSR defaults (computed from the pre-filled inputs below) so the static HTML
-// already shows meaningful numbers before JS runs (SEO + first paint).
+// SSR defaults (computed via the shared pure functions in ~/utils/lighting) so
+// the static HTML already shows meaningful numbers before JS runs (SEO + first
+// paint) and the numbers match the interactive result exactly.
 const defaultArea = 8 * 6; // m²
 const defaultTarget = 525; // retail mid-range (300–750)
 const defaultUtil = 0.6 * 0.8; // CU 0.6 × MF 0.8 (typical values)
-const defaultLumens = (defaultTarget * defaultArea) / defaultUtil;
+const defaultLumens = requiredLumens(defaultTarget, defaultArea, defaultUtil);
 const defaultFixtureLumens = 15 * 110;
-const defaultCount = Math.ceil(defaultLumens / defaultFixtureLumens);
-// Grid layout for 8m × 6m room with defaultCount fixtures (8/6 ratio)
-const defaultRatio = 8 / 6;
-const defaultCols = Math.max(1, Math.round(Math.sqrt(defaultCount * defaultRatio)));
-const defaultRows = Math.max(1, Math.ceil(defaultCount / defaultCols));
+const defaultCount = fixtureCount(defaultLumens, defaultFixtureLumens);
+const defaultGrid = gridLayout(defaultCount, 8, 6);
 
 const applications = [
   { value: 'retail', label: 'Retail store' },
@@ -205,7 +205,7 @@ const applications = [
         <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
           <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Suggested layout</p>
           <p class="mt-1 text-lg font-bold text-default dark:text-white" id={`${idPrefix}-grid-value`}>
-            {defaultRows} rows × {defaultCols} cols ({defaultRows * defaultCols} positions)
+            {defaultGrid.rows} rows × {defaultGrid.cols} cols ({defaultGrid.total} positions)
           </p>
           <p class="mt-1 text-xs text-muted dark:text-slate-400" id={`${idPrefix}-grid-note`}></p>
         </div>
@@ -294,7 +294,6 @@ const applications = [
 
       const lenM = toMeters(lenRaw);
       const widM = toMeters(widRaw);
-      const heightM = toMeters(heightRaw);
 
       const area = lenM * widM;
       const luxRec = LUX_TABLE[app] || { min: 300, max: 500, note: 'Typical commercial range' };
@@ -337,7 +336,7 @@ const applications = [
       const total = rowsBest * colsBest;
       el('grid-value').textContent = `${rowsBest} rows × ${colsBest} cols (${fmt(total, 0)} positions)`;
       el('grid-note').textContent =
-        `Spacing ≈ ${fmt(lenRaw / colsBest)} × ${fmt(widRaw / rowsBest)} ${isMetric() ? 'm' : 'ft'} (${fmt(heightM, 2)} ${isMetric() ? 'm' : 'ft'} mounting height)`;
+        `Spacing ≈ ${fmt(lenRaw / colsBest)} × ${fmt(widRaw / rowsBest)} ${isMetric() ? 'm' : 'ft'} (${fmt(heightRaw, 2)} ${isMetric() ? 'm' : 'ft'} mounting height)`;
     };
 
     const bind = (suffix, fn, event = 'input') => {
@@ -351,6 +350,16 @@ const applications = [
 
     if (unitEl) {
       unitEl.addEventListener('change', () => {
+        // Convert the numeric inputs to the new unit system so the real-world
+        // dimensions stay the same (8 m becomes 26.25 ft, not 8 ft).
+        const factor = isMetric() ? 1 / UNIT_M_PER_FT : UNIT_M_PER_FT;
+        ['length', 'width', 'height'].forEach((suffix) => {
+          const node = el(suffix);
+          if (node && node.value !== '') {
+            const v = Number(node.value);
+            if (Number.isFinite(v)) node.value = String(parseFloat((v * factor).toFixed(4)));
+          }
+        });
         unitEls.forEach((u) => (u.textContent = isMetric() ? 'm' : 'ft'));
         recalc();
       });
