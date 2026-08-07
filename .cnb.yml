@@ -1,0 +1,98 @@
+# ============================================================
+# Beamangle Release / 打包流水线
+#
+# 1. main 分支 push（日常更新）：
+#    代码有更新时自动构建并打包 zip（源码包 + dist 产物包），
+#    上传到对应 commit 的附件，可在 commit 页面直接下载。
+#
+# 2. tag_push（正式发版）：
+#    推送 tag（如 v1.0.0）触发，构建 → 打包 → 自动创建 Release
+#    → 将 zip 作为附件上传到 Release 页面。
+# ============================================================
+
+main:
+  push:
+    - name: package-on-update
+      docker:
+        build:
+          dockerfile: ./Dockerfile.ci
+          by: [package.json]
+          versionBy: [package-lock.json]
+      # 仅当代码/配置有变更时打包；如需“任何 push 都打包”，删除 ifModify 即可
+      ifModify:
+        - "src/**"
+        - "public/**"
+        - "package.json"
+        - "package-lock.json"
+        - "astro.config.ts"
+        - "tsconfig.json"
+      stages:
+        - name: build
+          script: |
+            set -e
+            echo "==> 开始构建 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            npm run build
+            echo "==> 构建产物："
+            ls -lh dist | head
+        - name: package
+          script: |
+            set -e
+            VERSION="nightly-${CNB_COMMIT_SHORT}"
+            mkdir -p release
+            # 源码包（排除依赖、Git、构建产物与打包目录）
+            zip -r "release/Beamangle-${VERSION}-source.zip" . \
+              -x "node_modules/*" ".git/*" ".output/*" ".astro/*" "dist/*" "release/*" "*.log"
+            # 构建产物包（可直接部署/预览）
+            zip -r "release/Beamangle-${VERSION}-dist.zip" dist
+            echo "==> 打包完成："
+            ls -lh release/
+        - name: upload-to-commit
+          image: cnbcool/attachments:latest
+          settings:
+            attachments:
+              - "release/*.zip"
+
+"$":
+  tag_push:
+    - name: release
+      docker:
+        build:
+          dockerfile: ./Dockerfile.ci
+          by: [package.json]
+          versionBy: [package-lock.json]
+      stages:
+        - name: build
+          script: |
+            set -e
+            echo "==> 构建 Release $CNB_BRANCH"
+            npm run build
+        - name: package
+          script: |
+            set -e
+            VERSION="${CNB_BRANCH}"
+            mkdir -p release
+            # 生成 Release 描述
+            cat > RELEASE_NOTES.md <<EOF
+            # Beamangle Release ${VERSION}
+
+            - 提交: ${CNB_COMMIT}
+            - 构建号: ${CNB_BUILD_ID}
+            - 发布时间: $(date -u '+%Y-%m-%d %H:%M UTC')
+            EOF
+            # 源码包（排除依赖、Git、构建产物与打包目录）
+            zip -r "release/Beamangle-${VERSION}-source.zip" . \
+              -x "node_modules/*" ".git/*" ".output/*" ".astro/*" "dist/*" "release/*" "*.log"
+            # 构建产物包（可直接部署/预览）
+            zip -r "release/Beamangle-${VERSION}-dist.zip" dist
+            echo "==> 打包完成："
+            ls -lh release/
+        - name: create-release
+          type: git:release
+          options:
+            title: "Release $CNB_BRANCH"
+            descriptionFromFile: RELEASE_NOTES.md
+        - name: upload-release-assets
+          image: cnbcool/attachments:latest
+          settings:
+            attachments:
+              - "release/*.zip"
