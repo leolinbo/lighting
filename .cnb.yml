@@ -32,6 +32,10 @@ main:
           script: |
             set -e
             echo "==> 开始构建 $(date -u '+%Y-%m-%d %H:%M UTC')"
+            # Dockerfile.ci 已在 /app 预装依赖，将 node_modules 复制到工作目录
+            if [ -d /app/node_modules ] && [ ! -d node_modules ]; then
+              cp -r /app/node_modules ./node_modules
+            fi
             npm run build
             echo "==> 构建产物："
             ls -lh dist | head
@@ -80,6 +84,10 @@ main:
           script: |
             set -e
             echo "==> 构建 Release $CNB_BRANCH"
+            # Dockerfile.ci 已在 /app 预装依赖，将 node_modules 复制到工作目录
+            if [ -d /app/node_modules ] && [ ! -d node_modules ]; then
+              cp -r /app/node_modules ./node_modules
+            fi
             npm run build
         - name: package
           script: |
