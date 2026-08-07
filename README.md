@@ -1,302 +1,134 @@
-# 🚀 AstroWind
+# 💡 ENCORE — LED Track Lighting & Downlight Manufacturer Website
 
-<img src="https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/lighthouse-score.png" align="right"
-     alt="AstroWind Lighthouse Score" width="100" height="358">
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](./LICENSE.md)
 
-🌟 _Most *starred* & *forked* Astro theme in 2022, 2023, 2024 & 2025_. 🌟
+基于 **[Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/)** 构建的静态企业官网，为 **ENCORE（深圳市英科光电科技有限公司）** 提供 LED 轨道灯、筒灯、磁吸轨道灯等产品的 B2B 展示与 OEM/ODM 询盘服务。
 
-**AstroWind** is a free and open-source template to make your website using **[Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/)**. Ready to start a new project and designed taking into account web best practices.
+> 本项目由开源模板 **[AstroWind](https://github.com/arthelokyo/astrowind)** 改造而来，在保留其高性能与 SEO 优势的基础上，完成了品牌化定制。
 
-- ✅ **Production-ready** scores in **PageSpeed Insights** reports.
-- ✅ Integration with **Tailwind CSS v4** supporting **Dark mode** and **_RTL_**.
-- ✅ **Fast and SEO friendly blog** with automatic **RSS feed**, **MDX** support, **Categories & Tags**, **Social Share**, ...
-- ✅ **Image Optimization** (using new **Astro Assets** and **Unpic** for Universal image CDN).
-- ✅ Generation of **project sitemap** based on your routes.
-- ✅ **Open Graph tags** for social media sharing.
-- ✅ **Analytics** built-in Google Analytics, and Splitbee integration.
+---
 
-<br>
+## ✨ 功能特性
 
-![AstroWind Theme Screenshot](https://raw.githubusercontent.com/arthelokyo/.github/main/resources/astrowind/screenshot-astrowind-readme-fina-v1.png)
+- ✅ **B2B 企业官网**：首页、产品中心、OEM/ODM、关于我们、质量控制、认证证书、服务与报价、联系页面
+- ✅ **产品图库**：四类产品线（Track Lighting / LED Downlights / Magnetic Track Lights / Commercial Lighting），支持大图画廊
+- ✅ **SEO 优化**：结构化数据（Schema.org）、Open Graph 标签、Sitemap、RSS、Google Search Console 验证
+- ✅ **博客系统**：MDX 支持、分类与标签、RSS 自动生成
+- ✅ **图片优化**：Astro Assets + Sharp / Unpic 通用图片 CDN
+- ✅ **暗色模式 & RTL**：基于 Tailwind CSS v4 的 CSS-first 主题系统
+- ✅ **安全响应头**：全站安全 headers 配置
 
-[![arthelokyo](https://custom-icon-badges.demolab.com/badge/made%20by%20-arthelokyo-556bf2?style=flat-square&logo=arthelokyo&logoColor=white&labelColor=101827)](https://github.com/arthelokyo)
-[![License](https://img.shields.io/github/license/arthelokyo/astrowind?style=flat-square&color=dddddd&labelColor=000000)](https://github.com/arthelokyo/astrowind/blob/main/LICENSE.md)
-[![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo)
-[![Contributions Welcome](https://img.shields.io/badge/contributions-welcome-brightgreen.svg?style=flat-square)](https://github.com/arthelokyo/astrowind#contributing)
-[![Known Vulnerabilities](https://snyk.io/test/github/arthelokyo/astrowind/badge.svg?style=flat-square)](https://snyk.io/test/github/arthelokyo/astrowind)
-[![Stars](https://img.shields.io/github/stars/arthelokyo/astrowind.svg?style=social&label=stars&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
-[![Forks](https://img.shields.io/github/forks/arthelokyo/astrowind.svg?style=social&label=forks&maxAge=86400&color=ff69b4)](https://github.com/arthelokyo/astrowind)
+## 🚀 快速开始
 
-<br>
+> 环境要求：**Node.js >= 22.12.0**
 
-<details open>
-<summary>Table of Contents</summary>
+```bash
+# 安装依赖
+npm install
 
-- [Demo](#demo)
-- [Upcoming: AstroWind 2.0 – We Need Your Vision!](#-upcoming-astrowind-20--we-need-your-vision)
-- [TL;DR](#tldr)
-- [Getting started](#getting-started)
-  - [Project structure](#project-structure)
-  - [Commands](#commands)
-  - [Configuration](#configuration)
-  - [Deploy](#deploy)
-- [Frequently Asked Questions](#frequently-asked-questions)
-- [Contributing](#contributing)
-- [Acknowledgements](#acknowledgements)
-- [License](#license)
+# 本地开发（localhost:4321）
+npm run dev
 
-</details>
+# 生产构建（输出到 ./dist/）
+npm run build
 
-<br>
+# 本地预览生产构建
+npm run preview
 
-## Demo
+# 代码检查（astro check + ESLint + Prettier）
+npm run check
 
-📌 [https://astrowind.vercel.app/](https://astrowind.vercel.app/)
-
-<br>
-
-## 🔔 Upcoming: AstroWind 2.0 – We Need Your Vision!
-
-We're gearing up for **AstroWind 2.0**, and we want it to be shaped by you, our community. Join the discussion and share your ideas, suggestions, and feedback to help us make AstroWind even better.
-
-[Share Your Feedback in Our Discussion!](https://github.com/arthelokyo/astrowind/discussions/392)
-
-<br>
-
-## TL;DR
-
-```shell
-npm create astro@latest -- --template arthelokyo/astrowind
+# 自动修复 ESLint / Prettier 问题
+npm run fix
 ```
 
-## Getting started
-
-**AstroWind** tries to give you quick access to creating a website using [Astro v6](https://astro.build/) + [Tailwind CSS v4](https://tailwindcss.com/). It's a free theme which focuses on simplicity, good practices and high performance.
-
-Very little vanilla javascript is used only to provide basic functionality so that each developer decides which framework (React, Vue, Svelte, Solid JS...) to use and how to approach their goals.
-
-> **Note:** Requires **Node.js >= 22.12.0**. The template currently uses `output: 'static'`, but the blog only works with `prerender = true`.
-
-### Project structure
-
-Inside **AstroWind** template, you'll see the following folders and files:
+## 📁 项目结构
 
 ```
 /
-├── public/
-│   ├── _headers
-│   └── robots.txt
+├── public/                  # 静态资源（robots.txt、验证文件等）
 ├── src/
 │   ├── assets/
-│   │   ├── favicons/
-│   │   ├── images/
+│   │   ├── images/          # 产品与工厂图片
 │   │   └── styles/
-│   │       └── tailwind.css
+│   │       └── tailwind.css # Tailwind v4 主题配置
 │   ├── components/
-│   │   ├── blog/
-│   │   ├── common/
-│   │   ├── ui/
-│   │   ├── widgets/
-│   │   │   ├── Header.astro
-│   │   │   └── ...
-│   │   ├── CustomStyles.astro
-│   │   ├── Favicons.astro
-│   │   └── Logo.astro
-│   ├── content.config.ts
-│   ├── data/
-│   │   └── post/
-│   │       ├── post-slug-1.md
-│   │       ├── post-slug-2.mdx
-│   │       └── ...
-│   ├── layouts/
-│   │   ├── Layout.astro
-│   │   ├── MarkdownLayout.astro
-│   │   └── PageLayout.astro
-│   ├── pages/
-│   │   ├── [...blog]/
-│   │   │   ├── [category]/
-│   │   │   ├── [tag]/
-│   │   │   ├── [...page].astro
-│   │   │   └── index.astro
-│   │   ├── index.astro
-│   │   ├── 404.astro
-│   │   ├-- rss.xml.ts
-│   │   └── ...
-│   ├── utils/
-│   ├── config.yaml
-│   └── navigation.js
-├── package.json
+│   │   ├── blog/            # 博客组件
+│   │   ├── common/          # 公共组件（Image、Metadata 等）
+│   │   ├── ui/              # 基础组件（Button、ItemGrid 等）
+│   │   └── widgets/         # 页面区块（Hero、Features、Header 等）
+│   ├── content.config.ts    # 内容集合 Schema（Astro v6）
+│   ├── data/post/           # 博客文章（.md / .mdx）
+│   ├── layouts/             # 页面布局
+│   ├── pages/               # 文件路由
+│   ├── utils/               # 工具函数
+│   ├── config.yaml          # 站点配置（名称、SEO、分析等）
+│   └── navigation.ts        # 导航结构
 ├── astro.config.ts
+├── package.json
 └── ...
 ```
 
-Astro looks for `.astro` or `.md` files in the `src/pages/` directory. Each page is exposed as a route based on its file name.
+## ⚙️ 站点配置
 
-There's nothing special about `src/components/`, but that's where we like to put any Astro/React/Vue/Svelte/Preact components.
-
-Any static assets, like images, can be placed in the `public/` directory if they do not require any transformation or in the `assets/` directory if they are imported directly.
-
-[![Edit AstroWind on CodeSandbox](https://codesandbox.io/static/img/play-codesandbox.svg)](https://githubbox.com/arthelokyo/astrowind/tree/main) [![Open in StackBlitz](https://developer.stackblitz.com/img/open_in_stackblitz.svg)](https://stackblitz.com/github/arthelokyo/astrowind)
-
-> 🧑‍🚀 **Seasoned astronaut?** Delete this file `README.md`. Update `src/config.yaml` and contents. Have fun!
-
-<br>
-
-### Commands
-
-All commands are run from the root of the project, from a terminal:
-
-| Command             | Action                                             |
-| :------------------ | :------------------------------------------------- |
-| `npm install`       | Installs dependencies                              |
-| `npm run dev`       | Starts local dev server at `localhost:4321`        |
-| `npm run build`     | Build your production site to `./dist/`            |
-| `npm run preview`   | Preview your build locally, before deploying       |
-| `npm run check`     | Check your project for errors                      |
-| `npm run fix`       | Run Eslint and format codes with Prettier          |
-| `npm run astro ...` | Run CLI commands like `astro add`, `astro preview` |
-
-<br>
-
-### Configuration
-
-Basic configuration file: `./src/config.yaml`
+核心配置在 [`src/config.yaml`](./src/config.yaml)：
 
 ```yaml
 site:
-  name: 'Example'
-  site: 'https://example.com'
-  base: '/' # Change this if you need to deploy to Github Pages, for example
-  trailingSlash: false # Generate permalinks with or without "/" at the end
+  name: ENCORE
+  site: "https://astrowindwopress.vercel.app"
 
-  googleSiteVerificationId: false # Or some value,
-
-# Default SEO metadata
 metadata:
   title:
-    default: 'Example'
-    template: '%s — Example'
-  description: 'This is the default meta description of Example website'
-  robots:
-    index: true
-    follow: true
-  openGraph:
-    site_name: 'Example'
-    images:
-      - url: '~/assets/images/default.png'
-        width: 1200
-        height: 628
-    type: website
-  twitter:
-    handle: '@twitter_user'
-    site: '@twitter_user'
-    cardType: summary_large_image
-
-i18n:
-  language: en
-  textDirection: ltr
-
-apps:
-  blog:
-    isEnabled: true # If the blog will be enabled
-    postsPerPage: 6 # Number of posts per page
-
-    post:
-      isEnabled: true
-      permalink: '/blog/%slug%' # Variables: %slug%, %year%, %month%, %day%, %hour%, %minute%, %second%, %category%
-      robots:
-        index: true
-
-    list:
-      isEnabled: true
-      pathname: 'blog' # Blog main path, you can change this to "articles" (/articles)
-      robots:
-        index: true
-
-    category:
-      isEnabled: true
-      pathname: 'category' # Category main path /category/some-category, you can change this to "group" (/group/some-category)
-      robots:
-        index: true
-
-    tag:
-      isEnabled: true
-      pathname: 'tag' # Tag main path /tag/some-tag, you can change this to "topics" (/topics/some-category)
-      robots:
-        index: false
-
-    isRelatedPostsEnabled: true # If a widget with related posts is to be displayed below each post
-    relatedPostsCount: 4 # Number of related posts to display
-
-analytics:
-  vendors:
-    googleAnalytics:
-      id: null # or "G-XXXXXXXXXX"
-
-ui:
-  theme: 'system' # Values: "system" | "light" | "dark" | "light:only" | "dark:only"
+    default: ENCORE — Professional LED Track Lighting & Downlight Manufacturer
+  description: "Professional LED track lighting and downlight manufacturer offering OEM/ODM services. ETL/CE/ISO certified factory since 2011."
 ```
 
-<br>
+- **站点信息 / SEO 元数据**：修改 `site` 与 `metadata` 字段
+- **博客配置**：`apps.blog`（每页文章数、分类、标签等）
+- **分析工具**：`analytics.vendors.googleAnalytics` 填入 Google Analytics ID
+- **主题**：`ui.theme`（system / light / dark）
 
-#### Customize Design
+### 自定义设计
 
-With Tailwind CSS v4, all configuration is CSS-first. To customize Font families, Colors or more Elements refer to the following files:
+Tailwind CSS v4 采用 CSS-first 配置：
 
-- `src/components/CustomStyles.astro` — CSS variables for colors and fonts
-- `src/assets/styles/tailwind.css` — Tailwind theme tokens (`@theme`), custom utilities (`@utility`), and plugins
+- `src/components/CustomStyles.astro` — 颜色、字体的 CSS 变量
+- `src/assets/styles/tailwind.css` — 主题令牌（`@theme`）、自定义工具类（`@utility`）、插件
 
-### Deploy
+## 🌐 部署
 
-#### Deploy to production (manual)
+### 手动部署（生产构建）
 
-You can create an optimized production build with:
-
-```shell
+```bash
 npm run build
 ```
 
-Now, your website is ready to be deployed. All generated files are located at
-`dist` folder, which you can deploy the folder to any hosting service you
-prefer.
+将 `dist/` 目录部署到任意静态托管服务即可。
 
-#### Deploy to Netlify
+### Vercel / Netlify
 
-Clone this repository on your own GitHub account and deploy it to Netlify:
+- **Vercel**：导入仓库后，构建命令 `npm run build`，输出目录 `dist`
+- **Netlify**：同样指向 `npm run build` + `dist`
+- **Docker**：项目提供 [`Dockerfile`](./Dockerfile) 与 [`docker-compose.yml`](./docker-compose.yml)（Nginx 托管静态产物）
 
-[![Netlify Deploy button](https://www.netlify.com/img/deploy/button.svg)](https://app.netlify.com/start/deploy?repository=https://github.com/arthelokyo/astrowind)
+## 📝 内容更新
 
-#### Deploy to Vercel
+- **产品 / 公司信息**：直接编辑对应页面的 `.astro` 组件
+- **博客文章**：在 `src/data/post/` 下新增 `.md` / `.mdx` 文件（frontmatter 含 `title`、`publishDate`、`excerpt`、`image`、`category`、`tags` 等字段）
+- **产品图片**：放入 `src/assets/images/` 后按需引用
 
-Clone this repository on your own GitHub account and deploy to Vercel:
+## 🤝 贡献
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Farthelokyo%2Fastrowind)
+欢迎通过 Issue / PR 反馈问题或提交改进。
 
-#### Deploy to PandaStack
+## 📄 许可证
 
-Clone this repository on your own GitHub account and deploy to PandaStack:
+本项目基于 **MIT 许可证** 开源 — 详见 [LICENSE](./LICENSE.md)。
 
-[![Deploy to PandaStack](https://dashboard.pandastack.io/deploy-button.svg)](https://dashboard.pandastack.io/deploy?repo=arthelokyo/astrowind&type=static&buildCmd=npm+run+build&outputDir=dist)
+- 项目代码与内容版权归 **Beamangle** 所有
+- 原始模板 **AstroWind** 版权归 **onWidget**（Arthelokyo）所有
 
-<br>
+---
 
-## Frequently Asked Questions
-
-- Why?
--
--
-
-<br>
-
-## Contributing
-
-If you have any ideas, suggestions or find any bugs, feel free to open a discussion, an issue or create a pull request.
-That would be very useful for all of us and we would be happy to listen and take action.
-
-## Acknowledgements
-
-Initially created by **Arthelokyo** and maintained by a community of [contributors](https://github.com/arthelokyo/astrowind/graphs/contributors).
-
-## License
-
-**AstroWind** is licensed under the MIT license — see the [LICENSE](./LICENSE.md) file for details.
+**ENCORE** — 自 2011 年起专注于高品质 LED 灯具研发与制造 · [sales@encore-tech.com](mailto:sales@encore-tech.com)
