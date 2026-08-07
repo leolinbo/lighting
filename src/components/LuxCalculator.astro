@@ -295,14 +295,17 @@ const applications = [
       const lenM = toMeters(lenRaw);
       const widM = toMeters(widRaw);
 
-      const area = lenM * widM;
+      // Area is always computed in m² for the math; display it in the active
+      // unit system (m² or ft²) so we never label an m² number as ft².
+      const areaSqm = lenM * widM;
+      const area = isMetric() ? areaSqm : areaSqm / (UNIT_M_PER_FT * UNIT_M_PER_FT);
       const luxRec = LUX_TABLE[app] || { min: 300, max: 500, note: 'Typical commercial range' };
       const targetLux = Math.round((luxRec.min + luxRec.max) / 2);
 
       const hint = el('target-hint');
       if (hint) hint.textContent = `Target: ${luxRec.min}–${luxRec.max} lux — ${luxRec.note}`;
 
-      if (!(area > 0) || !Number.isFinite(area)) {
+      if (!(areaSqm > 0) || !Number.isFinite(areaSqm)) {
         el('area-value').textContent = '—';
         el('lumens-value').textContent = '—';
         el('count-value').textContent = '—';
@@ -313,7 +316,7 @@ const applications = [
       el('area-value').textContent = `${fmt(area)} ${isMetric() ? 'm²' : 'ft²'}`;
       el('area-note').textContent = `${fmt(lenRaw)} × ${fmt(widRaw)} ${isMetric() ? 'm' : 'ft'}`;
 
-      const requiredLumens = (targetLux * area) / utilFactor;
+      const requiredLumens = (targetLux * areaSqm) / utilFactor;
       el('lumens-value').textContent = `${fmt(requiredLumens, 0)} lm`;
 
       if (!(watt > 0) || !(efficacy > 0)) {
