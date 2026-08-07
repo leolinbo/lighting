@@ -226,6 +226,13 @@ const spaces = [
       panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
       steps.forEach((s, i) => s.classList.toggle('active', i === index));
       if (index === 2) {
+        if (!state.app || !state.space) {
+          resultSeries.textContent = 'Please choose an application and space first.';
+          resultWhy.textContent = 'Go back and complete both steps.';
+          resultLink.href = '/products/compare';
+          resultLink.textContent = 'Compare Series';
+          return;
+        }
         const key = `${state.app}-${state.space}`;
         const rec = RECO[key] || RECO['retail-medium'];
         resultSeries.textContent = rec.series;
