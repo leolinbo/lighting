@@ -28,6 +28,16 @@ export const formatNumber = (value: number, digits = 2): string => {
 export const metersToFeet = (meters: number): number => meters * FEET_PER_METER;
 export const feetToMeters = (feet: number): number => feet * METERS_PER_FT;
 
+/**
+ * Factor applied to existing numeric inputs when the calculator unit system
+ * switches. The `change` event fires after the <select> has already moved to
+ * the NEW unit, so the factor must convert the OLD unit's values into the NEW
+ * one: switching to Metric (ft→m) multiplies by 0.3048, switching to Imperial
+ * (m→ft) multiplies by 1 / 0.3048.
+ */
+export const unitSwitchFactor = (newUnitIsMetric: boolean): number =>
+  newUnitIsMetric ? METERS_PER_FT : FEET_PER_METER;
+
 /** --- Beam geometry (cone model) --- */
 
 /**

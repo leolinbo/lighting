@@ -10,6 +10,7 @@ import {
   gridLayout,
   metersToFeet,
   feetToMeters,
+  unitSwitchFactor,
   luxToFc,
   fcToLux,
   wattToVa,
@@ -88,6 +89,33 @@ describe('unit conversions', () => {
     expect(metersToFeet(3)).toBeCloseTo(9.84, 2);
     expect(feetToMeters(3)).toBeCloseTo(0.9144, 4);
     expect(feetToMeters(metersToFeet(3))).toBeCloseTo(3, 3);
+  });
+
+  it('unit switch keeps the same physical dimensions (Metric 8×6×3 → Imperial → back)', () => {
+    // Switching to Imperial: factor must CONVERT the old (m) values to ft.
+    const toImperial = unitSwitchFactor(false);
+    expect(toImperial).toBeCloseTo(3.28084, 4);
+    expect(8 * toImperial).toBeCloseTo(26.2467, 2);
+    expect(6 * toImperial).toBeCloseTo(19.685, 2);
+    expect(3 * toImperial).toBeCloseTo(9.8425, 2);
+    // 8 × 6 m area → 26.25 × 19.69 ft ≈ 516.7 ft²
+    const areaSqft = 8 * toImperial * (6 * toImperial);
+    expect(areaSqft).toBeCloseTo(516.67, 1);
+
+    // Switching back to Metric: factor must CONVERT the old (ft) values to m.
+    const toMetric = unitSwitchFactor(true);
+    expect(toMetric).toBeCloseTo(0.3048, 4);
+    expect(26.2467 * toMetric).toBeCloseTo(8, 2);
+    expect(19.685 * toMetric).toBeCloseTo(6, 2);
+    expect(9.8425 * toMetric).toBeCloseTo(3, 2);
+  });
+
+  it('regression: unit switch is NOT inverted (old bug multiplied m by 0.3048 on switch to ft)', () => {
+    // The P1 bug: isMetric() was read AFTER the select switched, so switching
+    // Metric→Imperial multiplied inputs by 0.3048 (wrong). Correct behaviour
+    // must multiply by 3.28084 so 8 m stays 8 m of space.
+    expect(unitSwitchFactor(false)).toBeGreaterThan(1);
+    expect(unitSwitchFactor(true)).toBeLessThan(1);
   });
 
   it('converts lux to foot-candles and back', () => {
