@@ -3,6 +3,8 @@ import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import ProductGallery from '~/components/ProductGallery.astro';
+import QuoteForm from '~/components/QuoteForm.astro';
+import CctGuide from '~/components/CctGuide.astro';
 
 const metadata = {
   title: 'LED Track Lighting Manufacturer & Supplier',
@@ -165,5 +167,15 @@ const breadcrumbJson = {
       </div>
       <a href="/beam-angle-calculator" class="btn btn-primary shrink-0">Open Beam Angle Calculator</a>
     </div>
+  </section>
+
+  <!-- CCT guide embed -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <CctGuide />
+  </section>
+
+  <!-- RFQ -->
+  <section id="get-quote" class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <QuoteForm product="Track Lighting (VEGA)" title="Request Track Lighting Quote" />
   </section>
 </Layout>

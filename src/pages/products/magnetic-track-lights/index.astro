@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import ProductGallery from '~/components/ProductGallery.astro';
+import QuoteForm from '~/components/QuoteForm.astro';
 
 const metadata = {
   title: 'Magnetic Track Lighting System Manufacturer',
@@ -106,5 +107,10 @@ const breadcrumbJson = {
         },
       ]}
     />
+  </section>
+
+  <!-- RFQ -->
+  <section id="get-quote" class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <QuoteForm product="Magnetic Track Lights" title="Request Magnetic Track Light Quote" />
   </section>
 </Layout>

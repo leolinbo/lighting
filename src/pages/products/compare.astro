@@ -1,0 +1,200 @@
+---
+/**
+ * Product Compare — VEGA / OVEGA / IMAX / FLEX / Magnetic / Downlights
+ * specification comparison table.
+ */
+
+import Layout from '~/layouts/PageLayout.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Compare LED Track Lights & Downlights — VEGA vs OVEGA vs IMAX vs FLEX',
+  description:
+    'Side-by-side comparison of ENCORE LED track light series (VEGA, OVEGA, IMAX, FLEX), magnetic track lights and downlight systems: wattage, beam angle, CRI, dimming and best applications.',
+  canonical: String(getCanonical(getPermalink('/products/compare'))),
+};
+
+const rows = [
+  {
+    feature: 'Typical wattage',
+    vega: '6–40W',
+    ovega: '6–50W',
+    imax: '10–60W',
+    flex: '6–30W',
+    magnetic: '5–30W',
+    downlight: '5–20W',
+  },
+  {
+    feature: 'Beam angles',
+    vega: '10°–60°',
+    ovega: '10°–60°',
+    imax: '15°–60°',
+    flex: '15°–90°',
+    magnetic: '15°–60°',
+    downlight: '24°–60°',
+  },
+  {
+    feature: 'CRI options',
+    vega: '90+',
+    ovega: '90–95',
+    imax: '80–90',
+    flex: '90+',
+    magnetic: '90+',
+    downlight: '90–95',
+  },
+  {
+    feature: 'Dimming',
+    vega: 'TRIAC / 0-10V / DALI',
+    ovega: '0-10V / DALI',
+    imax: 'TRIAC / DALI',
+    flex: 'TRIAC / 0-10V',
+    magnetic: 'TRIAC / Zigbee / Bluetooth',
+    downlight: 'TRIAC / DALI / Tunable',
+  },
+  {
+    feature: 'Best for',
+    vega: 'Retail, galleries, general commercial',
+    ovega: 'High-end retail, museums',
+    imax: 'High-output commercial & industrial',
+    flex: 'Accent, display, flexible layouts',
+    magnetic: 'Modern interiors, quick reconfiguration',
+    downlight: 'Offices, hospitality, hotels',
+  },
+];
+
+const highlights = [
+  {
+    name: 'VEGA',
+    desc: 'Versatile track light system with multiple beam angles and wattages — the all-rounder for retail and galleries.',
+  },
+  {
+    name: 'OVEGA',
+    desc: 'Premium track system with advanced thermal management and high CRI options for high-end retail and museums.',
+  },
+  {
+    name: 'IMAX',
+    desc: 'High-output track lighting for spaces requiring higher illumination levels — commercial and industrial.',
+  },
+  {
+    name: 'FLEX',
+    desc: 'Flexible track light system with adjustable heads and multiple mounting options for accent and display lighting.',
+  },
+];
+---
+
+<Layout metadata={metadata}>
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Products</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        Compare ENCORE Product Series
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        VEGA, OVEGA, IMAX, FLEX, Magnetic Track Lights and LED Downlights — wattage, beam angle, CRI, dimming and best
+        applications side by side.
+      </p>
+    </div>
+  </section>
+
+  <!-- Comparison table -->
+  <section class="mx-auto max-w-6xl px-4 pb-6 md:px-6">
+    <div
+      class="overflow-x-auto rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10"
+    >
+      <table class="w-full min-w-[760px] border-collapse text-left text-sm">
+        <caption class="sr-only">ENCORE product series comparison</caption>
+        <thead>
+          <tr class="border-b border-gray-200 dark:border-slate-700">
+            <th class="py-4 pr-4 font-semibold">Feature</th>
+            <th class="py-4 pr-4 font-semibold">VEGA</th>
+            <th class="py-4 pr-4 font-semibold">OVEGA</th>
+            <th class="py-4 pr-4 font-semibold">IMAX</th>
+            <th class="py-4 pr-4 font-semibold">FLEX</th>
+            <th class="py-4 pr-4 font-semibold">Magnetic</th>
+            <th class="py-4 font-semibold">Downlights</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+          {
+            rows.map((r) => (
+              <tr>
+                <td class="py-4 pr-4 font-medium">{r.feature}</td>
+                <td class="py-4 pr-4">{r.vega}</td>
+                <td class="py-4 pr-4">{r.ovega}</td>
+                <td class="py-4 pr-4">{r.imax}</td>
+                <td class="py-4 pr-4">{r.flex}</td>
+                <td class="py-4 pr-4">{r.magnetic}</td>
+                <td class="py-4">{r.downlight}</td>
+              </tr>
+            ))
+          }
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- Series highlights -->
+  <section class="mx-auto max-w-6xl px-4 pb-4 md:px-6">
+    <div class="grid gap-6 md:grid-cols-2">
+      {
+        highlights.map((h) => (
+          <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+            <h2 class="text-lg font-bold dark:text-white">{h.name} Track Light System</h2>
+            <p class="mt-2 text-sm text-muted dark:text-slate-400">{h.desc}</p>
+            <a
+              href="/products/track-lighting"
+              class="mt-4 inline-block text-sm font-semibold text-primary hover:underline"
+            >
+              View track lighting →
+            </a>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="Product Comparison Questions"
+    subtitle="How to choose between our product families."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'Which track light series should I choose?',
+        description:
+          'Start with the application: VEGA for general retail and galleries, OVEGA for high-end retail and museums, IMAX for high-output commercial spaces, and FLEX for flexible accent layouts. Our team will confirm the right fit for your project.',
+      },
+      {
+        title: 'What is the difference between VEGA and OVEGA?',
+        description:
+          'OVEGA adds advanced thermal management, higher CRI (90–95) and premium optics aimed at museum and luxury retail applications. VEGA is the versatile all-rounder with more wattage and beam options.',
+      },
+      {
+        title: 'Can I mix beam angles in one project?',
+        description:
+          'Yes — and we recommend it. Use 24°–36° floods for ambient, 10°–15° spots for accents and wall washing. Use the beam angle calculator to verify spot sizes at your mounting height.',
+      },
+      {
+        title: 'Do you offer custom product series for OEM/ODM?',
+        description:
+          'Yes. We build custom track light and downlight families for OEM/ODM partners — housing colors, branding, wattage, CCT, optics and dimming protocols can all be customized. See our OEM/ODM page.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Not Sure Which Series Fits?"
+    subtitle="Send us your application, mounting height and target lux — we will recommend the right series, beam angle and CRI."
+    actions={[
+      { variant: 'primary', text: 'Request a Quote', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'OEM / ODM', href: getPermalink('/oem-odm') },
+    ]}
+  />
+</Layout>

@@ -25,10 +25,49 @@ const breadcrumbJson = {
     },
   ],
 };
+const faqJson = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is the beam angle of an LED light?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'The beam angle (full angle) is the angle of the cone of light emitted by a fixture. It defines how tight or wide the light spreads: a 15° beam is a tight spot, a 60° beam is a wide flood.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do you calculate beam angle?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Use the formula: beam angle = 2 × arctan(beam diameter ÷ (2 × mounting distance)). Enter your beam diameter and distance in the calculator and it does the math for you.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between beam angle and field angle?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Beam angle is measured at 50% of maximum intensity (FWHM). Field angle is measured at 10% of maximum intensity and is wider. Most spec sheets list the beam angle at 50%.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does beam angle change with distance?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. The beam angle is fixed for a given fixture and optic. What changes with distance is the beam diameter (spot size) — the further the light, the wider the spot.',
+      },
+    },
+  ],
+};
 ---
 
 <Layout metadata={metadata}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+  <script type="application/ld+json" set:html={JSON.stringify(faqJson)} />
 
   <!-- Hero -->
   <section

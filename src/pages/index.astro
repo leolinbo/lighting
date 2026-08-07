@@ -1,8 +1,10 @@
 ---
 import Layout from '~/layouts/PageLayout.astro';
+import { getPermalink } from '~/utils/permalinks';
 
 import Hero from '~/components/widgets/Hero.astro';
 import Features from '~/components/widgets/Features.astro';
+import Features2 from '~/components/widgets/Features2.astro';
 import Content from '~/components/widgets/Content.astro';
 import Stats from '~/components/widgets/Stats.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
@@ -269,6 +271,76 @@ const metadata = {
     </Fragment>
   </Content>
 
+  <!-- Lighting Tools Showcase -->
+  <Features2
+    tagline="Lighting Tools"
+    title="Free Lighting Design Tools"
+    subtitle="Work out beam spread, lux levels, fixture counts and color temperature before you ask for a quote."
+    columns={3}
+    items={[
+      {
+        title: 'Beam Angle Calculator',
+        description: 'Convert beam angle, mounting distance and beam diameter. Find the spot size at any height.',
+        icon: 'tabler:angle',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/beam-angle-calculator'),
+        },
+      },
+      {
+        title: 'Lux Calculator',
+        description: 'How many lumens and fixtures does your space need? Target lux by application with a grid layout.',
+        icon: 'tabler:bulb',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/tools/lux-calculator'),
+        },
+      },
+      {
+        title: 'Fixture Count Calculator',
+        description: 'Estimate how many LED track lights or downlights per room, with recommended spacing and layout.',
+        icon: 'tabler:grid-dots',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/tools/fixture-count'),
+        },
+      },
+      {
+        title: 'Color Temperature Guide',
+        description: 'Compare 2700K to 6500K side by side and pick the right CCT for retail, office or hospitality.',
+        icon: 'tabler:palette',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/tools/cct-guide'),
+        },
+      },
+      {
+        title: 'CRI Guide',
+        description: 'What does CRI 80 vs 90 vs 95 look like? Interactive comparison and specification guidance.',
+        icon: 'tabler:droplet',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/tools/cri-guide'),
+        },
+      },
+      {
+        title: 'Unit Converter',
+        description: 'Convert m/ft, m²/ft², lux/foot-candles and W/VA for spec sheets and datasheets.',
+        icon: 'tabler:arrows-exchange',
+        callToAction: {
+          variant: 'link',
+          text: 'Open tool →',
+          href: getPermalink('/tools/unit-converter'),
+        },
+      },
+    ]}
+  />
+
   <!-- BlogLatestPosts Widget -->
   <BlogLatestPosts
     title="Latest from ENCORE Blog"
@@ -282,6 +354,11 @@ const metadata = {
     tagline="FAQs"
     classes={{ container: 'max-w-6xl' }}
     items={[
+      {
+        title: 'How many fixtures do I need for my space?',
+        description:
+          'Use our free <a href="/tools/lux-calculator">lux calculator</a> and <a href="/tools/fixture-count">fixture count calculator</a> to estimate required lumens and fixture quantity from your room size and target illuminance.',
+      },
       {
         title: 'What certifications do your products have?',
         description:

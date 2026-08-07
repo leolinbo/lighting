@@ -1,0 +1,152 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import CctGuide from '~/components/CctGuide.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'LED Color Temperature Guide — CCT Chart (2700K to 6500K)',
+  description:
+    'Compare LED color temperatures from 2700K warm white to 6500K cool daylight. Learn which CCT suits retail, office, hospitality and industrial lighting. Free interactive CCT chart.',
+  canonical: String(getCanonical(getPermalink('/tools/cct-guide'))),
+};
+
+const faqJson = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is color temperature (CCT) in LED lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Color temperature, measured in Kelvin (K), describes whether light looks warm (yellowish, ~2700K) or cool (bluish, ~6500K). It does not measure heat — it describes the color appearance of the light itself.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Which color temperature is best for retail lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Most retailers choose 3000K (warm neutral) for fashion and premium stores, and 4000K (cool white) for supermarkets and general merchandising. Both preserve product colors when paired with a high CRI of 90+.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is 3000K or 4000K better for offices?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: '4000K cool white is the most common choice for offices because it keeps staff alert and feels clean and neutral. 3000K–3500K is preferred for reception areas and meeting rooms to feel warmer and more welcoming.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What color temperature do hotels and restaurants use?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Hospitality spaces typically use 2700K–3000K warm white to create a cozy, intimate atmosphere. Layered lighting with warm dimming and 3000K accents is the industry standard.',
+      },
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJson)} />
+
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Lighting Design Tool</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        LED Color Temperature Guide
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        Compare 2700K to 6500K LED color temperatures side by side and find the right CCT for retail, office,
+        hospitality, museum and industrial lighting.
+      </p>
+    </div>
+  </section>
+
+  <!-- Tool -->
+  <section class="mx-auto max-w-5xl px-4 pb-6 md:px-6">
+    <CctGuide />
+  </section>
+
+  <!-- Guide text -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">How to Choose the Right Color Temperature</h2>
+      <div class="mt-4 space-y-4 text-muted dark:text-slate-400">
+        <p>
+          <strong class="text-default dark:text-white">2700K–3000K (warm white)</strong> creates a relaxed, premium atmosphere.
+          Use it for hotels, restaurants, boutiques and residential spaces. Warm light makes skin tones, wood and fabrics
+          look rich and inviting.
+        </p>
+        <p>
+          <strong class="text-default dark:text-white">3500K–4000K (neutral / cool white)</strong> is the workhorse range
+          for offices, retail supermarkets, clinics and workshops. It reads as "clean and modern" and improves visual clarity
+          for detail tasks.
+        </p>
+        <p>
+          <strong class="text-default dark:text-white">5000K–6500K (daylight)</strong> suits factories, garages, gyms and
+          inspection lines where high contrast and alertness matter. In retail, very cool light is generally avoided because
+          it can make merchandise look clinical.
+        </p>
+        <p>
+          <strong class="text-default dark:text-white">Color temperature vs. CRI:</strong> CCT only describes the color appearance.
+          Color rendering (CRI) describes how accurately colors are reproduced. For retail and hospitality, always pair the
+          right CCT with CRI 90+.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="Color Temperature Questions"
+    subtitle="Common questions about LED color temperature and CCT selection."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'What is color temperature (CCT) in LED lighting?',
+        description:
+          'Color temperature, measured in Kelvin (K), describes whether light looks warm (yellowish, ~2700K) or cool (bluish, ~6500K). It describes the color appearance of the light, not the heat it produces.',
+      },
+      {
+        title: 'Which color temperature is best for retail lighting?',
+        description:
+          'Fashion and premium stores usually choose 3000K; supermarkets and general merchandising prefer 4000K. Pair either with CRI 90+ so fabrics and packaging colors look accurate.',
+      },
+      {
+        title: 'Is 3000K or 4000K better for offices?',
+        description:
+          '4000K is the most common office choice for alertness and a clean look. 3000K–3500K is nicer for receptions and meeting rooms where a warmer feel is wanted.',
+      },
+      {
+        title: 'Can I get adjustable color temperature?',
+        description:
+          'Yes. Our ELLA and Galaxy downlight systems and selected track light families offer tunable white (2700K–6500K) and smart dimming, letting you change the mood of a space over the day.',
+      },
+      {
+        title: 'Does higher Kelvin mean brighter light?',
+        description:
+          'No. Kelvin describes color, not brightness. A 2700K fixture can be just as bright as a 5000K one — brightness depends on lumen output, which is why you also need a lux calculation for your space.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Need Tunable White or Custom CCT?"
+    subtitle="We offer 2700K–6500K, tunable white and custom color temperature options across our track light and downlight ranges."
+    actions={[
+      { variant: 'primary', text: 'Request a Quote', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'View LED Downlights', href: getPermalink('/products/led-downlights') },
+    ]}
+  />
+</Layout>

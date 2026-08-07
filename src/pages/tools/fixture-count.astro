@@ -1,0 +1,145 @@
+---
+/**
+ * Fixture Count Estimator — extended lux calculator focused on fixture
+ * quantity and layout for a rectangular room.
+ */
+
+import LuxCalculator from '~/components/LuxCalculator.astro';
+import Layout from '~/layouts/PageLayout.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Light Fixture Count Calculator — How Many Lights Per Room?',
+  description:
+    'Estimate how many LED track lights or downlights you need per room. Enter room size, target lux and fixture wattage to get fixture count and a recommended grid layout.',
+  canonical: String(getCanonical(getPermalink('/tools/fixture-count'))),
+};
+
+const faqJson = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How do I calculate how many light fixtures I need for a room?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Multiply the target lux by the floor area in square metres to get required lumens, divide by the lumen output of one fixture (wattage × lm/W), and round up. Our fixture count calculator does this automatically.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What spacing should I use between LED track lights?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'A good starting point is spacing fixtures at 1.0–1.5 times the mounting height for flood beams, and closer for narrow spot beams. Our calculator suggests a grid layout based on your room dimensions and fixture count.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many recessed downlights do I need for a living room?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For a typical 20 m² living room at 150–300 lux with 10W LED downlights (~1100 lm each), you would need roughly 4–6 downlights. Use the fixture count calculator for a precise estimate.',
+      },
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJson)} />
+
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Lighting Design Tool</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        Light Fixture Count Calculator
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        How many LED track lights or downlights do you need per room? Enter your room size, target illuminance and
+        fixture wattage to get the exact fixture count and a suggested grid layout.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="mx-auto max-w-6xl px-4 pb-6 md:px-6">
+    <LuxCalculator idPrefix="fx" />
+  </section>
+
+  <!-- Guide -->
+  <section class="mx-auto max-w-6xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">Spacing & Layout Rules of Thumb</h2>
+      <div class="mt-4 grid gap-6 md:grid-cols-3">
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <h3 class="text-base font-bold dark:text-white">1. Spacing vs. mounting height</h3>
+          <p class="mt-2 text-sm text-muted dark:text-slate-400">
+            For flood beams (36°+), space fixtures at 1.0–1.5× the mounting height. For spot beams (10°–24°), reduce
+            spacing to 0.5–1.0× to avoid dark pools between fixtures.
+          </p>
+        </div>
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <h3 class="text-base font-bold dark:text-white">2. Aim for uniformity</h3>
+          <p class="mt-2 text-sm text-muted dark:text-slate-400">
+            The beam diameter at the work plane should overlap its neighbour by about 20–30% for even illumination. Use
+            the beam angle calculator to check the spot size at your mounting height.
+          </p>
+        </div>
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <h3 class="text-base font-bold dark:text-white">3. Perimeter rule</h3>
+          <p class="mt-2 text-sm text-muted dark:text-slate-400">
+            Keep the outer row of fixtures about half a spacing distance from the walls — this lights the walls without
+            creating harsh shadows, and improves the perceived brightness of the room.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="Fixture Quantity Questions"
+    subtitle="Common questions about how many lights a room needs."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'How do I calculate how many light fixtures I need?',
+        description:
+          'Required lumens = target lux × floor area × loss factor. Then divide by the lumen output of one fixture (wattage × efficacy) and round up. The calculator above does it for you.',
+      },
+      {
+        title: 'What spacing should I use between LED track lights?',
+        description:
+          'Start with 1.0–1.5× the mounting height for flood beams and closer for spots. Our calculator suggests a grid from your room size and fixture count.',
+      },
+      {
+        title: 'How many downlights do I need for a living room?',
+        description:
+          'A typical 20 m² living room at 150–300 lux needs roughly 4–6 × 10W LED downlights. Precise numbers depend on target lux, fixture lumen output and loss factors.',
+      },
+      {
+        title: 'Should I use more, lower-wattage fixtures or fewer, higher-wattage ones?',
+        description:
+          'More lower-wattage fixtures with a wider beam give more uniform light and lower glare; fewer high-wattage spots create dramatic pools of light. For retail and general commercial, uniformity usually wins.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Let Our Engineers Design the Layout"
+    subtitle="Send us your room plan and target lux — we will return a free photometric layout with fixture recommendations."
+    actions={[
+      { variant: 'primary', text: 'Request a Layout', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'Lux Calculator', href: getPermalink('/tools/lux-calculator') },
+    ]}
+  />
+</Layout>

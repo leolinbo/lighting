@@ -1,0 +1,361 @@
+---
+/**
+ * Lux Calculator — "how many lumens / fixtures do I need?"
+ *
+ * Inputs: room length & width (m/ft), mounting height, application (target lux),
+ * fixture wattage + efficacy. Outputs: required lumens, recommended fixture
+ * count, grid layout and a lux reference table.
+ *
+ * SSR note: the static HTML below already contains the core explainer text and
+ * formulas so search engines and AI search can read the page without JS.
+ */
+
+export interface Props {
+  idPrefix?: string;
+  compact?: boolean;
+  showHowTo?: boolean;
+}
+
+const { idPrefix = 'lux', showHowTo = true } = Astro.props;
+
+// SSR defaults (computed from the pre-filled inputs below) so the static HTML
+// already shows meaningful numbers before JS runs (SEO + first paint).
+const defaultArea = 8 * 6; // m²
+const defaultTarget = 525; // retail mid-range (300–750)
+const defaultUtil = 0.8 * 0.7;
+const defaultLumens = (defaultTarget * defaultArea) / defaultUtil;
+const defaultFixtureLumens = 15 * 110;
+const defaultCount = Math.ceil(defaultLumens / defaultFixtureLumens);
+// Grid layout for 8m × 6m room with defaultCount fixtures (8/6 ratio)
+const defaultRatio = 8 / 6;
+const defaultCols = Math.max(1, Math.round(Math.sqrt(defaultCount * defaultRatio)));
+const defaultRows = Math.max(1, Math.ceil(defaultCount / defaultCols));
+
+const applications = [
+  { value: 'retail', label: 'Retail store' },
+  { value: 'showroom', label: 'Showroom' },
+  { value: 'office', label: 'Office' },
+  { value: 'hospitality', label: 'Hotel / Restaurant' },
+  { value: 'museum', label: 'Museum / Gallery' },
+  { value: 'warehouse', label: 'Warehouse' },
+  { value: 'industrial', label: 'Industrial' },
+  { value: 'residential', label: 'Residential' },
+  { value: 'parking', label: 'Parking' },
+];
+---
+
+<div
+  class="lux-calculator not-prose rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-10"
+  data-lux-id={idPrefix}
+>
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <h3 class="text-xl font-bold dark:text-white">Lux / Fixture Count Calculator</h3>
+    <label class="flex items-center gap-2 text-sm text-muted dark:text-slate-400">
+      <span>Units:</span>
+      <select
+        id={`${idPrefix}-unit`}
+        aria-label="Unit system"
+        class="rounded-lg border border-gray-300 bg-white px-3 py-1.5 text-sm text-default dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      >
+        <option value="m">Metric (m)</option>
+        <option value="ft">Imperial (ft)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="mb-6 grid gap-6 lg:grid-cols-2">
+    <!-- Inputs -->
+    <div>
+      <h4 class="mb-4 text-base font-bold dark:text-white">Room &amp; target</h4>
+
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm font-medium" for={`${idPrefix}-length`}>Room length</label>
+        <div class="flex items-center gap-2">
+          <input
+            id={`${idPrefix}-length`}
+            type="number"
+            min="0"
+            step="any"
+            value="8"
+            class="w-32 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+          />
+          <span class="w-8 shrink-0 text-sm text-muted dark:text-slate-400" data-lux-unit>m</span>
+        </div>
+      </div>
+
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm font-medium" for={`${idPrefix}-width`}>Room width</label>
+        <div class="flex items-center gap-2">
+          <input
+            id={`${idPrefix}-width`}
+            type="number"
+            min="0"
+            step="any"
+            value="6"
+            class="w-32 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+          />
+          <span class="w-8 shrink-0 text-sm text-muted dark:text-slate-400" data-lux-unit>m</span>
+        </div>
+      </div>
+
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm font-medium" for={`${idPrefix}-height`}>Mounting height</label>
+        <div class="flex items-center gap-2">
+          <input
+            id={`${idPrefix}-height`}
+            type="number"
+            min="0"
+            step="any"
+            value="3"
+            class="w-32 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+          />
+          <span class="w-8 shrink-0 text-sm text-muted dark:text-slate-400" data-lux-unit>m</span>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <label class="mb-1.5 block text-sm font-medium" for={`${idPrefix}-application`}> Application </label>
+        <select
+          id={`${idPrefix}-application`}
+          class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+        >
+          {
+            applications.map((app) => (
+              <option value={app.value} selected={app.value === 'retail'}>
+                {app.label}
+              </option>
+            ))
+          }
+        </select>
+        <p id={`${idPrefix}-target-hint`} class="mt-1.5 text-xs text-muted dark:text-slate-400">
+          Target: 300–750 lux (retail general)
+        </p>
+      </div>
+
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm font-medium" for={`${idPrefix}-wattage`}>Fixture wattage</label>
+        <div class="flex items-center gap-2">
+          <input
+            id={`${idPrefix}-wattage`}
+            type="number"
+            min="0"
+            step="any"
+            value="15"
+            class="w-32 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+          />
+          <span class="w-8 shrink-0 text-sm text-muted dark:text-slate-400">W</span>
+        </div>
+      </div>
+
+      <div class="mb-4 flex items-center justify-between gap-3">
+        <label class="text-sm font-medium" for={`${idPrefix}-efficacy`}>Luminous efficacy</label>
+        <div class="flex items-center gap-2">
+          <input
+            id={`${idPrefix}-efficacy`}
+            type="number"
+            min="0"
+            step="any"
+            value="110"
+            class="w-32 rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+          />
+          <span class="w-16 shrink-0 text-sm text-muted dark:text-slate-400">lm/W</span>
+        </div>
+      </div>
+
+      <label class="flex items-center gap-2 text-sm text-muted dark:text-slate-400">
+        <input
+          id={`${idPrefix}-util`}
+          type="checkbox"
+          checked
+          class="h-4 w-4 rounded border-gray-300 text-primary dark:border-slate-600"
+        />
+        Apply loss factors (maintenance ~0.8, utilization ~0.7)
+      </label>
+    </div>
+
+    <!-- Results -->
+    <div>
+      <h4 class="mb-4 text-base font-bold dark:text-white">Result</h4>
+
+      <div class="space-y-4">
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Floor area</p>
+          <p class="mt-1 text-2xl font-bold text-default dark:text-white" id={`${idPrefix}-area-value`}>48 m²</p>
+          <p class="text-xs text-muted dark:text-slate-400" id={`${idPrefix}-area-note`}></p>
+        </div>
+
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Required light output</p>
+          <p class="mt-1 text-2xl font-bold text-primary dark:text-blue-300" id={`${idPrefix}-lumens-value`}>
+            {Math.round(defaultLumens).toLocaleString('en-US')} lm
+          </p>
+          <p class="mt-1 text-xs text-muted dark:text-slate-400">
+            Formula: total lumens = target lux × floor area × loss factor
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Recommended fixtures</p>
+          <p class="mt-1 text-2xl font-bold text-default dark:text-white" id={`${idPrefix}-count-value`}>
+            {defaultCount} fixtures
+          </p>
+          <p class="mt-1 text-xs text-muted dark:text-slate-400" id={`${idPrefix}-count-note`}></p>
+        </div>
+
+        <div class="rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+          <p class="text-sm uppercase tracking-wide text-muted dark:text-slate-400">Suggested layout</p>
+          <p class="mt-1 text-lg font-bold text-default dark:text-white" id={`${idPrefix}-grid-value`}>
+            {defaultRows} rows × {defaultCols} cols ({defaultRows * defaultCols} positions)
+          </p>
+          <p class="mt-1 text-xs text-muted dark:text-slate-400" id={`${idPrefix}-grid-note`}></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  {
+    showHowTo && (
+      <div class="mt-8 rounded-xl border border-gray-200 p-6 dark:border-slate-700">
+        <h3 class="text-base font-bold dark:text-white">How the lux calculator works</h3>
+        <ol class="mt-3 list-decimal space-y-2 pl-5 text-sm text-muted dark:text-slate-400">
+          <li>
+            Work out the floor area: <strong>length × width</strong>.
+          </li>
+          <li>
+            Pick the target illuminance for your application (retail 300–750 lux, office 300–500 lux, warehouse 150–300
+            lux).
+          </li>
+          <li>
+            Multiply: <strong>total lumens = target lux × floor area × loss factor</strong> (loss factors cover dirt,
+            lamp depreciation and room utilization).
+          </li>
+          <li>
+            Divide by the lumen output of your chosen fixture (<strong>fixture lumens = wattage × lm/W</strong>) and
+            round up to get the number of fixtures.
+          </li>
+        </ol>
+        <p class="mt-3 text-xs text-muted dark:text-slate-400">
+          Tip: use the <a href="/beam-angle-calculator">beam angle calculator</a> first to size the beam spread at your
+          mounting height, then this lux calculator to size the quantity.
+        </p>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .lux-calculator input,
+  .lux-calculator select {
+    color-scheme: light;
+  }
+  .dark .lux-calculator input,
+  .dark .lux-calculator select {
+    color-scheme: dark;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const UNIT_M_PER_FT = 0.3048;
+    const root = document.currentScript?.closest('.lux-calculator');
+    if (!root) return;
+    const idp = root.dataset.luxId || 'lux';
+    const $ = (id) => document.getElementById(id);
+    const el = (suffix) => $(`${idp}-${suffix}`);
+    const unitEl = el('unit');
+    const unitEls = root.querySelectorAll('[data-lux-unit]');
+
+    const isMetric = () => (unitEl ? unitEl.value === 'm' : true);
+
+    const toMeters = (value) => (isMetric() ? value : value * UNIT_M_PER_FT);
+    const fmt = (v, d = 2) => (Number.isFinite(v) ? v.toLocaleString('en-US', { maximumFractionDigits: d }) : '—');
+
+    const LUX_TABLE = {
+      retail: { min: 300, max: 750, note: 'General retail floor; 750–1500 lux on displays' },
+      showroom: { min: 400, max: 1000, note: 'Showrooms need high vertical illuminance' },
+      office: { min: 300, max: 500, note: 'EN 12464-1 recommends 500 lux on work planes' },
+      hospitality: { min: 100, max: 300, note: 'Hotels and restaurants prefer warm ambient levels' },
+      museum: { min: 50, max: 300, note: 'Light-sensitive exhibits: 50 lux, galleries up to 300' },
+      warehouse: { min: 150, max: 300, note: 'Uniform high-bay lighting for aisles and racking' },
+      industrial: { min: 200, max: 500, note: 'Detail tasks may need 500 lux+ on the work plane' },
+      residential: { min: 150, max: 300, note: 'General living areas' },
+      parking: { min: 50, max: 100, note: 'Modest but uniform levels' },
+    };
+
+    const recalc = () => {
+      const lenRaw = Number(el('length').value);
+      const widRaw = Number(el('width').value);
+      const heightRaw = Number(el('height').value);
+      const watt = Number(el('wattage').value);
+      const efficacy = Number(el('efficacy').value);
+      const app = el('application').value;
+      const useUtil = el('util').checked;
+      const utilFactor = useUtil ? 0.8 * 0.7 : 1;
+
+      const lenM = toMeters(lenRaw);
+      const widM = toMeters(widRaw);
+      const heightM = toMeters(heightRaw);
+
+      const area = lenM * widM;
+      const luxRec = LUX_TABLE[app] || { min: 300, max: 500, note: 'Typical commercial range' };
+      const targetLux = Math.round((luxRec.min + luxRec.max) / 2);
+
+      const hint = el('target-hint');
+      if (hint) hint.textContent = `Target: ${luxRec.min}–${luxRec.max} lux — ${luxRec.note}`;
+
+      if (!(area > 0) || !Number.isFinite(area)) {
+        el('area-value').textContent = '—';
+        el('lumens-value').textContent = '—';
+        el('count-value').textContent = '—';
+        el('grid-value').textContent = '—';
+        return;
+      }
+
+      el('area-value').textContent = `${fmt(area)} ${isMetric() ? 'm²' : 'ft²'}`;
+      el('area-note').textContent = `${fmt(lenRaw)} × ${fmt(widRaw)} ${isMetric() ? 'm' : 'ft'}`;
+
+      const requiredLumens = (targetLux * area) / utilFactor;
+      el('lumens-value').textContent = `${fmt(requiredLumens, 0)} lm`;
+
+      if (!(watt > 0) || !(efficacy > 0)) {
+        el('count-value').textContent = '—';
+        el('count-note').textContent = 'Enter fixture wattage and efficacy to see fixture count.';
+        el('grid-value').textContent = '—';
+        el('grid-note').textContent = '';
+        return;
+      }
+
+      const fixtureLumens = watt * efficacy;
+      const count = Math.ceil(requiredLumens / fixtureLumens);
+      el('count-value').textContent = `${fmt(count, 0)} fixtures`;
+      el('count-note').textContent =
+        `${fmt(watt, 0)} W × ${fmt(efficacy, 0)} lm/W = ${fmt(fixtureLumens, 0)} lm per fixture`;
+
+      const ratio = lenRaw / Math.max(widRaw, 0.01);
+      const colsBest = Math.max(1, Math.round(Math.sqrt(count * ratio)));
+      const rowsBest = Math.max(1, Math.ceil(count / colsBest));
+      const total = rowsBest * colsBest;
+      el('grid-value').textContent = `${rowsBest} rows × ${colsBest} cols (${fmt(total, 0)} positions)`;
+      el('grid-note').textContent =
+        `Spacing ≈ ${fmt(lenRaw / colsBest)} × ${fmt(widRaw / rowsBest)} ${isMetric() ? 'm' : 'ft'} (${fmt(heightM, 2)} ${isMetric() ? 'm' : 'ft'} mounting height)`;
+    };
+
+    const bind = (suffix, fn, event = 'input') => {
+      const node = el(suffix);
+      if (node) node.addEventListener(event, fn);
+    };
+
+    ['length', 'width', 'height', 'wattage', 'efficacy'].forEach((s) => bind(s, recalc));
+    if (el('application')) el('application').addEventListener('change', recalc);
+    if (el('util')) el('util').addEventListener('change', recalc);
+
+    if (unitEl) {
+      unitEl.addEventListener('change', () => {
+        unitEls.forEach((u) => (u.textContent = isMetric() ? 'm' : 'ft'));
+        recalc();
+      });
+    }
+
+    recalc();
+  })();
+</script>
