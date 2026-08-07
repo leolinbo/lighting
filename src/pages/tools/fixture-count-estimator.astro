@@ -8,6 +8,7 @@ import LuxCalculator from '~/components/LuxCalculator.astro';
 import Layout from '~/layouts/PageLayout.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import RelatedTools from '~/components/RelatedTools.astro';
 import { getPermalink, getCanonical } from '~/utils/permalinks';
 
 const metadata = {
@@ -142,4 +143,9 @@ const faqJson = {
       { variant: 'secondary', text: 'Lux Calculator', href: getPermalink('/tools/lux-calculator') },
     ]}
   />
+
+  <!-- Related tools -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <RelatedTools tools={['lux', 'beam', 'cct', 'unit']} />
+  </section>
 </Layout>

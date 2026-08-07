@@ -1,0 +1,127 @@
+---
+/**
+ * Beam Spread Table — interactive 2D table of beam angle × mounting height.
+ *
+ * Embedded on product pages at #beam-spread-table (per SEO spec, no
+ * standalone page to avoid keyword cannibalization with the calculator).
+ * Values: D = 2 × h × tan(θ / 2). SSR outputs the whole table in m;
+ * JS toggles m/ft.
+ */
+
+const angles = [10, 15, 24, 36, 60, 90];
+const heights = [2, 3, 4, 5, 6];
+
+const diameterM = (angle: number, height: number): number => {
+  const half = (angle * Math.PI) / 360;
+  return 2 * height * Math.tan(half);
+};
+---
+
+<div
+  id="beam-spread-table"
+  class="beam-spread-table not-prose scroll-mt-[96px] rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10"
+>
+  <div class="mb-4 flex flex-col gap-3 sm:flex-row sm:items-end sm:justify-between">
+    <div>
+      <h2 class="text-2xl font-bold md:text-3xl">Beam Spread Chart — Spot Size by Angle & Height</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Approximate beam diameter at each mounting height for standard beam angles. Formula:
+        <strong> beam diameter = 2 × height × tan(angle ÷ 2)</strong>. Use the free beam angle calculator for exact
+        values at any distance.
+      </p>
+    </div>
+    <label class="flex items-center gap-2 text-sm text-muted dark:text-slate-400">
+      <span>Units:</span>
+      <select id="bst-unit" aria-label="Unit system" class="bst-select">
+        <option value="m">Metric (m)</option>
+        <option value="ft">Imperial (ft)</option>
+      </select>
+    </label>
+  </div>
+
+  <div class="overflow-x-auto">
+    <table class="w-full min-w-[560px] border-collapse text-center text-sm">
+      <caption class="sr-only">Beam diameter in meters at standard mounting heights</caption>
+      <thead>
+        <tr class="border-b border-gray-200 dark:border-slate-700">
+          <th class="py-3 pr-4 text-left font-semibold">Beam angle</th>
+          {
+            heights.map((h) => (
+              <th class="py-3 font-semibold" data-bst-h={h}>
+                {h} m
+              </th>
+            ))
+          }
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+        {
+          angles.map((a) => (
+            <tr>
+              <td class="py-3 pr-4 text-left font-medium">{a}°</td>
+              {heights.map((h) => (
+                <td class="py-3" data-bst-cell data-angle={a} data-height={h}>
+                  {diameterM(a, h).toFixed(2)}
+                </td>
+              ))}
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+
+  <p class="mt-4 text-xs text-muted dark:text-slate-500">
+    * Full-beam-angle cone model. Actual distribution varies by reflector and lens optics. To calculate any other
+    distance, open the <a href="/beam-angle-calculator" class="font-semibold text-primary hover:underline"
+      >beam angle calculator</a
+    >.
+  </p>
+</div>
+
+<style>
+  .bst-select {
+    border-radius: 0.5rem;
+    border: 1px solid var(--aw-color-gray-300, #d1d5db);
+    background: var(--aw-color-white, #fff);
+    padding: 0.375rem 0.75rem;
+    font-size: 0.875rem;
+    color: var(--aw-color-default, #1f2937);
+  }
+  .dark .bst-select {
+    border-color: var(--aw-color-slate-600, #475569);
+    background: var(--aw-color-slate-800, #1e293b);
+    color: var(--aw-color-slate-200, #e2e8f0);
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('.beam-spread-table');
+    if (!root) return;
+    const unitEl = root.querySelector('#bst-unit');
+    if (!unitEl) return;
+    const METERS_PER_FT = 0.3048;
+    const cells = root.querySelectorAll('[data-bst-cell]');
+    const headers = root.querySelectorAll('[data-bst-h]');
+
+    const update = () => {
+      const isM = unitEl.value === 'm';
+      cells.forEach((cell) => {
+        const angle = Number(cell.dataset.angle);
+        const height = Number(cell.dataset.height);
+        const half = (angle * Math.PI) / 360;
+        const dM = 2 * height * Math.tan(half);
+        const value = isM ? dM : dM / METERS_PER_FT;
+        cell.textContent = value.toFixed(2);
+      });
+      headers.forEach((h) => {
+        const v = Number(h.dataset.bstH);
+        h.textContent = isM ? `${v} m` : `${(v / METERS_PER_FT).toFixed(1)} ft`;
+      });
+    };
+
+    unitEl.addEventListener('change', update);
+    update();
+  })();
+</script>

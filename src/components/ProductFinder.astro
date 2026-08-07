@@ -1,0 +1,258 @@
+---
+/**
+ * Product Finder — 3-step wizard that recommends a product series based on
+ * application, space and preferences. Embedded on the homepage + product nav.
+ * Per SEO spec: no standalone URL; static fallback text links to product pages.
+ */
+
+const steps = ['Application', 'Space', 'Preference'];
+
+const applications = [
+  { value: 'retail', label: 'Retail store', desc: 'High CRI, 3000–4000K, 24°–36° accent' },
+  { value: 'museum', label: 'Museum / Gallery', desc: 'High CRI 95+, low UV, tight beams' },
+  { value: 'office', label: 'Office', desc: 'UGR<19, 4000K, uniform ambient' },
+  { value: 'hospitality', label: 'Hotel / Restaurant', desc: 'Warm 2700–3000K, dimmable' },
+  { value: 'showroom', label: 'Showroom', desc: 'High vertical illuminance, adjustable' },
+  { value: 'warehouse', label: 'Warehouse / Industrial', desc: 'High output, wide beams' },
+];
+
+const spaces = [
+  { value: 'small', label: 'Small (under 30 m²)', desc: '2–4 m mounting height' },
+  { value: 'medium', label: 'Medium (30–100 m²)', desc: '3–5 m mounting height' },
+  { value: 'large', label: 'Large (over 100 m²)', desc: '4–8 m mounting height' },
+];
+---
+
+<div
+  class="product-finder not-prose rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-10"
+>
+  <h2 class="text-2xl font-bold md:text-3xl">Product Finder</h2>
+  <p class="mt-2 text-muted dark:text-slate-400">
+    Answer three quick questions and we will recommend the right ENCORE product series for your project.
+  </p>
+
+  <!-- Step indicator -->
+  <ol class="mt-6 flex items-center gap-2 text-sm" aria-label="Product finder steps">
+    {
+      steps.map((s, i) => (
+        <li class="flex items-center gap-2">
+          <span class="pf-step rounded-full px-3 py-1 font-semibold" data-pf-step={i}>
+            {i + 1}. {s}
+          </span>
+          {i < steps.length - 1 && <span class="text-muted">→</span>}
+        </li>
+      ))
+    }
+  </ol>
+
+  <!-- Step 1: Application -->
+  <div class="pf-panel mt-6" data-pf-panel="0">
+    <h3 class="text-lg font-bold dark:text-white">What are you lighting?</h3>
+    <div class="mt-4 grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+      {
+        applications.map((app) => (
+          <button
+            type="button"
+            class="pf-choice rounded-xl border border-gray-200 p-4 text-left transition hover:border-primary dark:border-slate-700 dark:hover:border-primary"
+            data-pf-app={app.value}
+          >
+            <span class="block font-bold">{app.label}</span>
+            <span class="mt-1 block text-xs text-muted dark:text-slate-400">{app.desc}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Step 2: Space -->
+  <div class="pf-panel mt-6 hidden" data-pf-panel="1">
+    <h3 class="text-lg font-bold dark:text-white">How big is the space?</h3>
+    <div class="mt-4 grid gap-3 sm:grid-cols-3">
+      {
+        spaces.map((sp) => (
+          <button
+            type="button"
+            class="pf-choice rounded-xl border border-gray-200 p-4 text-left transition hover:border-primary dark:border-slate-700 dark:hover:border-primary"
+            data-pf-space={sp.value}
+          >
+            <span class="block font-bold">{sp.label}</span>
+            <span class="mt-1 block text-xs text-muted dark:text-slate-400">{sp.desc}</span>
+          </button>
+        ))
+      }
+    </div>
+  </div>
+
+  <!-- Step 3: Result -->
+  <div class="pf-panel mt-6 hidden" data-pf-panel="2">
+    <h3 class="text-lg font-bold dark:text-white">Recommended for you</h3>
+    <div
+      id="pf-result"
+      class="mt-4 rounded-xl border border-primary/20 bg-primary/5 p-6 dark:border-primary/40 dark:bg-primary/10"
+    >
+      <p id="pf-result-series" class="text-xl font-bold text-primary dark:text-blue-300"></p>
+      <p id="pf-result-why" class="mt-2 text-sm text-muted dark:text-slate-400"></p>
+      <div class="mt-4 flex flex-wrap gap-3">
+        <a id="pf-result-link" href="/products/track-lighting" class="btn btn-primary">View Series</a>
+        <a href="/contact" class="btn btn-secondary">Get a Quote</a>
+        <button type="button" id="pf-restart" class="btn btn-tertiary">Start Over</button>
+      </div>
+    </div>
+    <noscript>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        JavaScript is disabled. Browse our <a href="/products/track-lighting">track lighting</a>,{' '}
+        <a href="/products/led-downlights">downlights</a> or <a href="/products/compare">series comparison</a> to choose the
+        right fixture.
+      </p>
+    </noscript>
+  </div>
+</div>
+
+<style>
+  .pf-step.active {
+    background-color: var(--aw-color-primary, #2563eb);
+    color: #fff;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const root = document.querySelector('.product-finder');
+    if (!root) return;
+    const panels = root.querySelectorAll('[data-pf-panel]');
+    const steps = root.querySelectorAll('[data-pf-step]');
+    const resultSeries = root.querySelector('#pf-result-series');
+    const resultWhy = root.querySelector('#pf-result-why');
+    const resultLink = root.querySelector('#pf-result-link');
+    const restart = root.querySelector('#pf-restart');
+
+    const RECO = {
+      'retail-small': {
+        series: 'VEGA Track Light',
+        href: '/products/track-lighting',
+        why: 'Flexible beam angles and wattages with CRI 90+ — ideal for boutique retail.',
+      },
+      'retail-medium': {
+        series: 'VEGA / OVEGA Track Light',
+        href: '/products/track-lighting',
+        why: 'Mix spots and floods for display emphasis with uniform ambient fill.',
+      },
+      'retail-large': {
+        series: 'IMAX Track Light',
+        href: '/products/track-lighting',
+        why: 'High-output track lighting keeps larger sales floors evenly lit.',
+      },
+      'museum-small': {
+        series: 'OVEGA Track Light',
+        href: '/products/track-lighting',
+        why: 'CRI 90–95 with advanced optics protects artworks and shows true color.',
+      },
+      'museum-medium': {
+        series: 'OVEGA / FLEX Track Light',
+        href: '/products/track-lighting',
+        why: 'Adjustable heads and premium CRI for gallery flexibility.',
+      },
+      'museum-large': {
+        series: 'OVEGA + FLEX combo',
+        href: '/products/track-lighting',
+        why: 'Layered spots and washes for changing exhibitions.',
+      },
+      'office-small': {
+        series: 'ELLA Downlight',
+        href: '/products/led-downlights',
+        why: 'Deep anti-glare downlights with tunable white for modern offices.',
+      },
+      'office-medium': {
+        series: 'ELLA / Galaxy Downlight',
+        href: '/products/led-downlights',
+        why: 'Uniform ambient from a modular downlight system with UGR<19 options.',
+      },
+      'office-large': {
+        series: 'Galaxy Downlight',
+        href: '/products/led-downlights',
+        why: 'High-ceiling 4–8 m solutions with smart dimming for large floors.',
+      },
+      'hospitality-small': {
+        series: 'ELLA Downlight (2700–3000K)',
+        href: '/products/led-downlights',
+        why: 'Warm, dimmable and cozy — the hospitality standard.',
+      },
+      'hospitality-medium': {
+        series: 'Magnetic Track Light',
+        href: '/products/magnetic-track-lights',
+        why: 'Reconfigurable accents for lobbies and dining areas.',
+      },
+      'hospitality-large': {
+        series: 'VEGA + ELLA combo',
+        href: '/products/track-lighting',
+        why: 'Warm ambient downlights plus flexible track accents.',
+      },
+      'showroom-small': {
+        series: 'FLEX Track Light',
+        href: '/products/track-lighting',
+        why: 'Adjustable heads for frequent display changes.',
+      },
+      'showroom-medium': {
+        series: 'VEGA Track Light',
+        href: '/products/track-lighting',
+        why: 'Multiple beam angles to flatter every product.',
+      },
+      'showroom-large': {
+        series: 'OVEGA Track Light',
+        href: '/products/track-lighting',
+        why: 'Premium CRI 90+ for high-end showrooms.',
+      },
+      'warehouse-small': {
+        series: 'IMAX Track Light',
+        href: '/products/track-lighting',
+        why: 'High-output beams for utility spaces.',
+      },
+      'warehouse-medium': {
+        series: 'IMAX / Commercial Cylinder',
+        href: '/products/commercial-lighting',
+        why: 'Robust fixtures for commercial and industrial areas.',
+      },
+      'warehouse-large': {
+        series: 'Galaxy High-Bay Downlight',
+        href: '/products/led-downlights',
+        why: 'Designed for 4–8 m high ceilings with high lumen output.',
+      },
+    };
+
+    let state = { app: null, space: null, step: 0 };
+
+    const show = (index) => {
+      state.step = index;
+      panels.forEach((p, i) => p.classList.toggle('hidden', i !== index));
+      steps.forEach((s, i) => s.classList.toggle('active', i === index));
+      if (index === 2) {
+        const key = `${state.app}-${state.space}`;
+        const rec = RECO[key] || RECO['retail-medium'];
+        resultSeries.textContent = rec.series;
+        resultWhy.textContent = rec.why;
+        resultLink.href = rec.href;
+        resultLink.textContent = `View ${rec.series.split(' ')[0]}`;
+      }
+    };
+
+    root.querySelectorAll('[data-pf-app]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.app = btn.dataset.pfApp;
+        show(1);
+      });
+    });
+    root.querySelectorAll('[data-pf-space]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        state.space = btn.dataset.pfSpace;
+        show(2);
+      });
+    });
+    if (restart) {
+      restart.addEventListener('click', () => {
+        state = { app: null, space: null, step: 0 };
+        show(0);
+      });
+    }
+    show(0);
+  })();
+</script>

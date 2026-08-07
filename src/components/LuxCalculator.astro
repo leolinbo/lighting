@@ -22,7 +22,7 @@ const { idPrefix = 'lux', showHowTo = true } = Astro.props;
 // already shows meaningful numbers before JS runs (SEO + first paint).
 const defaultArea = 8 * 6; // m²
 const defaultTarget = 525; // retail mid-range (300–750)
-const defaultUtil = 0.8 * 0.7;
+const defaultUtil = 0.6 * 0.8; // CU 0.6 × MF 0.8 (typical values)
 const defaultLumens = (defaultTarget * defaultArea) / defaultUtil;
 const defaultFixtureLumens = 15 * 110;
 const defaultCount = Math.ceil(defaultLumens / defaultFixtureLumens);
@@ -169,7 +169,7 @@ const applications = [
           checked
           class="h-4 w-4 rounded border-gray-300 text-primary dark:border-slate-600"
         />
-        Apply loss factors (maintenance ~0.8, utilization ~0.7)
+        Apply loss factors (CU 0.6 × MF 0.8 — typical values)
       </label>
     </div>
 
@@ -290,7 +290,7 @@ const applications = [
       const efficacy = Number(el('efficacy').value);
       const app = el('application').value;
       const useUtil = el('util').checked;
-      const utilFactor = useUtil ? 0.8 * 0.7 : 1;
+      const utilFactor = useUtil ? 0.6 * 0.8 : 1;
 
       const lenM = toMeters(lenRaw);
       const widM = toMeters(widRaw);

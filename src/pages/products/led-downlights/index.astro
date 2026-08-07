@@ -4,6 +4,7 @@ import Content from '~/components/widgets/Content.astro';
 import ProductGallery from '~/components/ProductGallery.astro';
 import QuoteForm from '~/components/QuoteForm.astro';
 import CctGuide from '~/components/CctGuide.astro';
+import BeamSpreadTable from '~/components/BeamSpreadTable.astro';
 
 const metadata = {
   title: 'LED Downlight Manufacturer & Wholesale Supplier',
@@ -100,6 +101,11 @@ const breadcrumbJson = {
         { src: '/images/products/prod-della-03.png', alt: 'DELLA Mini Downlight DM30', title: 'DELLA — DM30 Series' },
       ]}
     />
+  </section>
+
+  <!-- Beam spread chart -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <BeamSpreadTable />
   </section>
 
   <!-- CCT guide embed -->

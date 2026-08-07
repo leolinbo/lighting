@@ -10,6 +10,7 @@ import Stats from '~/components/widgets/Stats.astro';
 import BlogLatestPosts from '~/components/widgets/BlogLatestPosts.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import ProductFinder from '~/components/ProductFinder.astro';
 
 const metadata = {
   title: 'ENCORE — Professional LED Track Lighting & Downlight Manufacturer',
@@ -305,7 +306,7 @@ const metadata = {
         callToAction: {
           variant: 'link',
           text: 'Open tool →',
-          href: getPermalink('/tools/fixture-count'),
+          href: getPermalink('/tools/fixture-count-estimator'),
         },
       },
       {
@@ -341,6 +342,11 @@ const metadata = {
     ]}
   />
 
+  <!-- Product Finder -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <ProductFinder />
+  </section>
+
   <!-- BlogLatestPosts Widget -->
   <BlogLatestPosts
     title="Latest from ENCORE Blog"
@@ -357,7 +363,7 @@ const metadata = {
       {
         title: 'How many fixtures do I need for my space?',
         description:
-          'Use our free <a href="/tools/lux-calculator">lux calculator</a> and <a href="/tools/fixture-count">fixture count calculator</a> to estimate required lumens and fixture quantity from your room size and target illuminance.',
+          'Use our free <a href="/tools/lux-calculator">lux calculator</a> and <a href="/tools/fixture-count-estimator">fixture count calculator</a> to estimate required lumens and fixture quantity from your room size and target illuminance.',
       },
       {
         title: 'What certifications do your products have?',

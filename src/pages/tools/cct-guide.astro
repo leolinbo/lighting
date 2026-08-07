@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import CctGuide from '~/components/CctGuide.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import RelatedTools from '~/components/RelatedTools.astro';
 import { getPermalink, getCanonical } from '~/utils/permalinks';
 
 const metadata = {
@@ -149,4 +150,9 @@ const faqJson = {
       { variant: 'secondary', text: 'View LED Downlights', href: getPermalink('/products/led-downlights') },
     ]}
   />
+
+  <!-- Related tools -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <RelatedTools tools={['cri', 'lux', 'beam', 'photo']} />
+  </section>
 </Layout>

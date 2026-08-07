@@ -3,6 +3,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import LuxCalculator from '~/components/LuxCalculator.astro';
 import FAQs from '~/components/widgets/FAQs.astro';
 import CallToAction from '~/components/widgets/CallToAction.astro';
+import RelatedTools from '~/components/RelatedTools.astro';
 import { getPermalink, getCanonical } from '~/utils/permalinks';
 
 const metadata = {
@@ -177,7 +178,7 @@ const faqJson = {
       {
         title: 'Why do lighting calculations use a loss factor?',
         description:
-          'Real installations lose light to dust on fixtures, lamp depreciation over time and room surface absorption. A typical combined factor is 0.55–0.8, which is why we apply 0.8 (maintenance) × 0.7 (utilization) by default.',
+          'Real installations lose light to dust on fixtures, lamp depreciation over time and room surface absorption. A typical combined factor is 0.48–0.8, which is why we apply CU 0.6 × MF 0.8 (0.48) by default.',
       },
     ]}
   />
@@ -191,4 +192,9 @@ const faqJson = {
       { variant: 'secondary', text: 'Try Beam Angle Calculator', href: getPermalink('/beam-angle-calculator') },
     ]}
   />
+
+  <!-- Related tools -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <RelatedTools tools={['beam', 'fixture', 'cct', 'unit']} />
+  </section>
 </Layout>
