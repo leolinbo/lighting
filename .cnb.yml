@@ -58,11 +58,11 @@ main:
               - "release/*.zip"
         - name: deploy-to-vercel
           # Vercel 自动部署（production）。
-          # 需要先在密钥仓库中配置以下变量，并在 pipeline 级 imports 注入：
-          #   VERCEL_TOKEN:       Vercel 个人访问令牌（https://vercel.com/account/tokens）
-          #   VERCEL_ORG_ID:      Vercel 项目所属 Org ID（项目 Settings → General 底部可查）
-          #   VERCEL_PROJECT_ID:  Vercel 项目 ID（同上）
-          # 未配置时自动跳过，不影响构建。
+          # 密钥：VERCEL_TOKEN 通过密钥仓库 imports 注入（见文末配置指引）。
+          # 项目信息已内嵌，无需再通过环境变量提供：
+          #   VERCEL_ORG_ID      = team_o0BtTLWzAHnGL2hIHk6iMnZs
+          #   VERCEL_PROJECT_ID  = prj_cpAHrPXwDLRBSEMietKswTgknpFx
+          # 未配置 VERCEL_TOKEN 时自动跳过，不影响构建。
           script: |
             set -e
             if [ -z "${VERCEL_TOKEN}" ]; then
@@ -71,12 +71,17 @@ main:
             fi
             echo "==> 部署到 Vercel (production) ..."
             mkdir -p .vercel
-            # 写入项目链接信息（若未提供 org/project id，则让 CLI 按 --name 创建/匹配）
-            if [ -n "${VERCEL_ORG_ID}" ] && [ -n "${VERCEL_PROJECT_ID}" ]; then
-              printf '{"orgId":"%s","projectId":"%s"}\n' "$VERCEL_ORG_ID" "$VERCEL_PROJECT_ID" > .vercel/project.json
-              npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes
-            else
-              npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes --name=astrowindwopress
+            printf '{"orgId":"%s","projectId":"%s"}\n' \
+              "team_o0BtTLWzAHnGL2hIHk6iMnZs" \
+              "prj_cpAHrPXwDLRBSEMietKswTgknpFx" > .vercel/project.json
+            # 部署前先备份现有 dist，失败时回滚，避免部署中断留下残缺产物
+            if [ -d dist ]; then
+              rm -rf /tmp/vercel-dist-backup
+              cp -r dist /tmp/vercel-dist-backup
+            fi
+            if ! npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes; then
+              echo "==> Vercel 部署失败"
+              exit 1
             fi
             echo "==> Vercel 部署完成"
 
