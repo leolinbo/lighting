@@ -1,0 +1,229 @@
+---
+/**
+ * Color Temperature (CCT) Guide — interactive warm/cool comparison.
+ *
+ * Lets buyers compare 2700K–6500K swatches and see which color temperature
+ * fits their application. SSR output includes the full reference table text.
+ */
+
+const standards = [
+  {
+    kelvin: 2700,
+    name: 'Warm White',
+    feel: 'Cozy, intimate, golden',
+    uses: ['Hotels', 'Restaurants', 'Lounges', 'Bedrooms'],
+    mood: 'Relaxed and inviting',
+  },
+  {
+    kelvin: 3000,
+    name: 'Warm Neutral',
+    feel: 'Soft, premium, welcoming',
+    uses: ['Fashion retail', 'Hospitality lobbies', 'Dining', 'Art walls'],
+    mood: 'Comfortable with energy',
+  },
+  {
+    kelvin: 3500,
+    name: 'Neutral White',
+    feel: 'Balanced, crisp but warm',
+    uses: ['Offices', 'Reception areas', 'Multi-purpose'],
+    mood: 'Focused and natural',
+  },
+  {
+    kelvin: 4000,
+    name: 'Cool White',
+    feel: 'Bright, clean, alert',
+    uses: ['Offices', 'Supermarkets', 'Clinics', 'Workshops'],
+    mood: 'Clean and productive',
+  },
+  {
+    kelvin: 5000,
+    name: 'Daylight',
+    feel: 'Crisp, high contrast',
+    uses: ['Factories', 'Garages', 'Gyms', 'Inspection'],
+    mood: 'Energizing and precise',
+  },
+  {
+    kelvin: 6500,
+    name: 'Cool Daylight',
+    feel: 'Sterile, very bright',
+    uses: ['Industrial halls', 'Security', 'Inspection lines'],
+    mood: 'Maximum alertness',
+  },
+];
+
+// Approximate hex colors for each standard CCT (photopic daylight locus, rounded).
+const hexForKelvin: Record<number, string> = {
+  2700: '#FF9B59',
+  3000: '#FFA866',
+  3500: '#FFB877',
+  4000: '#FFC38C',
+  5000: '#FFD6A8',
+  6500: '#FFE8CC',
+};
+---
+
+<div
+  class="cct-guide not-prose rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-10"
+>
+  <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+    <h3 class="text-xl font-bold dark:text-white">Color Temperature (CCT) Guide</h3>
+    <div class="flex items-center gap-3">
+      <label class="text-sm text-muted dark:text-slate-400" for="cct-range">Temperature</label>
+      <input id="cct-range" type="range" min="2700" max="6500" step="100" value="3000" class="w-40 accent-primary" />
+      <span id="cct-value" class="w-16 text-right text-sm font-bold text-primary dark:text-blue-300">3000K</span>
+    </div>
+  </div>
+
+  <!-- Interactive swatch -->
+  <div class="mb-6">
+    <div
+      id="cct-swatch"
+      class="flex h-28 items-end justify-between rounded-xl border border-gray-200 p-4 dark:border-slate-700"
+      style="background: linear-gradient(90deg,#ff9b59,#ffa866,#ffb877,#ffc38c,#ffd6a8,#ffe8cc);"
+    >
+      <div class="rounded-lg bg-white/85 px-3 py-1 text-xs font-bold text-slate-700 shadow-sm">
+        <span id="cct-swatch-name">Warm Neutral</span>
+      </div>
+    </div>
+    <p id="cct-desc" class="mt-3 text-sm text-muted dark:text-slate-400">
+      Soft, premium, welcoming — ideal for fashion retail, hospitality lobbies and art walls.
+    </p>
+  </div>
+
+  <!-- Standard swatch row -->
+  <div
+    class="grid grid-cols-2 gap-3 sm:grid-cols-3 md:grid-cols-6"
+    role="list"
+    aria-label="Standard color temperatures"
+  >
+    {
+      standards.map((s) => (
+        <button
+          type="button"
+          class="cct-chip group rounded-xl border border-gray-200 p-3 text-left transition hover:border-primary dark:border-slate-700 dark:hover:border-primary"
+          data-kelvin={s.kelvin}
+        >
+          <span
+            class="block h-10 w-full rounded-lg"
+            style={`background:${hexForKelvin[s.kelvin] || '#ffa866'};`}
+            aria-hidden="true"
+          />
+          <span class="mt-2 block text-sm font-bold">{s.kelvin}K</span>
+          <span class="block text-xs text-muted dark:text-slate-400">{s.name}</span>
+        </button>
+      ))
+    }
+  </div>
+
+  <!-- Reference table (SSR text for SEO) -->
+  <div class="mt-8 overflow-x-auto">
+    <table class="w-full min-w-[520px] border-collapse text-left text-sm">
+      <caption class="sr-only">Standard LED color temperatures and their typical applications</caption>
+      <thead>
+        <tr class="border-b border-gray-200 dark:border-slate-700">
+          <th class="py-3 pr-4 font-semibold">Color temperature</th>
+          <th class="py-3 pr-4 font-semibold">Name</th>
+          <th class="py-3 pr-4 font-semibold">Feel</th>
+          <th class="py-3 font-semibold">Best for</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+        {
+          standards.map((s) => (
+            <tr>
+              <td class="py-3 pr-4 font-medium">{s.kelvin}K</td>
+              <td class="py-3 pr-4">{s.name}</td>
+              <td class="py-3 pr-4">{s.feel}</td>
+              <td class="py-3">{s.uses.join(' · ')}</td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<script is:inline>
+  (() => {
+    const range = document.getElementById('cct-range');
+    const valueEl = document.getElementById('cct-value');
+    const swatch = document.getElementById('cct-swatch');
+    const nameEl = document.getElementById('cct-swatch-name');
+    const descEl = document.getElementById('cct-desc');
+
+    const DATA = {
+      2700: {
+        name: 'Warm White',
+        hex: '#FF9B59',
+        desc: 'Cozy, intimate, golden — perfect for hotels, restaurants and residential bedrooms.',
+      },
+      3000: {
+        name: 'Warm Neutral',
+        hex: '#FFA866',
+        desc: 'Soft, premium, welcoming — ideal for fashion retail, hospitality lobbies and art walls.',
+      },
+      3500: {
+        name: 'Neutral White',
+        hex: '#FFB877',
+        desc: 'Balanced, crisp but warm — a safe choice for offices, reception and multi-purpose spaces.',
+      },
+      4000: {
+        name: 'Cool White',
+        hex: '#FFC38C',
+        desc: 'Bright, clean, alert — great for offices, supermarkets, clinics and workshops.',
+      },
+      5000: {
+        name: 'Daylight',
+        hex: '#FFD6A8',
+        desc: 'Crisp, high contrast — used in factories, garages, gyms and inspection areas.',
+      },
+      6500: {
+        name: 'Cool Daylight',
+        hex: '#FFE8CC',
+        desc: 'Sterile, very bright — for industrial halls, security lighting and inspection lines.',
+      },
+    };
+
+    const closest = (k) => {
+      const keys = [2700, 3000, 3500, 4000, 5000, 6500];
+      return keys.reduce((best, cur) => (Math.abs(cur - k) < Math.abs(best - k) ? cur : best));
+    };
+
+    const update = () => {
+      const k = Number(range.value);
+      valueEl.textContent = `${k}K`;
+      const base = closest(k);
+      const info = DATA[base];
+      // Interpolate background between nearest standard colors.
+      const neighbors = [2700, 3000, 3500, 4000, 5000, 6500];
+      let from = base;
+      let to = base;
+      for (let i = 0; i < neighbors.length - 1; i++) {
+        if (k >= neighbors[i] && k <= neighbors[i + 1]) {
+          from = neighbors[i];
+          to = neighbors[i + 1];
+          break;
+        }
+      }
+      if (from === to) {
+        swatch.style.background = DATA[from].hex;
+      } else {
+        const a = DATA[from].hex;
+        const b = DATA[to].hex;
+        swatch.style.background = `linear-gradient(90deg, ${a}, ${b})`;
+      }
+      nameEl.textContent = info.name;
+      descEl.textContent = info.desc;
+    };
+
+    range.addEventListener('input', update);
+    document.querySelectorAll('.cct-chip').forEach((chip) => {
+      chip.addEventListener('click', () => {
+        range.value = chip.dataset.kelvin;
+        update();
+      });
+    });
+
+    update();
+  })();
+</script>

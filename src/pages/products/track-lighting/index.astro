@@ -3,6 +3,9 @@ import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import Features2 from '~/components/widgets/Features2.astro';
 import ProductGallery from '~/components/ProductGallery.astro';
+import QuoteForm from '~/components/QuoteForm.astro';
+import CctGuide from '~/components/CctGuide.astro';
+import BeamSpreadTable from '~/components/BeamSpreadTable.astro';
 
 const metadata = {
   title: 'LED Track Lighting Manufacturer & Supplier',
@@ -163,7 +166,25 @@ const breadcrumbJson = {
           Use our free beam angle calculator to convert beam angle, mounting distance and spot size for any fixture.
         </p>
       </div>
-      <a href="/beam-angle-calculator" class="btn btn-primary shrink-0">Open Beam Angle Calculator</a>
+      <div class="flex shrink-0 flex-col gap-3 sm:flex-row">
+        <a href="/beam-angle-calculator" class="btn btn-primary">Open Beam Angle Calculator</a>
+        <a href="/products/compare" class="btn btn-secondary">Compare Series</a>
+      </div>
     </div>
+  </section>
+
+  <!-- Beam spread chart -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <BeamSpreadTable />
+  </section>
+
+  <!-- CCT guide embed -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <CctGuide />
+  </section>
+
+  <!-- RFQ -->
+  <section id="get-quote" class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <QuoteForm product="Track Lighting (VEGA)" title="Request Track Lighting Quote" />
   </section>
 </Layout>

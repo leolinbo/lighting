@@ -1,0 +1,200 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import LuxCalculator from '~/components/LuxCalculator.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import RelatedTools from '~/components/RelatedTools.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Lux Calculator — How Many Lumens & Light Fixtures Do I Need?',
+  description:
+    'Free lux level calculator for commercial lighting: estimate required lumens, recommended fixture count and grid layout for retail, office, warehouse, showroom and more. Metric and imperial.',
+  canonical: String(getCanonical(getPermalink('/tools/lux-calculator'))),
+};
+
+const faqJson = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'How many lux do I need for a retail store?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'General retail floors are typically lit to 300–750 lux, with 750–1500 lux on display focal points and shelves. Use our lux calculator to convert your room size and target lux into required lumens and fixture count.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How do you calculate lux from lumens?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Illuminance in lux equals the luminous flux (lumens) divided by the area in square metres: lux = lumens ÷ area. A 1000 lumen light spread over 10 square metres gives 100 lux.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many LED downlights or track lights do I need per square metre?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'It depends on the target lux, the floor area and the lumen output of each fixture. Divide the required total lumens (target lux × area × loss factor) by the lumen output of one fixture and round up.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between lux and foot-candles?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Lux is lumens per square metre; foot-candles are lumens per square foot. One foot-candle equals approximately 10.76 lux. Our calculator supports both metric and imperial units.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is a typical luminous efficacy for LED lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Modern LED fixtures typically deliver 90–150 lm/W depending on the optic, driver and CRI. High-quality commercial LED track lights and downlights from ENCORE commonly achieve 100–130 lm/W.',
+      },
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJson)} />
+
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Lighting Design Tool</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        Lux Calculator
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        Work out how many lumens and how many LED light fixtures your space needs. Enter the room size, application and
+        fixture wattage — get required lumens, fixture count and a suggested grid layout instantly.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="mx-auto max-w-6xl px-4 pb-6 md:px-6">
+    <LuxCalculator idPrefix="lux" />
+  </section>
+
+  <!-- Lux reference -->
+  <section class="mx-auto max-w-6xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">Recommended Lux Levels by Application</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Common illuminance targets used by lighting designers (based on EN 12464-1 and CIBSE guidance):
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[520px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Application</th>
+              <th class="py-3 pr-4 font-semibold">Recommended lux</th>
+              <th class="py-3 font-semibold">Notes</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">Retail store</td>
+              <td class="py-3 pr-4">300–750</td>
+              <td class="py-3">Up to 1500 lux on displays and shelves</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Office</td>
+              <td class="py-3 pr-4">300–500</td>
+              <td class="py-3">500 lux on work planes per EN 12464-1</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Showroom</td>
+              <td class="py-3 pr-4">400–1000</td>
+              <td class="py-3">High vertical illuminance to flatter products</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Hotel / Restaurant</td>
+              <td class="py-3 pr-4">100–300</td>
+              <td class="py-3">Warm, layered ambient lighting</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Museum / Gallery</td>
+              <td class="py-3 pr-4">50–300</td>
+              <td class="py-3">50 lux for light-sensitive exhibits</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Warehouse</td>
+              <td class="py-3 pr-4">150–300</td>
+              <td class="py-3">Uniform high-bay lighting</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Industrial</td>
+              <td class="py-3 pr-4">200–500</td>
+              <td class="py-3">Detail tasks may need 500 lux+</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Parking</td>
+              <td class="py-3 pr-4">50–100</td>
+              <td class="py-3">Modest but uniform levels</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="Lux & Lighting Quantity Questions"
+    subtitle="Common questions about lux levels, lumens and how many fixtures you need."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'How many lux do I need for a retail store?',
+        description:
+          'General retail floors are typically lit to 300–750 lux, with 750–1500 lux on display focal points. For fashion and jewelry displays, higher vertical illuminance with good CRI (90+) is recommended.',
+      },
+      {
+        title: 'How do you calculate lux from lumens?',
+        description:
+          'Lux = lumens ÷ area in square metres. For example, a 1000 lm fixture over 10 m² gives 100 lux. In imperial units, foot-candles = lumens ÷ square feet.',
+      },
+      {
+        title: 'How many LED track lights do I need for my space?',
+        description:
+          'Divide the required total lumens (target lux × floor area × loss factor) by the lumen output of one fixture and round up. The calculator above does this automatically and suggests a grid layout.',
+      },
+      {
+        title: 'What is the difference between lux and foot-candles?',
+        description:
+          'Lux measures lumens per square metre; foot-candles measure lumens per square foot. 1 foot-candle = 10.76 lux. Our calculator supports both metric and imperial input.',
+      },
+      {
+        title: 'Why do lighting calculations use a loss factor?',
+        description:
+          'Real installations lose light to dust on fixtures, lamp depreciation over time and room surface absorption. A typical combined factor is 0.48–0.8, which is why we apply CU 0.6 × MF 0.8 (0.48) by default.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Need Help Specifying Your Lighting Layout?"
+    subtitle="Our engineers can prepare a photometric layout and recommend the right fixtures — free for qualified projects."
+    actions={[
+      { variant: 'primary', text: 'Talk to an Engineer', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'Try Beam Angle Calculator', href: getPermalink('/beam-angle-calculator') },
+    ]}
+  />
+
+  <!-- Related tools -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <RelatedTools tools={['beam', 'fixture', 'cct', 'unit']} />
+  </section>
+</Layout>

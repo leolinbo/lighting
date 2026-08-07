@@ -2,6 +2,7 @@
 import Layout from '~/layouts/PageLayout.astro';
 import Content from '~/components/widgets/Content.astro';
 import ProductGallery from '~/components/ProductGallery.astro';
+import QuoteForm from '~/components/QuoteForm.astro';
 
 const metadata = {
   title: 'Commercial LED Lighting Manufacturer',
@@ -119,5 +120,10 @@ const breadcrumbJson = {
         { src: '/images/products/prod-strip-fs34-160.png', alt: 'FS34 Strip Light', title: 'FS34 Strip Light' },
       ]}
     />
+  </section>
+
+  <!-- RFQ -->
+  <section id="get-quote" class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <QuoteForm product="Commercial Lighting" title="Request Commercial Lighting Quote" />
   </section>
 </Layout>
