@@ -199,10 +199,18 @@ const products = [
       const el = document.getElementById(id);
       if (el && value) el.value = value;
     };
+    // Select options carry unit suffixes ("24°", "15W") but tool pages pass
+    // plain numbers (?angle=24&watt=15). Normalise so the option gets selected.
+    const withSuffix = (value, suffix, regex) => {
+      if (!value) return null;
+      return regex.test(value) || value === 'Custom' ? value : `${value}${suffix}`;
+    };
+    const angleParam = withSuffix(params.get('angle'), '°', /°$/);
+    const wattParam = withSuffix(params.get('watt'), 'W', /W$/);
     set('q-product', params.get('product'));
-    set('q-angle', params.get('angle'));
+    set('q-angle', angleParam);
     set('q-cct', params.get('cct'));
-    set('q-watt', params.get('watt'));
+    set('q-watt', wattParam);
     set('q-qty', params.get('qty'));
 
     form.addEventListener('submit', (e) => {
@@ -212,6 +220,12 @@ const products = [
       const message = document.getElementById('q-message').value.trim();
       if (!name || !email || !message) {
         status.textContent = 'Please fill in your name, email and project details.';
+        status.classList.add('text-red-500');
+        return;
+      }
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(email)) {
+        status.textContent = 'Please enter a valid email address.';
         status.classList.add('text-red-500');
         return;
       }

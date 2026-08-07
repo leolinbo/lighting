@@ -313,6 +313,7 @@ const applications = [
         return;
       }
 
+      // `area` already holds the active display unit (m² or ft², see above).
       el('area-value').textContent = `${fmt(area)} ${isMetric() ? 'm²' : 'ft²'}`;
       el('area-note').textContent = `${fmt(lenRaw)} × ${fmt(widRaw)} ${isMetric() ? 'm' : 'ft'}`;
 
