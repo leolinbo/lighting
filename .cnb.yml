@@ -27,6 +27,12 @@ main:
         - "astro.config.ts"
         - "tsconfig.json"
         - ".cnb.yml"
+      # 注：VERCEL_TOKEN 需通过密钥仓库 imports 注入（安全存储，不落仓库）。
+      # 波在 CNB 创建「密钥仓库」beamangle-secrets 并写入 vercel.yml 后，
+      # 在此处取消注释即可自动生效：
+      #   imports:
+      #     - https://cnb.cool/Beamanglespace/beamangle-secrets/-/blob/main/vercel.yml
+      # 当前未配置 Token 时 deploy-to-vercel 自动跳过，不影响构建与打包。
       stages:
         - name: build
           script: |
