@@ -1,0 +1,69 @@
+---
+/**
+ * Related Tools — cross-link block between lighting tool pages.
+ * Per SEO spec: every tool page links to 3–4 related tools with keyword anchor text.
+ */
+
+export interface Props {
+  tools?: string[];
+}
+
+const allTools = [
+  {
+    key: 'beam',
+    label: 'Beam Angle Calculator',
+    href: '/beam-angle-calculator',
+    desc: 'Convert beam angle, distance and spot size.',
+  },
+  {
+    key: 'lux',
+    label: 'Lux Calculator',
+    href: '/tools/lux-calculator',
+    desc: 'How many lumens and fixtures do I need?',
+  },
+  {
+    key: 'fixture',
+    label: 'Fixture Count Calculator',
+    href: '/tools/fixture-count-estimator',
+    desc: 'How many lights per room?',
+  },
+  {
+    key: 'cct',
+    label: 'Color Temperature Guide',
+    href: '/tools/cct-guide',
+    desc: '2700K vs 3000K vs 4000K — pick the right CCT.',
+  },
+  { key: 'cri', label: 'CRI Guide', href: '/tools/cri-guide', desc: 'What is CRI and why 90+ matters.' },
+  { key: 'ugr', label: 'UGR Guide', href: '/tools/ugr-guide', desc: 'What is glare rating and how to reduce it.' },
+  { key: 'unit', label: 'Unit Converter', href: '/tools/unit-converter', desc: 'm/ft, m²/ft², lux/fc, W/VA.' },
+  {
+    key: 'photo',
+    label: 'Photometric Guide',
+    href: '/tools/photometric-guide',
+    desc: 'IES files, UGR, IP and IK explained.',
+  },
+];
+
+const { tools = ['beam', 'lux', 'fixture', 'cct'] } = Astro.props;
+
+const items = tools
+  .map((key) => allTools.find((t) => t.key === key))
+  .filter((t): t is NonNullable<typeof t> => Boolean(t));
+---
+
+<div class="not-prose rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900">
+  <h2 class="text-lg font-bold dark:text-white">Related Tools</h2>
+  <div class="mt-4 grid gap-3 sm:grid-cols-2">
+    {
+      items.map((t) => (
+        <a
+          href={t.href}
+          class="group rounded-xl border border-gray-200 p-4 transition hover:border-primary dark:border-slate-700 dark:hover:border-primary"
+        >
+          <span class="block font-semibold text-primary group-hover:underline">{t.label} →</span>
+          <span class="mt-1 block text-sm text-muted dark:text-slate-400">{t.desc}</span>
+        </a>
+      ))
+    }
+  </div>
+</div>

@@ -1,0 +1,253 @@
+---
+/**
+ * QuoteForm — product-aware RFQ widget.
+ *
+ * Embeds a "Get Quote" form on product/tool pages. Pre-filled parameters
+ * (product series, wattage, beam angle, CCT, quantity) can be injected via
+ * URL query string (?product=&watt=&angle=&cct=&qty=) so tool results can
+ * carry into the inquiry with one click.
+ *
+ * Static site: submission opens the visitor's mail client with a pre-filled
+ * email to sales@encore-tech.com, and shows a confirmation hint. No backend
+ * required.
+ */
+
+export interface Props {
+  product?: string;
+  title?: string;
+  subtitle?: string;
+}
+
+const {
+  product = 'Track Light',
+  title = 'Request a Quote',
+  subtitle = 'Our sales team replies within 24 hours.',
+} = Astro.props;
+
+const products = [
+  'Track Lighting (VEGA)',
+  'Track Lighting (OVEGA)',
+  'Track Lighting (IMAX)',
+  'Track Lighting (FLEX)',
+  'Magnetic Track Lights',
+  'LED Downlights (ELLA)',
+  'LED Downlights (Galaxy)',
+  'LED Downlights (AVA MR16)',
+  'LED Downlights (DELLA Mini)',
+  'Commercial Lighting',
+  'Custom OEM / ODM',
+  'Other',
+];
+---
+
+<div
+  class="quote-form not-prose rounded-2xl border border-gray-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900 md:p-8"
+  data-quote-product={product}
+>
+  <h3 class="text-xl font-bold dark:text-white">{title}</h3>
+  <p class="mt-1 text-sm text-muted dark:text-slate-400">{subtitle}</p>
+
+  <form class="mt-6 grid gap-4 sm:grid-cols-2" novalidate>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-name">Your Name *</label>
+      <input
+        id="q-name"
+        name="name"
+        type="text"
+        required
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      />
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-email">Email *</label>
+      <input
+        id="q-email"
+        name="email"
+        type="email"
+        required
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      />
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-product">Product</label>
+      <select
+        id="q-product"
+        name="product"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      >
+        {
+          products.map((p) => (
+            <option value={p} selected={p === product}>
+              {p}
+            </option>
+          ))
+        }
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-qty">Quantity</label>
+      <input
+        id="q-qty"
+        name="quantity"
+        type="number"
+        min="1"
+        placeholder="e.g. 200"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      />
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-angle">Beam angle</label>
+      <select
+        id="q-angle"
+        name="beamAngle"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      >
+        <option value="10°">10°</option>
+        <option value="15°">15°</option>
+        <option value="24°">24°</option>
+        <option value="36°">36°</option>
+        <option value="60°">60°</option>
+        <option value="90°">90°</option>
+        <option value="Custom">Custom</option>
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-cct">Color temperature</label>
+      <select
+        id="q-cct"
+        name="cct"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      >
+        <option value="2700K">2700K</option>
+        <option value="3000K">3000K</option>
+        <option value="3500K">3500K</option>
+        <option value="4000K">4000K</option>
+        <option value="5000K">5000K</option>
+        <option value="6500K">6500K</option>
+        <option value="Tunable White">Tunable White</option>
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-watt">Wattage</label>
+      <select
+        id="q-watt"
+        name="wattage"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      >
+        <option value="5W">5W</option>
+        <option value="10W">10W</option>
+        <option value="15W">15W</option>
+        <option value="20W">20W</option>
+        <option value="30W">30W</option>
+        <option value="40W">40W</option>
+        <option value="Custom">Custom</option>
+      </select>
+    </div>
+    <div class="sm:col-span-1">
+      <label class="mb-1 block text-sm font-medium" for="q-company">Company</label>
+      <input
+        id="q-company"
+        name="company"
+        type="text"
+        placeholder="Optional"
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      />
+    </div>
+    <div class="sm:col-span-2">
+      <label class="mb-1 block text-sm font-medium" for="q-message">Project details *</label>
+      <textarea
+        id="q-message"
+        name="message"
+        rows="4"
+        placeholder="Application, mounting height, target lux, required certifications..."
+        required
+        class="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm dark:border-slate-600 dark:bg-slate-800 dark:text-slate-200"
+      ></textarea>
+    </div>
+    <div class="sm:col-span-2">
+      <button type="submit" class="btn btn-primary w-full sm:w-auto">Send Inquiry</button>
+      <p id="q-status" class="mt-3 text-sm text-muted dark:text-slate-400" role="status" aria-live="polite"></p>
+      <p class="mt-2 text-xs text-muted dark:text-slate-400">
+        Prefer email? Write to <a href="mailto:sales@encore-tech.com">sales@encore-tech.com</a> or WhatsApp +852 6768 2519.
+      </p>
+    </div>
+  </form>
+</div>
+
+<style>
+  .quote-form input,
+  .quote-form select,
+  .quote-form textarea {
+    color-scheme: light;
+  }
+  .dark .quote-form input,
+  .dark .quote-form select,
+  .dark .quote-form textarea {
+    color-scheme: dark;
+  }
+</style>
+
+<script is:inline>
+  (() => {
+    const form = document.querySelector('.quote-form form');
+    const status = document.getElementById('q-status');
+    if (!form) return;
+
+    // Hydrate from URL params (?product=&angle=&cct=&watt=&qty=)
+    const params = new URLSearchParams(window.location.search);
+    const set = (id, value) => {
+      const el = document.getElementById(id);
+      if (el && value) el.value = value;
+    };
+    // Select options carry unit suffixes ("24°", "15W") but tool pages pass
+    // plain numbers (?angle=24&watt=15). Normalise so the option gets selected.
+    const withSuffix = (value, suffix, regex) => {
+      if (!value) return null;
+      return regex.test(value) || value === 'Custom' ? value : `${value}${suffix}`;
+    };
+    const angleParam = withSuffix(params.get('angle'), '°', /°$/);
+    const wattParam = withSuffix(params.get('watt'), 'W', /W$/);
+    set('q-product', params.get('product'));
+    set('q-angle', angleParam);
+    set('q-cct', params.get('cct'));
+    set('q-watt', wattParam);
+    set('q-qty', params.get('qty'));
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const name = document.getElementById('q-name').value.trim();
+      const email = document.getElementById('q-email').value.trim();
+      const message = document.getElementById('q-message').value.trim();
+      if (!name || !email || !message) {
+        status.textContent = 'Please fill in your name, email and project details.';
+        status.classList.add('text-red-500');
+        return;
+      }
+      const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      if (!emailRe.test(email)) {
+        status.textContent = 'Please enter a valid email address.';
+        status.classList.add('text-red-500');
+        return;
+      }
+      const data = {
+        Name: name,
+        Email: email,
+        Company: document.getElementById('q-company').value.trim(),
+        Product: document.getElementById('q-product').value,
+        Quantity: document.getElementById('q-qty').value,
+        'Beam angle': document.getElementById('q-angle').value,
+        'Color temperature': document.getElementById('q-cct').value,
+        Wattage: document.getElementById('q-watt').value,
+        Message: message,
+      };
+      const subject = encodeURIComponent(`[RFQ] ${data.Product} — ${data.Name}`);
+      const body = Object.entries(data)
+        .filter(([, v]) => v)
+        .map(([k, v]) => `${k}: ${v}`)
+        .join('\n');
+      window.location.href = `mailto:sales@encore-tech.com?subject=${subject}&body=${encodeURIComponent(body)}`;
+      status.textContent = 'Opening your email app — please press send to confirm your inquiry.';
+      status.classList.remove('text-red-500');
+    });
+  })();
+</script>

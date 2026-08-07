@@ -21,6 +21,10 @@ export const headerData = {
           text: 'Commercial Lighting',
           href: getPermalink('/products/commercial-lighting'),
         },
+        {
+          text: 'Compare Series',
+          href: getPermalink('/products/compare'),
+        },
       ],
     },
     {
@@ -29,6 +33,34 @@ export const headerData = {
         {
           text: 'Beam Angle Calculator',
           href: getPermalink('/beam-angle-calculator'),
+        },
+        {
+          text: 'Lux Calculator',
+          href: getPermalink('/tools/lux-calculator'),
+        },
+        {
+          text: 'Fixture Count Calculator',
+          href: getPermalink('/tools/fixture-count-estimator'),
+        },
+        {
+          text: 'Color Temperature Guide',
+          href: getPermalink('/tools/cct-guide'),
+        },
+        {
+          text: 'CRI Guide',
+          href: getPermalink('/tools/cri-guide'),
+        },
+        {
+          text: 'UGR Guide',
+          href: getPermalink('/tools/ugr-guide'),
+        },
+        {
+          text: 'Unit Converter',
+          href: getPermalink('/tools/unit-converter'),
+        },
+        {
+          text: 'Photometric Guide',
+          href: getPermalink('/tools/photometric-guide'),
         },
       ],
     },
@@ -80,6 +112,7 @@ export const footerData = {
         { text: 'LED Downlights', href: getPermalink('/products/led-downlights') },
         { text: 'Magnetic Track Lights', href: getPermalink('/products/magnetic-track-lights') },
         { text: 'Commercial Lighting', href: getPermalink('/products/commercial-lighting') },
+        { text: 'Compare Series', href: getPermalink('/products/compare') },
       ],
     },
     {
@@ -104,6 +137,13 @@ export const footerData = {
       title: 'Tools',
       links: [
         { text: 'Beam Angle Calculator', href: getPermalink('/beam-angle-calculator') },
+        { text: 'Lux Calculator', href: getPermalink('/tools/lux-calculator') },
+        { text: 'Fixture Count Calculator', href: getPermalink('/tools/fixture-count-estimator') },
+        { text: 'Color Temperature Guide', href: getPermalink('/tools/cct-guide') },
+        { text: 'CRI Guide', href: getPermalink('/tools/cri-guide') },
+        { text: 'UGR Guide', href: getPermalink('/tools/ugr-guide') },
+        { text: 'Unit Converter', href: getPermalink('/tools/unit-converter') },
+        { text: 'Photometric Guide', href: getPermalink('/tools/photometric-guide') },
         { text: 'Contact Us', href: getPermalink('/contact') },
         { text: 'Get a Quote', href: getPermalink('/pricing') },
       ],

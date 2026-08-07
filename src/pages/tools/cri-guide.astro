@@ -1,0 +1,275 @@
+---
+/**
+ * CRI (Color Rendering Index) Guide — interactive slider that explains how
+ * CRI 80/90/95 changes the look of colors.
+ */
+
+import Layout from '~/layouts/PageLayout.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import RelatedTools from '~/components/RelatedTools.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'CRI Guide — What Is Color Rendering Index in LED Lighting?',
+  description:
+    'Learn what CRI means, why CRI 90+ matters for retail and hospitality, and how to choose between CRI 80, 90 and 95 LED fixtures. Interactive CRI comparison tool.',
+  canonical: String(getCanonical(getPermalink('/tools/cri-guide'))),
+};
+
+const faqJson = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: [
+    {
+      '@type': 'Question',
+      name: 'What is CRI in LED lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CRI (Color Rendering Index) is a 0–100 scale measuring how accurately a light source reveals colors compared to natural daylight. CRI 80 is standard, CRI 90+ is recommended for retail and hospitality.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is CRI 90 worth it?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Yes for retail, food, fashion and hospitality. CRI 90+ makes fabrics, packaging and skin tones look richer and more accurate. For general offices and warehouses, CRI 80 is usually sufficient.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between CRI 80 and CRI 90?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CRI 80 renders colors adequately but some saturated colors — especially red — can look dull or shifted. CRI 90+ reproduces reds and skin tones far more faithfully, which is why premium brands specify it.',
+      },
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(faqJson)} />
+
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Lighting Guide</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        CRI Guide — Color Rendering Index Explained
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        What does CRI 80 vs 90 vs 95 really look like? Drag the slider to compare, then learn which CRI to specify for
+        retail, hospitality, offices and industrial lighting.
+      </p>
+    </div>
+  </section>
+
+  <!-- Interactive CRI tool -->
+  <section class="mx-auto max-w-5xl px-4 pb-6 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <div class="mb-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+        <h2 class="text-xl font-bold dark:text-white">CRI Comparison</h2>
+        <div class="flex items-center gap-3">
+          <label class="text-sm text-muted dark:text-slate-400" for="cri-range">CRI</label>
+          <input id="cri-range" type="range" min="60" max="98" step="1" value="90" class="w-44 accent-primary" />
+          <span id="cri-value" class="w-10 text-right text-sm font-bold text-primary dark:text-blue-300">90</span>
+        </div>
+      </div>
+
+      <!-- Color swatch comparison -->
+      <div class="grid gap-4 sm:grid-cols-2">
+        <div>
+          <p class="mb-2 text-center text-sm font-semibold text-muted dark:text-slate-400">
+            Selected CRI (<span id="cri-sel-label">90</span>)
+          </p>
+          <div class="grid grid-cols-5 gap-2" id="cri-swatch-sel">
+            <!-- populated by JS -->
+          </div>
+        </div>
+        <div>
+          <p class="mb-2 text-center text-sm font-semibold text-muted dark:text-slate-400">Reference (CRI 98)</p>
+          <div class="grid grid-cols-5 gap-2" id="cri-swatch-ref">
+            <!-- populated by JS -->
+          </div>
+        </div>
+      </div>
+
+      <div class="mt-6 rounded-xl border border-gray-200 p-5 dark:border-slate-700">
+        <p class="text-lg font-bold" id="cri-tier-label">Premium — 90+</p>
+        <p class="mt-1 text-sm text-muted dark:text-slate-400" id="cri-tier-detail">
+          90+ — recommended for retail, hospitality and anything where products must look their best.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Table -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">CRI Levels and When to Use Them</h2>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[520px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">CRI</th>
+              <th class="py-3 pr-4 font-semibold">Rating</th>
+              <th class="py-3 font-semibold">Best for</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">80–84</td>
+              <td class="py-3 pr-4">Standard</td>
+              <td class="py-3">Offices, warehouses, parking, general commercial</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">90–93</td>
+              <td class="py-3 pr-4">Premium</td>
+              <td class="py-3">Retail, hospitality, food displays, showrooms</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">95+</td>
+              <td class="py-3 pr-4">Museum / Art grade</td>
+              <td class="py-3">Art galleries, luxury retail, fabric and paint matching</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        Note: CRI is an average of color samples (R1–R8). For critical red rendering, also check R9 (red) — a high R9
+        matters for food, cosmetics and skin tones.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="CRI Questions, Answered"
+    subtitle="Common questions about color rendering index."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'What is CRI in LED lighting?',
+        description:
+          'CRI measures how accurately a light source shows colors compared to a reference (daylight/blackbody). A CRI of 100 is perfect. Most LEDs achieve 80–95.',
+      },
+      {
+        title: 'Is CRI 90 worth it?',
+        description:
+          'Yes for retail, food, fashion and hospitality. CRI 90+ makes colors look richer and more accurate, which increases perceived product quality. For offices, CRI 80 is usually enough.',
+      },
+      {
+        title: 'What is the difference between CRI 80 and CRI 90?',
+        description:
+          'CRI 80 renders colors acceptably but saturated reds can look dull. CRI 90+ renders reds and skin tones much more faithfully — important for fashion, cosmetics and wood finishes.',
+      },
+      {
+        title: 'What is R9 and why does it matter?',
+        description:
+          'R9 is the color rendering score specifically for saturated red. It is often low even when CRI is high. For food and cosmetics lighting, look for R9 > 50 alongside CRI ≥ 90.',
+      },
+      {
+        title: 'Do all ENCORE products support high CRI?',
+        description:
+          'Most of our track light and downlight ranges offer CRI 90+ options, and many families support CRI 95. Tell us the CRI and R9 target for your project and we will configure it.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Specify High-CRI Lighting with Confidence"
+    subtitle="Our team will match the right CRI and R9 to your application — from standard 80 to museum-grade 95."
+    actions={[
+      { variant: 'primary', text: 'Talk to an Engineer', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'View Track Lighting', href: getPermalink('/products/track-lighting') },
+    ]}
+  />
+
+  <!-- Related tools -->
+  <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
+    <RelatedTools tools={['cct', 'lux', 'beam', 'photo']} />
+  </section>
+</Layout>
+
+<script is:inline>
+  (() => {
+    const range = document.getElementById('cri-range');
+    const valueEl = document.getElementById('cri-value');
+    const selLabel = document.getElementById('cri-sel-label');
+    const tierLabel = document.getElementById('cri-tier-label');
+    const tierDetail = document.getElementById('cri-tier-detail');
+    const swatchSel = document.getElementById('cri-swatch-sel');
+    const swatchRef = document.getElementById('cri-swatch-ref');
+
+    // Reference palette (saturated colors), hex values.
+    const PALETTE = [
+      '#C8102E',
+      '#005EB8',
+      '#009639',
+      '#FFD100',
+      '#8A1538',
+      '#633695',
+      '#008096',
+      '#FF6A13',
+      '#6B7A8F',
+      '#7A5C3E',
+    ];
+
+    const render = (swatch, cri) => {
+      const saturation = Math.max(0.25, (cri - 60) / 40); // 60CRI -> washed, 100 -> full
+      swatch.innerHTML = PALETTE.map((hex) => {
+        const { r, g, b } = hexToRgb(hex);
+        // desaturate toward a neutral gray:
+        const gray = Math.round(r * 0.299 + g * 0.587 + b * 0.114);
+        const nr = Math.round(r + (gray - r) * (1 - saturation));
+        const ng = Math.round(g + (gray - g) * (1 - saturation));
+        const nb = Math.round(b + (gray - b) * (1 - saturation));
+        return `<span class="h-12 rounded-lg border border-gray-200 dark:border-slate-600" style="background:rgb(${nr},${ng},${nb})" title="${hex}"></span>`;
+      }).join('');
+    };
+
+    const hexToRgb = (hex) => {
+      const n = parseInt(hex.slice(1), 16);
+      return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
+    };
+
+    const tier = (cri) => {
+      if (cri >= 95)
+        return {
+          label: 'Museum / Art grade — 95+',
+          detail: 'For galleries, luxury retail and artwork where color fidelity is critical.',
+        };
+      if (cri >= 90)
+        return {
+          label: 'Premium — 90+',
+          detail: 'Recommended for retail, hospitality and anything where products must look their best.',
+        };
+      if (cri >= 80)
+        return { label: 'Standard — 80+', detail: 'Acceptable for general commercial and office lighting.' };
+      return {
+        label: 'Budget / Basic — below 80',
+        detail: 'Colors look washed out; avoid for retail, food or fabric displays.',
+      };
+    };
+
+    const update = () => {
+      const cri = Number(range.value);
+      valueEl.textContent = String(cri);
+      selLabel.textContent = String(cri);
+      render(swatchSel, cri);
+      render(swatchRef, 98);
+      const t = tier(cri);
+      tierLabel.textContent = t.label;
+      tierDetail.textContent = t.detail;
+    };
+
+    range.addEventListener('input', update);
+    update();
+  })();
+</script>
