@@ -1,0 +1,186 @@
+---
+import Layout from '~/layouts/PageLayout.astro';
+import BeamAngleCalculator from '~/components/BeamAngleCalculator.astro';
+import Steps from '~/components/widgets/Steps.astro';
+import FAQs from '~/components/widgets/FAQs.astro';
+import CallToAction from '~/components/widgets/CallToAction.astro';
+import { getPermalink, getCanonical } from '~/utils/permalinks';
+
+const metadata = {
+  title: 'Beam Angle Calculator — LED Beam Spread & Spot Size Tool',
+  description:
+    'Free LED beam angle calculator: convert beam angle, mounting distance and beam diameter. Calculate spot size, beam spread and recommended beam angles for track lighting and downlights.',
+  canonical: String(getCanonical(getPermalink('/beam-angle-calculator'))),
+};
+const breadcrumbJson = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: [
+    { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://astrowindwopress.vercel.app/' },
+    {
+      '@type': 'ListItem',
+      position: 2,
+      name: 'Beam Angle Calculator',
+      item: 'https://astrowindwopress.vercel.app/beam-angle-calculator',
+    },
+  ],
+};
+---
+
+<Layout metadata={metadata}>
+  <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+
+  <!-- Hero -->
+  <section
+    class="relative not-prose bg-gradient-to-b from-blue-50/60 to-transparent py-14 dark:from-slate-900/40 md:py-20"
+  >
+    <div class="mx-auto max-w-4xl px-4 text-center">
+      <p class="text-base font-bold uppercase tracking-wide text-secondary dark:text-blue-200">Lighting Design Tool</p>
+      <h1 class="mt-3 text-4xl font-bold leading-tight tracking-tighter font-heading dark:text-white md:text-5xl">
+        LED Beam Angle Calculator
+      </h1>
+      <p class="mx-auto mt-4 max-w-2xl text-lg text-muted dark:text-slate-300">
+        Find the beam angle, beam spread or spot size for any LED track light or downlight. Enter two values below and
+        get the third instantly.
+      </p>
+    </div>
+  </section>
+
+  <!-- Calculator -->
+  <section class="mx-auto max-w-5xl px-4 pb-6 md:px-6">
+    <BeamAngleCalculator enableUnitToggle />
+  </section>
+
+  <!-- How to use -->
+  <Steps
+    tagline="How to Use"
+    title="Three Simple Steps"
+    subtitle="Measure twice, install once — the calculator does the math for you."
+    items={[
+      {
+        title: 'Measure the mounting distance',
+        description:
+          'Measure from the fixture lens (light source) to the surface you want to illuminate. The bigger the distance, the larger the beam spread for the same beam angle.',
+      },
+      {
+        title: 'Pick the beam angle',
+        description:
+          "Choose your fixture's beam angle (e.g. 15° spot or 36° flood) or measure the beam diameter on the surface to find the angle you actually need.",
+      },
+      {
+        title: 'Get the spot size instantly',
+        description:
+          'The calculator shows the beam diameter at your mounting distance and a visual diagram of the cone. Fine-tune values until the spot covers your display or artwork.',
+      },
+    ]}
+  />
+
+  <!-- Beam angle guide -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">Standard Beam Angles and Typical Uses</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Most LED track lights and downlights are available in a few standard beam angles. Here is a quick guide:
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[520px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Beam angle</th>
+              <th class="py-3 pr-4 font-semibold">Category</th>
+              <th class="py-3 pr-4 font-semibold">Beam spread at 3 m (10 ft)</th>
+              <th class="py-3 font-semibold">Best for</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">10°</td>
+              <td class="py-3 pr-4">Ultra narrow spot</td>
+              <td class="py-3 pr-4">0.5 m</td>
+              <td class="py-3">Accents, logos, sculptures, long throws</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">15°</td>
+              <td class="py-3 pr-4">Ultra narrow spot</td>
+              <td class="py-3 pr-4">0.8 m</td>
+              <td class="py-3">Highlighting small objects and artwork</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">24°</td>
+              <td class="py-3 pr-4">Narrow spot</td>
+              <td class="py-3 pr-4">1.3 m</td>
+              <td class="py-3">Retail displays, wall washing, picture lights</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">36°</td>
+              <td class="py-3 pr-4">Medium flood</td>
+              <td class="py-3 pr-4">1.9 m</td>
+              <td class="py-3">General accent and feature lighting</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">60°</td>
+              <td class="py-3 pr-4">Wide flood</td>
+              <td class="py-3 pr-4">3.5 m</td>
+              <td class="py-3">General lighting, shelves, big displays</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">90°</td>
+              <td class="py-3 pr-4">Extra wide flood</td>
+              <td class="py-3 pr-4">6.0 m</td>
+              <td class="py-3">Ambient light and short-throw coverage</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-xs text-muted dark:text-slate-500">
+        * Beam spread values are approximate (full beam angle, cone model). Actual distribution varies by reflector and
+        lens optics.
+      </p>
+    </div>
+  </section>
+
+  <!-- FAQs -->
+  <FAQs
+    tagline="FAQs"
+    title="Beam Angle Questions, Answered"
+    subtitle="Common questions about LED beam angles, beam spread and spot size."
+    classes={{ container: 'max-w-4xl' }}
+    items={[
+      {
+        title: 'What is the beam angle of an LED light?',
+        description:
+          'The beam angle (full angle) is the angle of the cone of light emitted by a fixture. It defines how tight or wide the light spreads: a 15° beam is a tight spot, a 60° beam is a wide flood.',
+      },
+      {
+        title: 'How do you calculate beam angle?',
+        description:
+          'Use the formula: beam angle = 2 × arctan(beam diameter ÷ (2 × mounting distance)). Enter your beam diameter and distance in the calculator above and it will do the math for you.',
+      },
+      {
+        title: 'What is the difference between beam angle and field angle?',
+        description:
+          'Beam angle is measured at 50% of maximum intensity (FWHM). Field angle is measured at 10% of maximum intensity and is wider. Most spec sheets list the beam angle at 50%.',
+      },
+      {
+        title: 'Does beam angle change with distance?',
+        description:
+          'No. The beam angle is fixed for a given fixture and optic. What changes with distance is the beam diameter (spot size) — the further the light, the wider the spot.',
+      },
+      {
+        title: 'Which beam angle should I choose for retail display lighting?',
+        description:
+          'For tight accents on products, use 10°–15°. For general display and shelving, 24°–36° works best. For wide shelving or wall washing, choose 60° or wider. Our team can also recommend optics for your project.',
+      },
+    ]}
+  />
+
+  <!-- CTA -->
+  <CallToAction
+    title="Not Sure Which Beam Angle You Need?"
+    subtitle="Tell us your application and mounting height — our engineers will recommend the right fixture and optics for free."
+    actions={[
+      { variant: 'primary', text: 'Talk to an Engineer', href: getPermalink('/contact') },
+      { variant: 'secondary', text: 'View Track Lighting', href: getPermalink('/products/track-lighting') },
+    ]}
+  />
+</Layout>

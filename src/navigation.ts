@@ -24,6 +24,15 @@ export const headerData = {
       ],
     },
     {
+      text: 'Tools',
+      links: [
+        {
+          text: 'Beam Angle Calculator',
+          href: getPermalink('/beam-angle-calculator'),
+        },
+      ],
+    },
+    {
       text: 'OEM / ODM',
       href: getPermalink('/oem-odm'),
     },
@@ -89,6 +98,14 @@ export const footerData = {
         { text: 'Quality Control', href: getPermalink('/quality-control') },
         { text: 'Certifications', href: getPermalink('/certifications') },
         { text: 'Blog', href: getBlogPermalink() },
+      ],
+    },
+    {
+      title: 'Tools',
+      links: [
+        { text: 'Beam Angle Calculator', href: getPermalink('/beam-angle-calculator') },
+        { text: 'Contact Us', href: getPermalink('/contact') },
+        { text: 'Get a Quote', href: getPermalink('/pricing') },
       ],
     },
     {
