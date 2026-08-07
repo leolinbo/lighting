@@ -199,17 +199,20 @@ const products = [
       const el = document.getElementById(id);
       if (el && value) el.value = value;
     };
-    // Select options carry unit suffixes ("24°", "15W") but tool pages pass
-    // plain numbers (?angle=24&watt=15). Normalise so the option gets selected.
-    const withSuffix = (value, suffix, regex) => {
+    // Select options carry unit suffixes ("24°", "15W", "2700K") but tool pages
+    // pass plain numbers (?angle=24&watt=15&cct=3000). Normalise so the option
+    // gets selected. `passthrough` lists exact option values that must be kept
+    // as-is ("Custom", "Tunable White").
+    const withSuffix = (value, suffix, regex, passthrough = ['Custom']) => {
       if (!value) return null;
-      return regex.test(value) || value === 'Custom' ? value : `${value}${suffix}`;
+      return regex.test(value) || passthrough.includes(value) ? value : `${value}${suffix}`;
     };
     const angleParam = withSuffix(params.get('angle'), '°', /°$/);
     const wattParam = withSuffix(params.get('watt'), 'W', /W$/);
+    const cctParam = withSuffix(params.get('cct'), 'K', /K$/, ['Tunable White', 'Custom']);
     set('q-product', params.get('product'));
     set('q-angle', angleParam);
-    set('q-cct', params.get('cct'));
+    set('q-cct', cctParam);
     set('q-watt', wattParam);
     set('q-qty', params.get('qty'));
 
