@@ -58,11 +58,16 @@ main:
               - "release/*.zip"
         - name: deploy-to-vercel
           # Vercel 自动部署（production）。
-          # 密钥：VERCEL_TOKEN 通过密钥仓库 imports 注入（见文末配置指引）。
+          # 密钥：VERCEL_TOKEN 通过密钥仓库 imports 注入（见下方 imports 配置）。
           # 项目信息已内嵌，无需再通过环境变量提供：
           #   VERCEL_ORG_ID      = team_o0BtTLWzAHnGL2hIHk6iMnZs
           #   VERCEL_PROJECT_ID  = prj_cpAHrPXwDLRBSEMietKswTgknpFx
           # 未配置 VERCEL_TOKEN 时自动跳过，不影响构建。
+          #
+          # 重要：必须在**非 git 目录**中构造 .vercel/output 预构建产物再
+          # `vercel deploy --prebuilt`。若在仓库目录内直接 `vercel deploy`，
+          # CLI 会携带 CNB 仓库的 git 元数据，与项目绑定的 GitHub 源（sourceless）
+          # 冲突导致部署被 BLOCKED。
           script: |
             set -e
             if [ -z "${VERCEL_TOKEN}" ]; then
@@ -70,16 +75,22 @@ main:
               exit 0
             fi
             echo "==> 部署到 Vercel (production) ..."
-            mkdir -p .vercel
+            DEPLOY_DIR="$(mktemp -d)/vd"
+            mkdir -p "${DEPLOY_DIR}/.vercel/output/static" "${DEPLOY_DIR}/.vercel"
             printf '{"orgId":"%s","projectId":"%s"}\n' \
               "team_o0BtTLWzAHnGL2hIHk6iMnZs" \
-              "prj_cpAHrPXwDLRBSEMietKswTgknpFx" > .vercel/project.json
-            # 部署前先备份现有 dist，失败时回滚，避免部署中断留下残缺产物
-            if [ -d dist ]; then
-              rm -rf /tmp/vercel-dist-backup
-              cp -r dist /tmp/vercel-dist-backup
+              "prj_cpAHrPXwDLRBSEMietKswTgknpFx" > "${DEPLOY_DIR}/.vercel/project.json"
+            # 复制静态产物（Astro 静态站：dist/* -> .vercel/output/static/）
+            cp -r dist/* "${DEPLOY_DIR}/.vercel/output/static/"
+            # 保留 vercel.json 中的重定向与安全响应头
+            if [ -f vercel.json ]; then
+              cp vercel.json "${DEPLOY_DIR}/vercel.json"
             fi
-            if ! npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes; then
+            cat > "${DEPLOY_DIR}/.vercel/output/config.json" <<'CONFIG'
+            {"version":3,"routes":[{"src":"^/(.*)/$","headers":{"Location":"/$1"},"status":308},{"src":"^/sitemap\\.xml$","headers":{"Location":"/sitemap-index.xml"},"status":308}]}
+            CONFIG
+            cd "${DEPLOY_DIR}"
+            if ! npx --yes vercel deploy --prod --prebuilt --token="${VERCEL_TOKEN}" --yes; then
               echo "==> Vercel 部署失败"
               exit 1
             fi
