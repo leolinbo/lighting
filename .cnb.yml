@@ -16,7 +16,7 @@ main:
       docker:
         build:
           dockerfile: ./Dockerfile.ci
-          by: [package.json]
+          by: [package.json, package-lock.json]
           versionBy: [package-lock.json]
       # 仅当代码/配置有变更时打包；如需“任何 push 都打包”，删除 ifModify 即可
       ifModify:
@@ -26,6 +26,7 @@ main:
         - "package-lock.json"
         - "astro.config.ts"
         - "tsconfig.json"
+        - ".cnb.yml"
       stages:
         - name: build
           script: |
@@ -51,6 +52,20 @@ main:
           settings:
             attachments:
               - "release/*.zip"
+        - name: deploy-to-vercel
+          # Vercel 自动部署（production）：需要 VERCEL_TOKEN，
+          # 请通过密钥仓库 imports 注入，例如：
+          #   imports:
+          #     - https://cnb.cool/<org>/<secret-repo>/-/blob/main/env.yml   # 内含 VERCEL_TOKEN: xxxx
+          script: |
+            set -e
+            if [ -z "${VERCEL_TOKEN}" ]; then
+              echo "==> VERCEL_TOKEN 未配置，跳过 Vercel 部署（在密钥仓库中配置 VERCEL_TOKEN 后即自动生效）"
+              exit 0
+            fi
+            echo "==> 部署到 Vercel (production) ..."
+            npx --yes vercel deploy dist --prod --token="${VERCEL_TOKEN}" --yes --name=astrowindwopress
+            echo "==> Vercel 部署完成"
 
 "$":
   tag_push:
@@ -58,7 +73,7 @@ main:
       docker:
         build:
           dockerfile: ./Dockerfile.ci
-          by: [package.json]
+          by: [package.json, package-lock.json]
           versionBy: [package-lock.json]
       stages:
         - name: build
