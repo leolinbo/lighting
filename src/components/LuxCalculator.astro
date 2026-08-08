@@ -354,9 +354,11 @@ const applications = [
 
     if (unitEl) {
       unitEl.addEventListener('change', () => {
-        // Convert the numeric inputs to the new unit system so the real-world
-        // dimensions stay the same (8 m becomes 26.25 ft, not 8 ft).
-        const factor = isMetric() ? 1 / UNIT_M_PER_FT : UNIT_M_PER_FT;
+        // The `change` event fires AFTER the <select> already switched to the
+        // NEW unit, so `isMetric()` reflects the new unit system. Convert the
+        // inputs from the OLD unit to the NEW one so the real-world dimensions
+        // stay the same (8 m becomes 26.25 ft, not 8 ft).
+        const factor = isMetric() ? UNIT_M_PER_FT : 1 / UNIT_M_PER_FT;
         ['length', 'width', 'height'].forEach((suffix) => {
           const node = el(suffix);
           if (node && node.value !== '') {
