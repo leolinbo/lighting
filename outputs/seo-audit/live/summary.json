@@ -1,0 +1,66 @@
+{
+ "fetched_at": "2026-08-10 09:58:01",
+ "keywords": {
+  "query_count": 12,
+  "total_organic_titles": 110,
+  "title_frequency": {
+   "track": 44,
+   "commercial": 15,
+   "lights": 15,
+   "fixtures": 12,
+   "recessed": 12,
+   "art": 11,
+   "magnetic": 9,
+   "beam": 9,
+   "systems": 8,
+   "museum": 8,
+   "gallery": 8,
+   "downlights": 7,
+   "china": 7,
+   "wholesale": 7,
+   "shop": 6,
+   "cri": 6,
+   "solutions": 5,
+   "youtube": 5,
+   "downlight": 5,
+   "manufacturer": 5,
+   "factory": 5,
+   "angle": 5,
+   "system": 4,
+   "best": 4,
+   "high": 4
+  }
+ },
+ "competitors": {
+  "alconlighting.com": {
+   "global_rank": 202481,
+   "visits": 172004,
+   "domain_rating": 51
+  },
+  "grnled.com": {
+   "global_rank": 1362131,
+   "visits": 20639,
+   "domain_rating": 46
+  },
+  "tendalighting.com": {
+   "global_rank": null,
+   "visits": 0,
+   "domain_rating": 9
+  },
+  "waclighting.com": {
+   "global_rank": 207694,
+   "visits": 140953,
+   "domain_rating": 71
+  }
+ },
+ "own_site": {
+  "encore-tech.com": {
+   "global_rank": 6446248,
+   "visits": 2527
+  },
+  "astrowindwopress.vercel.app": {
+   "global_rank": null,
+   "visits": 0
+  }
+ }
+}
