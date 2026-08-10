@@ -1,0 +1,138 @@
+{
+ "encore-tech.com": {
+  "traffic": {
+   "domain": "encore-tech.com",
+   "title": "Commercial Track Lighting, Track Light Fixtures, Track Heads Factory China",
+   "description": "encore is dedicated to manufacturing high quality led luminaries and providing  premium led lighting solutions to enhance indoor commercial site, hotels, museums and galleries, which are distinctive, and combine functional and emotional appeal.",
+   "overview": {
+    "global_rank": 6446248,
+    "country_rank": {
+     "country": "US",
+     "rank": 2113903
+    },
+    "visits": 2527,
+    "bounce_rate": 0.5646616454719404,
+    "pages_per_visit": 1.7553170702097187,
+    "time_on_site_seconds": 40.02003014556642,
+    "month": "2026-06"
+   },
+   "monthly_visits": [
+    {
+     "month": "2026-04",
+     "visits": 1346
+    },
+    {
+     "month": "2026-05",
+     "visits": 1299
+    },
+    {
+     "month": "2026-06",
+     "visits": 2527
+    }
+   ],
+   "traffic_sources": {
+    "direct": 0,
+    "search": 0,
+    "search_organic": 0,
+    "search_paid": 0,
+    "social": 0,
+    "social_organic": 0,
+    "social_paid": 0,
+    "referrals": 0,
+    "paid_referrals": 0,
+    "mail": 0,
+    "gen_ai": 0,
+    "affiliate": 0,
+    "other": 0
+   },
+   "top_keywords": [
+    {
+     "name": "encore tech",
+     "volume": 260,
+     "cpc": 0,
+     "estimated_value": 230
+    },
+    {
+     "name": "ovega tlz",
+     "volume": 230,
+     "cpc": 0,
+     "estimated_value": 210
+    },
+    {
+     "name": "encore international company limite",
+     "volume": 80,
+     "cpc": 0,
+     "estimated_value": 80
+    },
+    {
+     "name": "encore",
+     "volume": 69920,
+     "cpc": 1.81,
+     "estimated_value": 0
+    },
+    {
+     "name": "dolae",
+     "volume": 3770,
+     "cpc": 0.07,
+     "estimated_value": 0
+    }
+   ],
+   "top_regions": [
+    {
+     "country": "US",
+     "name": "United States",
+     "share": 1
+    }
+   ],
+   "ai_traffic": null
+  }
+ },
+ "astrowindwopress.vercel.app": {
+  "traffic": {
+   "domain": "astrowindwopress.vercel.app",
+   "title": null,
+   "description": null,
+   "overview": {
+    "global_rank": null,
+    "country_rank": null,
+    "visits": 0,
+    "bounce_rate": 0,
+    "pages_per_visit": 0,
+    "time_on_site_seconds": 0,
+    "month": "2026-06"
+   },
+   "monthly_visits": [
+    {
+     "month": "2026-04",
+     "visits": 0
+    },
+    {
+     "month": "2026-05",
+     "visits": 0
+    },
+    {
+     "month": "2026-06",
+     "visits": 0
+    }
+   ],
+   "traffic_sources": {
+    "direct": 0,
+    "search": 0,
+    "search_organic": 0,
+    "search_paid": 0,
+    "social": 0,
+    "social_organic": 0,
+    "social_paid": 0,
+    "referrals": 0,
+    "paid_referrals": 0,
+    "mail": 0,
+    "gen_ai": 0,
+    "affiliate": 0,
+    "other": 0
+   },
+   "top_keywords": [],
+   "top_regions": [],
+   "ai_traffic": null
+  }
+ }
+}

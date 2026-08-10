@@ -10,7 +10,7 @@ from collections import Counter, OrderedDict
 from pathlib import Path
 
 BASE_URL = os.environ.get("TABAPI_BASE_URL", "https://tabapi.com/api/v1")
-PROXY = "http://127.0.0.1:7897"
+PROXY = os.environ.get("TABAPI_PROXY", "")  # optional, e.g. http://127.0.0.1:7897
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "outputs" / "seo-audit" / "keywords"
@@ -54,8 +54,7 @@ def search(q, key, country="us", lang="en", page=1):
     params = urllib.parse.urlencode({"q": q, "country": country, "language": lang, "page": page})
     url = f"{BASE_URL}/search/google?{params}"
     req = urllib.request.Request(url, headers={"Authorization": f"Bearer {key}", "User-Agent": UA})
-    proxy = urllib.request.ProxyHandler({"http": PROXY, "https": PROXY})
-    opener = urllib.request.build_opener(proxy)
+    opener = urllib.request.build_opener(*([urllib.request.ProxyHandler({"http": PROXY, "https": PROXY})] if PROXY else []))
     with opener.open(req, timeout=30) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
