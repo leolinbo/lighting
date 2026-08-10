@@ -25,10 +25,22 @@ const breadcrumbJson = {
     },
   ],
 };
+const productJson = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'LED Track Lighting Systems — VEGA / OVEGA / IMAX / FLEX',
+  description:
+    'Track lighting manufacturer producing LED track systems for retail, museums and commercial spaces. OEM/ODM available, ETL/CE/ISO certified factory since 2011.',
+  brand: { '@type': 'Brand', name: 'ENCORE' },
+  category: 'LED Track Lighting',
+  image: ['https://astrowindwopress.vercel.app/images/products/prod-ovega-web-01.jpg'],
+  manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://astrowindwopress.vercel.app/' },
+};
 ---
 
 <Layout metadata={metadata}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+  <script type="application/ld+json" set:html={JSON.stringify(productJson)} />
   <Content
     tagline="Products"
     title="LED Track Lighting Manufacturer"

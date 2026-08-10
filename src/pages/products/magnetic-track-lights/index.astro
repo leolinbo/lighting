@@ -22,10 +22,22 @@ const breadcrumbJson = {
     },
   ],
 };
+const productJson = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'Magnetic Track Lighting Systems — AURA / DISC / GRIDIS / NOVA / LATTICE',
+  description:
+    'Magnetic track lighting manufacturer offering slim 5mm, 15mm and 20mm systems for modern interiors. CRI 90+, OEM/ODM and ETL/CE certified factory pricing.',
+  brand: { '@type': 'Brand', name: 'ENCORE' },
+  category: 'Magnetic Track Lighting',
+  image: ['https://astrowindwopress.vercel.app/images/products/prod-movia-web-01.jpg'],
+  manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://astrowindwopress.vercel.app/' },
+};
 ---
 
 <Layout metadata={metadata}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+  <script type="application/ld+json" set:html={JSON.stringify(productJson)} />
   <Content
     tagline="Products"
     title="Magnetic Track Lighting Manufacturer"

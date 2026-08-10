@@ -24,10 +24,22 @@ const breadcrumbJson = {
     },
   ],
 };
+const productJson = {
+  '@context': 'https://schema.org',
+  '@type': 'Product',
+  name: 'LED Downlights — ELLA / AVA / Galaxy / DELLA',
+  description:
+    'LED downlight manufacturer and wholesale supplier of recessed downlights for commercial projects. CRI 90+ options with ETL/CE/ISO certified OEM/ODM service.',
+  brand: { '@type': 'Brand', name: 'ENCORE' },
+  category: 'LED Downlights',
+  image: ['https://astrowindwopress.vercel.app/images/products/prod-ella-web-01.jpg'],
+  manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://astrowindwopress.vercel.app/' },
+};
 ---
 
 <Layout metadata={metadata}>
   <script type="application/ld+json" set:html={JSON.stringify(breadcrumbJson)} />
+  <script type="application/ld+json" set:html={JSON.stringify(productJson)} />
   <Content
     tagline="Products"
     title="LED Downlight Manufacturer"
