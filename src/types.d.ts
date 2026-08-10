@@ -28,6 +28,9 @@ export interface Post {
   /** Rendered post body — Astro component factory for local content, or HTML string from CMS. */
   Content?: AstroComponentFactory | string;
 
+  /** FAQ entries extracted from the post body (question + answer), used for FAQPage schema. */
+  faqs?: { question: string; answer: string }[];
+
   /** Estimated reading time in minutes. */
   readingTime?: number;
 }
