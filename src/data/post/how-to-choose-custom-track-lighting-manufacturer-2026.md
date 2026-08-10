@@ -15,22 +15,6 @@ metadata:
   description: 'How to choose a custom track lighting manufacturer in 2026: factory vs trading desk, certification, MOQ, lead time, samples, QC checklist, and why CRI ≥ 95 with UV/IR filtering is the new baseline for custom LED track lighting.'
 ---
 
-import { Image } from 'astro:assets';
-import coverImg from '../../assets/images/blog/custom-track-2026/custom-track-2026-guide-cover.png';
-import factoryImg from '../../assets/images/factory/fac-newfactory-web-01.jpg';
-import qcImg from '../../assets/images/factory/factory-qc-web-01.jpg';
-import visitImg from '../../assets/images/factory/fac-visit-web-01.jpg';
-
-<Image
-  src={coverImg}
-  alt="Custom track lighting manufacturer comparison guide 2026 — real factory versus trading desk checklist"
-  widths={[400, 800, 1200]}
-  sizes="(max-width: 768px) 100vw, 768px"
-  format="webp"
-  loading="eager"
-  class="rounded-md my-6"
-/>
-
 Searching for a **custom track lighting manufacturer** in 2026 is a different game than it was even three years ago. The keyword is nearly empty — low competition, almost no serious B2B guides ranking for it — which means the buyer who reads this guide and then verifies a factory against the checklist below is already ahead of most sourcing teams.
 
 This guide covers: how a real custom factory differs from a standard product factory, a vetting checklist (certification, MOQ, lead time, samples, QC), why **CRI ≥ 95 with UV/IR filtering** is now a baseline requirement for custom track lighting, and what ENCORE's custom capability looks like in practice.
@@ -39,20 +23,20 @@ This guide covers: how a real custom factory differs from a standard product fac
 
 Most suppliers that call themselves a **custom track lighting manufacturer** are running a catalog business. The difference is not whether they say yes to your email — it is whether they can change the product at the engineering level.
 
-| Capability | Standard product factory | Real custom factory |
-|---|---|---|
-| Design changes | Re-label, recolor, maybe cut track length | Re-engineer optics, thermal, electronics, housing |
-| Beam angle control | Fixed catalog angles | Custom reflector + lens design with IES file |
-| CRI | 80–90 commodity bins | 95+ with certified binning and UV/IR filtering |
-| Certification | "Available" in general | ETL/UL/CE named on **your exact SKU** |
-| Prototype | Catalog sample | 3–5 piece engineered prototype with photometric data |
-| MOQ | Fixed, high (often 500–1000+) | Negotiated per design complexity, tooling itemized |
+| Capability         | Standard product factory                  | Real custom factory                                  |
+| ------------------ | ----------------------------------------- | ---------------------------------------------------- |
+| Design changes     | Re-label, recolor, maybe cut track length | Re-engineer optics, thermal, electronics, housing    |
+| Beam angle control | Fixed catalog angles                      | Custom reflector + lens design with IES file         |
+| CRI                | 80–90 commodity bins                      | 95+ with certified binning and UV/IR filtering       |
+| Certification      | "Available" in general                    | ETL/UL/CE named on **your exact SKU**                |
+| Prototype          | Catalog sample                            | 3–5 piece engineered prototype with photometric data |
+| MOQ                | Fixed, high (often 500–1000+)             | Negotiated per design complexity, tooling itemized   |
 
-A standard product factory can customize a *finish*. A custom factory customizes *the light itself* — the beam, the spectrum, the thermal path, the driver. When you are sourcing track lighting for a retail chain or a museum, that distinction decides whether your project meets its photometric specification or just its purchase order.
+A standard product factory can customize a _finish_. A custom factory customizes _the light itself_ — the beam, the spectrum, the thermal path, the driver. When you are sourcing track lighting for a retail chain or a museum, that distinction decides whether your project meets its photometric specification or just its purchase order.
 
-![ENCORE LED lighting manufacturing facility in Shenzhen, China](/images/blog/custom-track-2026/fac-newfactory-web-01.jpg)
+![ENCORE LED lighting manufacturing facility in Shenzhen, China](/images/blog/custom-track-2026/fac-showroom-web-01.jpg)
 
-*ENCORE LED lighting manufacturing facility in Shenzhen, China — owned production, not a trading desk.*
+_ENCORE LED lighting manufacturing facility in Shenzhen, China — owned production, not a trading desk._
 
 ## The 2026 B2B Vet Checklist (Certification, MOQ, Lead Time, Samples, QC)
 
@@ -85,7 +69,7 @@ Real custom work needs incoming inspection (IQC), in-process control (IPQC), out
 
 ![Hand assembly and soldering of LED modules at an ESD-protected workstation](/images/blog/custom-track-2026/factory-qc-web-01.jpg)
 
-*Hand assembly and soldering of LED modules at an ESD-protected workstation.*
+_Hand assembly and soldering of LED modules at an ESD-protected workstation._
 
 ## Why CRI ≥ 95 + UV/IR Filtering Is Now the Baseline for Custom Track Lighting
 
@@ -99,7 +83,7 @@ Three years ago, CRI 90 was a premium spec. In 2026, if you are paying for custo
 
 ### Why UV/IR filtering matters
 
-Custom track lighting is specified for spaces where *light damage* is a real cost — artwork, fabric, food, cosmetics. A high-CRI LED without UV/IR filtering still emits trace UV and infrared. Filtering them is a physical layer (coatings or lens absorption), not a marketing claim. When you request a custom fixture, ask for the **UV/IR filtration spec in writing**, not just "low UV".
+Custom track lighting is specified for spaces where _light damage_ is a real cost — artwork, fabric, food, cosmetics. A high-CRI LED without UV/IR filtering still emits trace UV and infrared. Filtering them is a physical layer (coatings or lens absorption), not a marketing claim. When you request a custom fixture, ask for the **UV/IR filtration spec in writing**, not just "low UV".
 
 ### The spec you should write into your RFQ
 
@@ -129,7 +113,7 @@ We publish photometric data for our standard ranges — [track lighting](/produc
 
 ![Clients visiting the factory to audit capability before committing to an order](/images/blog/custom-track-2026/fac-visit-web-01.jpg)
 
-*Clients auditing the factory before committing to an order — the only reliable way to vet a custom manufacturer.*
+_Clients auditing the factory before committing to an order — the only reliable way to vet a custom manufacturer._
 
 ## Why This Keyword Is Worth Ranking For in 2026
 
@@ -137,9 +121,9 @@ The keyword **custom track lighting manufacturer** has near-zero competition (KD
 
 Related, higher-volume searches that this guide feeds into:
 
-- *custom track lighting manufacturer usa / online* — long-tail variants
-- *best custom track lighting manufacturer* — comparison intent
-- *OEM track lighting* / *ODM lighting factory* — the sourcing models behind "custom"
+- _custom track lighting manufacturer usa / online_ — long-tail variants
+- _best custom track lighting manufacturer_ — comparison intent
+- _OEM track lighting_ / _ODM lighting factory_ — the sourcing models behind "custom"
 
 ## FAQ
 
@@ -164,4 +148,4 @@ Choosing a **custom track lighting manufacturer** in 2026 comes down to engineer
 
 If you are scoping a custom track lighting project, send your spec sheet and we will tell you honestly what is buildable, what is not, and what it costs. [Request a custom lighting quote →](https://www.encore-tech.com/contact-us/)
 
-*Read next: [Custom Track Lighting Manufacturer: What Custom Really Means](/custom-track-lighting-manufacturer-what-custom-really-means/) — the sourcing-models deep dive this guide's checklist is built on.*
+_Read next: [Custom Track Lighting Manufacturer: What Custom Really Means](/custom-track-lighting-manufacturer-what-custom-really-means/) — the sourcing-models deep dive this guide's checklist is built on._
