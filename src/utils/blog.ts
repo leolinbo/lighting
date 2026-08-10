@@ -59,6 +59,12 @@ export function extractFaqs(body: string): { question: string; answer: string }[
       break;
     }
 
+    // Stop at a horizontal-rule separator (---) that closes the FAQ section,
+    // so a trailing divider + body text isn't swallowed into the last answer.
+    if (/^---+$/.test(line)) {
+      break;
+    }
+
     // H3 heading → question (format 1)
     const h3 = line.match(/^###\s+(.+)$/);
     if (h3) {
