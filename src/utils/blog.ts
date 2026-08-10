@@ -20,6 +20,75 @@ function estimateReadingTime(text: string): number {
 }
 
 /**
+ * Extract FAQ entries from a post body.
+ *
+ * Supports two common Markdown FAQ formats:
+ *   1. `### Question` followed by a paragraph (answer)
+ *   2. `**Question?**` followed by a paragraph (answer)
+ *
+ * Only the section under a `## FAQ` (or `## FAQ ...`) heading is scanned.
+ * Returns [] when no FAQ section is present, so pages without FAQs emit no schema.
+ */
+export function extractFaqs(body: string): { question: string; answer: string }[] {
+  if (!body) return [];
+
+  // Locate the FAQ section: `## FAQ` (optionally with a suffix such as "## FAQ — ...").
+  const faqHeading = /^##\s+FAQ(?:\s*[—:-]\s*.*)?\s*$/im;
+  const lines = body.split(/\r?\n/);
+  const start = lines.findIndex((line) => faqHeading.test(line.trim()));
+  if (start === -1) return [];
+
+  const faqs: { question: string; answer: string }[] = [];
+  let current: { question: string; answer: string[] } | null = null;
+
+  const flush = () => {
+    if (current && current.answer.length) {
+      const answer = current.answer.join(' ').trim();
+      if (answer) {
+        faqs.push({ question: current.question, answer });
+      }
+    }
+    current = null;
+  };
+
+  for (let i = start + 1; i < lines.length; i++) {
+    const line = lines[i].trim();
+
+    // Stop at the next top-level heading (## …) that is not part of the FAQ section.
+    if (/^##\s+/.test(line) && !/^##\s+FAQ(?:\s*[—:-]\s*.*)?\s*$/i.test(line)) {
+      break;
+    }
+
+    // H3 heading → question (format 1)
+    const h3 = line.match(/^###\s+(.+)$/);
+    if (h3) {
+      flush();
+      current = { question: h3[1].trim(), answer: [] };
+      continue;
+    }
+
+    // Bold run-in question → question (format 2: **Question?**)
+    const bold = line.match(/^\*\*(.+?)\*\*\s*$/);
+    if (bold) {
+      flush();
+      current = { question: bold[1].trim(), answer: [] };
+      continue;
+    }
+
+    // Accumulate answer paragraphs for the current question.
+    if (current && line) {
+      current.answer.push(line.replace(/^[*_-]\s+/, ''));
+    }
+
+    // Blank line between Q&A blocks: keep the current question open until the next heading,
+    // so multi-paragraph answers are captured correctly.
+  }
+  flush();
+
+  return faqs;
+}
+
+/**
  * Normalise a local content-collection entry into our internal Post shape.
  */
 async function normalizeEntry(entry: Awaited<ReturnType<typeof getCollection>>[number]): Promise<Post> {
@@ -64,6 +133,8 @@ async function normalizeEntry(entry: Awaited<ReturnType<typeof getCollection>>[n
     metadata: entry.data.metadata as MetaData | undefined,
 
     Content,
+
+    faqs: extractFaqs(entry.body ?? ''),
 
     readingTime: estimateReadingTime(entry.body ?? ''),
   };
