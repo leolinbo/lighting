@@ -28,8 +28,11 @@ main:
         - "tsconfig.json"
         - ".cnb.yml"
       # 注：VERCEL_TOKEN 通过密钥仓库 imports 注入（安全存储，不落仓库）。
-      imports:
-        - https://cnb.cool/Beamanglespace/beamangle-secrets/-/blob/main/vercel.yml
+      # ⚠️ 尝试恢复 imports 后，CI 仍报 vercel.yml 解析错误（3:16），
+      #    说明密钥仓库文件仍未修复。临时禁用 imports 避免阻塞构建。
+      #    等用户在密钥仓库将 vercel.yml 重建为纯 KV 格式后再恢复：
+      # imports:
+      #   - https://cnb.cool/Beamanglespace/beamangle-secrets/-/blob/main/vercel.yml
       stages:
         - name: build
           script: |
