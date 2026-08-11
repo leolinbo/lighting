@@ -28,10 +28,8 @@ main:
         - "tsconfig.json"
         - ".cnb.yml"
       # 注：VERCEL_TOKEN 通过密钥仓库 imports 注入（安全存储，不落仓库）。
-      # ⚠️ 验证结果：用户重建后的 vercel.yml 仍报 Invalid YAML content（非空但非合法 KV）。
-      #    临时禁用 imports 避免阻塞构建，待用户按纯 KV 单行格式重建后再恢复。
-      # imports:
-      #   - https://cnb.cool/Beamanglespace/beamangle-secrets/-/blob/main/vercel.yml
+      imports:
+        - https://cnb.cool/Beamanglespace/beamangle-secrets/-/blob/main/vercel.yml
       stages:
         - name: build
           script: |
