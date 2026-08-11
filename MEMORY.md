@@ -41,7 +41,7 @@
 - **HTTP 代理**：`http://127.0.0.1:7897`
 - **SOCKS5 代理**：`socks5://127.0.0.1:7897`
 - **用途**：访问需要翻墙的外部 API（TabAPI、APIMart 等）
-- **环境变量**：`.env` 中已配置 `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` / `TABAPI_PROXY`
+- **环境变量**：`.env` 中已配置 `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` / `TABAPI_PROXY` / `APIMART_PROXY`
 
 ---
 
