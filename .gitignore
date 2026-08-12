@@ -26,3 +26,6 @@ pnpm-lock.yaml
 # Python cache
 __pycache__/
 *.pyc
+
+# AI-generated image outputs (scratch space, not committed)
+outputs/

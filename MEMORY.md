@@ -2,7 +2,7 @@
 
 > ⚠️ **重要：本文件是项目的持久化记忆文件**。所有 NPC（CodeBuddy、bob idea、bob view、bob seo、bob code）在开始工作时**必须先读取本文件**，了解项目已有的 API 凭据和配置。
 
-## 最后更新：2026-08-11
+## 最后更新：2026-08-12
 
 ---
 
@@ -40,8 +40,13 @@
 - **代理端口**：7897
 - **HTTP 代理**：`http://127.0.0.1:7897`
 - **SOCKS5 代理**：`socks5://127.0.0.1:7897`
-- **用途**：访问需要翻墙的外部 API（TabAPI、APIMart 等）
 - **环境变量**：`.env` 中已配置 `HTTP_PROXY` / `HTTPS_PROXY` / `ALL_PROXY` / `TABAPI_PROXY` / `APIMART_PROXY`
+
+> ⚠️ **关键澄清（2026-08-12 实测）**：
+> - **TabAPI（SEO/域名情报）直连即可访问，无需代理**。SEO 类脚本可在无代理环境跑。
+> - **APIMart（AI 生图 `api.apimart.ai`）被墙，只有在你本机（跑着 Clash 7897）才能访问**。
+> - **代理必须在发起请求的那台机器上运行**——CI/构建机没有用户的 Clash，无法替用户访问 APIMart。因此 APIMart 生图只能由用户本机执行 `scripts/gen_blog_odm_oem_images.sh`。
+> - TabAPI 脚本如需关闭代理，置空 `TABAPI_PROXY` 即可；APIMart 同理置空 `APIMART_PROXY`。
 
 ---
 
@@ -84,4 +89,4 @@ npm test          # 单元测试
 - **项目栈**：Astro v6 + Tailwind CSS v4 + TypeScript
 - **Node.js 要求**：>= 22.12.0
 - **已有工具页**：beam-angle-calculator、lux-calculator、fixture-count-estimator、cct-guide、cri-guide、ugr-guide、photometric-guide、unit-converter、products/compare
-- **已有博客**：custom-track-lighting-manufacturer、why-is-track-lighting-hated、how-to-choose-custom-track-lighting-manufacturer-2026
+- **已有博客**：custom-track-lighting-manufacturer、why-is-track-lighting-hated、how-to-choose-custom-track-lighting-manufacturer-2026、odm-vs-oem-led-lighting（URL `/odm-vs-oem-led-lighting/`，配图尚未生成，占位图待替换）
