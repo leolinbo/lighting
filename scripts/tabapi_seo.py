@@ -24,6 +24,7 @@ from collections import Counter
 
 BASE_URL = os.environ.get("TABAPI_BASE_URL", "https://tabapi.com/api/v1")
 API_KEY = os.environ.get("TABAPI_API_KEY", "")
+PROXY = os.environ.get("TABAPI_PROXY", "http://127.0.0.1:7897")  # 默认走 Clash 代理 7897
 
 
 def load_key():
@@ -49,8 +50,11 @@ def google_search(q, country="us", lang="en", page=1, key=None):
         "Authorization": f"Bearer {key}",
         "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36",
     })
+    opener = urllib.request.build_opener(
+        urllib.request.ProxyHandler({"http": PROXY, "https": PROXY})
+    )
     try:
-        with urllib.request.urlopen(req, timeout=30) as resp:
+        with opener.open(req, timeout=30) as resp:
             return json.loads(resp.read().decode("utf-8"))
     except Exception as e:
         print(f"❌ 请求失败: {e}")

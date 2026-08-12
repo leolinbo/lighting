@@ -130,7 +130,7 @@ def poll_task(task_id: str, api_key: str) -> dict:
 
 def download_image(url: str, out_path: Path):
     subprocess.run(
-        ["curl", "-s", "-o", str(out_path), url],
+        ["curl", "-s", "--proxy", PROXY, "-o", str(out_path), url],
         capture_output=True, timeout=60,
     )
     if out_path.exists() and out_path.stat().st_size > 0:

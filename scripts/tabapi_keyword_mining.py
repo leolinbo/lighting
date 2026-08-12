@@ -10,7 +10,7 @@ from collections import Counter, OrderedDict
 from pathlib import Path
 
 BASE_URL = os.environ.get("TABAPI_BASE_URL", "https://tabapi.com/api/v1")
-PROXY = os.environ.get("TABAPI_PROXY", "")  # optional, e.g. http://127.0.0.1:7897
+PROXY = os.environ.get("TABAPI_PROXY", "http://127.0.0.1:7897")  # 默认走 Clash 代理 7897
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 ROOT = Path(__file__).resolve().parent.parent
 OUT = ROOT / "outputs" / "seo-audit" / "keywords"
