@@ -7,7 +7,7 @@ import Layout from '~/layouts/PageLayout.astro';
 import SinglePost from '~/components/blog/SinglePost.astro';
 import ToBlogLink from '~/components/blog/ToBlogLink.astro';
 
-import { getCanonical, getPermalink } from '~/utils/permalinks';
+import { getCanonical, getPermalink, getHomePermalink, getBlogPermalink } from '~/utils/permalinks';
 import { getStaticPathsBlogPost, blogPostRobots } from '~/utils/blog';
 import { findImage } from '~/utils/images';
 import type { MetaData } from '~/types';
@@ -59,10 +59,59 @@ const faqSchema =
         })),
       }
     : null;
+
+// Article structured data — pairs with the page's visible metadata so Google can
+// surface it as a rich article result (headline, author, publisher, dates, image).
+const homeUrl = getCanonical(getHomePermalink());
+const blogUrl = getCanonical(getBlogPermalink());
+const articleSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'Article',
+  headline: post.title,
+  description: post.excerpt,
+  ...(image ? { image: typeof image === 'string' ? image : new URL(image.src, Astro.site ?? '').toString() } : {}),
+  author: { '@type': 'Organization', name: post.author || 'ENCORE' },
+  publisher: {
+    '@type': 'Organization',
+    name: 'ENCORE',
+    url: homeUrl,
+  },
+  datePublished: post.publishDate.toISOString(),
+  ...(post.updateDate ? { dateModified: post.updateDate.toISOString() } : {}),
+  mainEntityOfPage: {
+    '@type': 'WebPage',
+    '@id': url,
+  },
+  ...(post.tags && post.tags.length > 0 ? { keywords: post.tags.map((t) => t.title).join(', ') } : {}),
+};
+
+// BreadcrumbList structured data: Home > Blog > [Category] > Post title.
+const breadcrumbList = [
+  { '@type': 'ListItem', position: 1, name: 'Home', item: homeUrl },
+  { '@type': 'ListItem', position: 2, name: 'Blog', item: blogUrl },
+  ...(post.category
+    ? [
+        {
+          '@type': 'ListItem',
+          position: 3,
+          name: post.category.title,
+          item: getCanonical(getPermalink(post.category.slug, 'category')),
+        },
+      ]
+    : []),
+  { '@type': 'ListItem', position: post.category ? 4 : 3, name: post.title, item: url },
+];
+const breadcrumbSchema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: breadcrumbList,
+};
 ---
 
 <Layout metadata={metadata}>
   {faqSchema && <script type="application/ld+json" set:html={JSON.stringify(faqSchema)} />}
+  {articleSchema && <script type="application/ld+json" set:html={JSON.stringify(articleSchema)} />}
+  {breadcrumbSchema && <script type="application/ld+json" set:html={JSON.stringify(breadcrumbSchema)} />}
   <SinglePost post={{ ...post, image: image }} url={url}>
     {typeof post.Content === 'string' ? <Fragment set:html={post.Content} /> : post.Content && <post.Content />}
   </SinglePost>
