@@ -1,6 +1,6 @@
 site:
   name: ENCORE
-  site: 'https://astrowindwopress.vercel.app'
+  site: 'https://lightoem.com'
   base: '/'
   trailingSlash: false
 

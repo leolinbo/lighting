@@ -63,7 +63,7 @@
 
 ## 三、Vercel 部署信息
 
-- **生产域名**：https://astrowindwopress.vercel.app
+- **生产域名**：https://lightoem.com
 - **Vercel Team**：`encorelightingbob-3340`
 - **Org ID**：`team_o0BtTLWzAHnGL2hIHk6iMnZs`
 - **Project ID**：`prj_cpAHrPXwDLRBSEMietKswTgknpFx`
