@@ -1,6 +1,6 @@
 # ENCORE 独立站（AstroWind）SEO 审计报告
 
-- **站点**：https://astrowindwopress.vercel.app（ENCORE 照明 B2B 制造商官网，Astro 静态站）
+- **站点**：https://lightoem.com（ENCORE 照明 B2B 制造商官网，Astro 静态站）
 - **日期**：2026-08-05
 - **方法**：qiaomu-seo skill（site_inventory 模式）— Python 爬虫 BFS 全站抓取 22 URL + sitemap 解析 + HTTP 层探测 + 页面级解析
 - **模式**：只审计（未改动线上内容；仓库内仅修复验证闸门暴露的既有问题）
