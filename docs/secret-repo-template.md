@@ -39,4 +39,4 @@ allow_branches: "main"
 |---|---|---|
 | `end of the stream or a document separator is expected (N:M)` | 文件里有多余的 `---` 或空行/多段内容 | 清空后只保留上述 3 行 |
 | `Invalid YAML content` | 值没加引号 / 有特殊字符（`:` `#` `{` 空格） | 用双引号包住值 |
-| token 注入后部署到错误项目 | token 与项目不匹配 | 确保 token 是 `astrowindwopress` 所在账号/团队下创建 |
+| token 注入后部署到错误项目 | token 与项目不匹配 | 确保 token 是 `lightoem` 所在账号/团队下创建 |

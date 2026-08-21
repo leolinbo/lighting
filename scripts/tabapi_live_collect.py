@@ -43,7 +43,7 @@ COMPETITORS = [
 ]
 
 # 3) 自家域名（若无法用主域名则用已上线的 vercel 站点）
-OWN_DOMAINS = ["encore-tech.com", "astrowindwopress.vercel.app"]
+OWN_DOMAINS = ["encore-tech.com", "lightoem.com"]
 
 
 def kw_mining(key):

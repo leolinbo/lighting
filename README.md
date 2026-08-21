@@ -76,7 +76,7 @@ npm run fix
 ```yaml
 site:
   name: ENCORE
-  site: "https://astrowindwopress.vercel.app"
+  site: "https://lightoem.com"
 
 metadata:
   title:
