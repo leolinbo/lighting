@@ -15,8 +15,8 @@ This Privacy Policy describes how Shenzhen Encore Optoelectronic Technology Co.,
 - **Cookies** are small files placed on your device to store browsing history and preferences.
 - **Device** means any device that can access our Service such as a computer, smartphone, or tablet.
 - **Personal Data** is any information that relates to an identified or identifiable individual.
-- **Service** refers to the ENCORE website at [https://astrowindwopress.vercel.app](https://astrowindwopress.vercel.app).
-- **Website** refers to ENCORE, accessible from [https://astrowindwopress.vercel.app](https://astrowindwopress.vercel.app).
+- **Service** refers to the ENCORE website at [https://lightoem.com](https://lightoem.com).
+- **Website** refers to ENCORE, accessible from [https://lightoem.com](https://lightoem.com).
 
 ## Information We Collect
 

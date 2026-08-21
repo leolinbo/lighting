@@ -11,7 +11,7 @@ Please read these terms and conditions carefully before using the ENCORE website
 
 - **Company** (referred to as "the Company", "We", "Us" or "Our") refers to Shenzhen Encore Optoelectronic Technology Co., Ltd., 2/F, Bldg 8th, Zhengzhong Industrial Park, Qiaotou Community, Fuyong, Bao'an Dist, Shenzhen, China.
 - **Service** refers to the ENCORE website.
-- **Website** refers to ENCORE, accessible from [https://astrowindwopress.vercel.app](https://astrowindwopress.vercel.app).
+- **Website** refers to ENCORE, accessible from [https://lightoem.com](https://lightoem.com).
 - **You** means the individual accessing or using the Service, or the company on whose behalf such individual is accessing the Service.
 
 ## Use of the Website

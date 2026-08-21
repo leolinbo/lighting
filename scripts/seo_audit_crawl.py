@@ -9,7 +9,7 @@ from html.parser import HTMLParser
 from collections import Counter, defaultdict
 from pathlib import Path
 
-BASE = "https://astrowindwopress.vercel.app"
+BASE = "https://lightoem.com"
 PROXY = "http://127.0.0.1:7897"
 UA = "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0 Safari/537.36"
 OUT = Path(r"C:\Users\Administrator\Desktop\astrowind\outputs\seo-audit")
