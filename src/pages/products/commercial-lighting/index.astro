@@ -32,6 +32,23 @@ const productJson = {
   category: 'Commercial LED Lighting',
   image: ['https://lightoem.com/images/products/prod-ovega-web-01.jpg'],
   manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://lightoem.com/' },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'USD',
+  },
+  additionalProperty: [
+    {
+      '@type': 'PropertyValue',
+      name: 'Wattage',
+      value: '5W–60W across cylinder, linear, motorized and wall luminaire ranges',
+    },
+    { '@type': 'PropertyValue', name: 'Color Temperature', value: '2700K / 3000K / 3500K / 4000K' },
+    { '@type': 'PropertyValue', name: 'CRI', value: 'CRI 90+ options' },
+    { '@type': 'PropertyValue', name: 'Beam Angle', value: '10°–90° depending on family' },
+    { '@type': 'PropertyValue', name: 'Dimming', value: 'TRIAC / 0-10V / DALI' },
+    { '@type': 'PropertyValue', name: 'Certification', value: 'ETL, CE, SAA, ISO9001' },
+  ],
 };
 ---
 
@@ -46,22 +63,22 @@ const productJson = {
       {
         title: 'Cylinder Light System',
         description:
-          'Modern cylindrical luminaires for contemporary commercial spaces. Clean lines, high performance, and flexible mounting options.',
+          'Modern cylindrical luminaires with CRI 90+ color quality and 10°–60° beam options bring clean lines and high performance to contemporary retail and hospitality spaces, with suspended, surface and recessed mounting.',
       },
       {
         title: 'Linear Light System',
         description:
-          'Linear LED lighting for architectural integration. Suitable for suspended, surface, and recessed installations in offices and commercial spaces.',
+          'Linear LED lighting for architectural integration delivers uniform, low-glare illumination for offices and commercial corridors. Available with 0-10V or DALI dimming for suspended, surface and recessed installations.',
       },
       {
         title: 'Motorized Remote Controlled Lighting',
         description:
-          'Innovative motorized track lights with remote control for adjustable beam positioning. Ideal for spaces requiring dynamic lighting arrangements.',
+          'Motorized track lights with remote-controlled beam positioning let you adjust accent angles on demand — ideal for showrooms and dynamic retail layouts that change throughout the day.',
       },
       {
         title: 'Wall Luminaires & ETL Downlights',
         description:
-          'Wall-mounted lighting fixtures and ETL certified downlights for North American commercial projects.',
+          'Wall-mounted luminaires and ETL-certified downlights built for North American commercial projects, combining decorative output with CRI 90+ performance and TRIAC/DALI dimming.',
       },
     ]}
     image={{
@@ -132,6 +149,40 @@ const productJson = {
         { src: '/images/products/prod-strip-fs34-160.png', alt: 'FS34 Strip Light', title: 'FS34 Strip Light' },
       ]}
     />
+  </section>
+
+  <!-- Related reading -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <h2 class="text-2xl font-bold dark:text-white">Commercial Lighting Resources</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="/how-to-choose-led-track-lighting-manufacturer-2026/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">How to Choose an LED Track Lighting Manufacturer →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >Vet a commercial lighting factory vs a trading desk.</span
+        >
+      </a>
+      <a
+        href="/oem-led-lighting-manufacturer-6-step-sourcing-checklist/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">OEM LED Lighting: 6-Step Sourcing Checklist →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >Spec, sample, certify and QC a commercial lighting order.</span
+        >
+      </a>
+      <a
+        href="/custom-led-track-lighting-what-you-can-customize-moq-lead-time/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">Custom LED Lighting: MOQ &amp; Lead Time →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >What you can customize across our commercial families.</span
+        >
+      </a>
+    </div>
   </section>
 
   <!-- RFQ -->

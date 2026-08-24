@@ -34,6 +34,24 @@ const productJson = {
   category: 'LED Downlights',
   image: ['https://lightoem.com/images/products/prod-ella-web-01.jpg'],
   manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://lightoem.com/' },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'USD',
+  },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Wattage', value: '5W–20W depending on series (DELLA/ELLA/Galaxy/AVA)' },
+    {
+      '@type': 'PropertyValue',
+      name: 'Color Temperature',
+      value: '2700K / 3000K / 4000K, tunable white on Galaxy series',
+    },
+    { '@type': 'PropertyValue', name: 'CRI', value: 'CRI 90–95' },
+    { '@type': 'PropertyValue', name: 'Beam Angle', value: '24°–60°' },
+    { '@type': 'PropertyValue', name: 'Dimming', value: 'TRIAC / DALI / Tunable' },
+    { '@type': 'PropertyValue', name: 'IP Rating', value: 'IP20 (indoor recessed downlights)' },
+    { '@type': 'PropertyValue', name: 'Certification', value: 'ETL, CE, SAA, ISO9001' },
+  ],
 };
 ---
 
@@ -48,21 +66,22 @@ const productJson = {
       {
         title: 'DELLA Mini Downlight System',
         description:
-          'Ultra-compact mini downlight system for tight ceiling spaces. Ideal for residential and light commercial applications.',
+          'DELLA is our ultra-compact mini downlight system for tight ceiling spaces, available in 5W–10W with 24°–60° beams and CRI 90+. It is ideal for residential and light commercial applications where low glare and a small footprint matter.',
       },
       {
         title: 'ELLA Downlight System',
         description:
-          'Super modular design combining hotel, residential, commercial, deep anti-glare, and wall washing in one downlight system. Covers all indoor applications.',
+          'ELLA is a super modular downlight system that combines hotel, residential, commercial, deep anti-glare and wall-washing optics in one family. With 5W–20W options, CRI 90–95, TRIAC/DALI dimming and tunable white, it covers virtually all indoor applications.',
       },
       {
         title: 'Galaxy Downlight System',
         description:
-          'Small in size but powerful in wattage. Tunable white with smart dimming. Customized for high ceiling 4m-8m height applications.',
+          'Galaxy is compact but powerful, delivering high output with tunable white and smart dimming. Engineered for high-ceiling applications from 4m to 8m, it pairs precise 24°–60° beam control with CRI 90–95 for warehouses, atriums and showrooms.',
       },
       {
         title: 'AVA MR16 Modular Downlight System',
-        description: 'MR16 compatible modular downlight system for flexible beam angle and lamp replacement options.',
+        description:
+          'AVA is an MR16-compatible modular downlight system that gives flexible beam angle and lamp replacement options. With 5W–12W options, CRI 90+ and TRIAC dimming, it is a service-friendly choice for specifiers who need to change optics in the field.',
       },
     ]}
     image={{
@@ -123,6 +142,40 @@ const productJson = {
   <!-- CCT guide embed -->
   <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
     <CctGuide />
+  </section>
+
+  <!-- Related reading -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <h2 class="text-2xl font-bold dark:text-white">Downlight &amp; OEM Resources</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="/oem-led-lighting-manufacturer-6-step-sourcing-checklist/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">OEM LED Lighting: 6-Step Sourcing Checklist →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >How to vet a factory and lock MOQ, lead time and QC in writing.</span
+        >
+      </a>
+      <a
+        href="/custom-led-track-lighting-what-you-can-customize-moq-lead-time/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">Custom LED Lighting: MOQ &amp; Lead Time →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >Customize CCT, CRI, beam and dimming across our downlight families.</span
+        >
+      </a>
+      <a
+        href="/how-to-choose-led-track-lighting-manufacturer-2026/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">How to Choose a Lighting Manufacturer →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >Factory vs trading desk, certification and QC checklist.</span
+        >
+      </a>
+    </div>
   </section>
 
   <!-- RFQ -->

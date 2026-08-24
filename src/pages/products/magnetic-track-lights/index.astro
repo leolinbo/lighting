@@ -32,6 +32,20 @@ const productJson = {
   category: 'Magnetic Track Lighting',
   image: ['https://lightoem.com/images/products/prod-movia-web-01.jpg'],
   manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://lightoem.com/' },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'USD',
+  },
+  additionalProperty: [
+    { '@type': 'PropertyValue', name: 'Wattage', value: '5W–30W (AURA/DISC/GRIDIS/NOVA/LATTICE series)' },
+    { '@type': 'PropertyValue', name: 'Color Temperature', value: '2700K / 3000K / 4000K' },
+    { '@type': 'PropertyValue', name: 'CRI', value: 'CRI 90+' },
+    { '@type': 'PropertyValue', name: 'Beam Angle', value: '15°–60°' },
+    { '@type': 'PropertyValue', name: 'Dimming', value: 'TRIAC / Zigbee / Bluetooth' },
+    { '@type': 'PropertyValue', name: 'Track Profile', value: 'Slim 5mm, 15mm and 20mm magnetic track' },
+    { '@type': 'PropertyValue', name: 'Certification', value: 'ETL, CE, ISO9001' },
+  ],
 };
 ---
 
@@ -46,22 +60,22 @@ const productJson = {
       {
         title: 'Magnetic Track System',
         description:
-          'Innovative magnetic track lighting with easy snap-in fixture installation. Modular design allows for quick reconfiguration as lighting needs change.',
+          'Our magnetic track lighting uses a snap-in magnetic connection for effortless fixture installation and repositioning. Available in slim 5mm, 15mm and 20mm profiles with AURA, DISC, GRIDIS, NOVA and LATTICE fixtures from 5W to 30W.',
       },
       {
         title: 'Flexible Configuration',
         description:
-          'Multiple track lengths, connector options (L/T/X shape), and fixture types. Surface-mounted and recessed versions available.',
+          'Configure any layout with multiple track lengths, L/T/X connectors and surface-mounted or recessed options. With 15°–60° beam angles and CRI 90+, the system adapts as your display or store layout changes.',
       },
       {
         title: 'Modern Aesthetic',
         description:
-          'Sleek, minimalist design that blends into contemporary interiors. Ideal for high-end retail, modern offices, and residential projects.',
+          'Sleek, minimalist luminaires with CRI 90+ color quality blend into contemporary interiors. Ideal for high-end retail, modern offices and residential projects where the fixture should disappear into the architecture.',
       },
       {
         title: 'Smart Compatible',
         description:
-          'Compatible with leading smart control systems for dimming, color tuning, and automated lighting scenes.',
+          'Compatible with leading smart control systems including TRIAC, Zigbee and Bluetooth for dimming, color tuning and automated lighting scenes — without rewiring.',
       },
     ]}
     image={{
@@ -119,6 +133,40 @@ const productJson = {
         },
       ]}
     />
+  </section>
+
+  <!-- Related reading -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <h2 class="text-2xl font-bold dark:text-white">Magnetic Track Lighting Resources</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="/custom-led-track-lighting-what-you-can-customize-moq-lead-time/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">Custom LED Track Lighting: MOQ &amp; Lead Time →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >The customization menu and realistic minimums for modern interiors.</span
+        >
+      </a>
+      <a
+        href="/oem-led-lighting-manufacturer-6-step-sourcing-checklist/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">OEM LED Lighting: 6-Step Sourcing Checklist →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >Source your branded magnetic track system the right way.</span
+        >
+      </a>
+      <a
+        href="/products/compare/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">Compare All Product Series →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >VEGA, OVEGA, IMAX, FLEX, magnetic and downlight specs side by side.</span
+        >
+      </a>
+    </div>
   </section>
 
   <!-- RFQ -->
