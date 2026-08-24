@@ -35,6 +35,28 @@ const productJson = {
   category: 'LED Track Lighting',
   image: ['https://lightoem.com/images/products/prod-ovega-web-01.jpg'],
   manufacturer: { '@type': 'Organization', name: 'ENCORE', url: 'https://lightoem.com/' },
+  offers: {
+    '@type': 'Offer',
+    availability: 'https://schema.org/InStock',
+    priceCurrency: 'USD',
+  },
+  additionalProperty: [
+    {
+      '@type': 'PropertyValue',
+      name: 'Wattage',
+      value: '6W–60W depending on series (VEGA 6–40W, OVEGA 6–50W, IMAX 10–60W, FLEX 6–30W)',
+    },
+    {
+      '@type': 'PropertyValue',
+      name: 'Color Temperature',
+      value: '2700K / 3000K / 3500K / 4000K (custom CCT available)',
+    },
+    { '@type': 'PropertyValue', name: 'CRI', value: 'CRI 90+ (VEGA/FLEX), 90–95 (OVEGA), 80–90 (IMAX)' },
+    { '@type': 'PropertyValue', name: 'Beam Angle', value: '10°–60° (VEGA/OVEGA), 15°–60° (IMAX), 15°–90° (FLEX)' },
+    { '@type': 'PropertyValue', name: 'Dimming', value: 'TRIAC / 0-10V / DALI' },
+    { '@type': 'PropertyValue', name: 'IP Rating', value: 'IP20 (indoor track lighting)' },
+    { '@type': 'PropertyValue', name: 'Certification', value: 'ETL, CE, SAA, ISO9001' },
+  ],
 };
 ---
 
@@ -49,22 +71,22 @@ const productJson = {
       {
         title: 'VEGA Track Light System',
         description:
-          'Versatile track light series with multiple beam angles and wattages. Ideal for retail, galleries, and general commercial lighting.',
+          'The VEGA series is the versatile all-rounder in our track lighting range, available from 6W to 40W with beam angles from 10° to 60° and CRI 90+. TRIAC, 0-10V and DALI dimming options make VEGA a reliable choice for retail stores, galleries and general commercial lighting.',
       },
       {
         title: 'OVEGA Track Light System',
         description:
-          'Premium track light system with advanced thermal management and high CRI options. Suitable for high-end retail and museum applications.',
+          'OVEGA is our premium track light line with advanced thermal management, 6W–50W output, CRI 90–95 and high-end optics. With 0-10V and DALI dimming, OVEGA is engineered for high-end retail and museum applications that demand accurate color rendering and glare control.',
       },
       {
         title: 'IMAX Track Light System',
         description:
-          'High-output track lighting for spaces requiring higher illumination levels. Excellent for commercial and industrial applications.',
+          'IMAX delivers high-output track lighting from 10W to 60W with beam angles of 15°–60° and CRI 80–90. TRIAC and DALI dimming make it ideal for commercial and industrial spaces that need higher illumination levels without sacrificing uniformity.',
       },
       {
         title: 'FLEX Track Light System',
         description:
-          'Flexible track light system with adjustable heads and multiple mounting options. Perfect for accent and display lighting.',
+          'FLEX offers maximum layout flexibility with adjustable heads, 6W–30W output, 15°–90° beam angles and CRI 90+. With TRIAC and 0-10V dimming and multiple mounting options, it is perfect for accent and display lighting in changing retail layouts.',
       },
     ]}
     image={{
@@ -193,6 +215,40 @@ const productJson = {
   <!-- CCT guide embed -->
   <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
     <CctGuide />
+  </section>
+
+  <!-- Related reading -->
+  <section class="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:py-16">
+    <h2 class="text-2xl font-bold dark:text-white">Track Lighting Guides &amp; Resources</h2>
+    <div class="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+      <a
+        href="/how-to-choose-led-track-lighting-manufacturer-2026/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">How to Choose an LED Track Lighting Manufacturer →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >2026 B2B buyer guide to vetting a factory vs trading desk.</span
+        >
+      </a>
+      <a
+        href="/custom-led-track-lighting-what-you-can-customize-moq-lead-time/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">Custom LED Track Lighting: MOQ &amp; Lead Time →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >What you can customize on VEGA, OVEGA, IMAX and FLEX.</span
+        >
+      </a>
+      <a
+        href="/oem-led-lighting-manufacturer-6-step-sourcing-checklist/"
+        class="rounded-xl border border-gray-200 bg-white p-5 transition hover:border-primary dark:border-slate-700 dark:bg-slate-900"
+      >
+        <span class="font-semibold text-primary">OEM LED Lighting: 6-Step Sourcing Checklist →</span>
+        <span class="mt-1 block text-sm text-muted dark:text-slate-400"
+          >The end-to-end framework for working with a factory.</span
+        >
+      </a>
+    </div>
   </section>
 
   <!-- RFQ -->
