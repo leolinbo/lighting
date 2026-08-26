@@ -38,7 +38,15 @@ const faqJson = {
       name: 'How many LED downlights or track lights do I need per square metre?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'It depends on the target lux, the floor area and the lumen output of each fixture. Divide the required total lumens (target lux × area × loss factor) by the lumen output of one fixture and round up.',
+        text: 'It depends on the target lux, the floor area and the lumen output of each fixture. Divide the target lux × area by the combined utilisation and maintenance factor, then divide by the lumen output of one fixture and round up.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How many lumens do I need for a 50 m² office?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'At a 400 lux planning target, a 50 m² office needs 20,000 lumens at the work plane. With a typical combined utilisation and maintenance factor of 0.48, the initial fixture output required is about 41,700 lumens before detailed photometric design.',
       },
     },
     {
@@ -148,6 +156,55 @@ const faqJson = {
     </div>
   </section>
 
+  <!-- Planning examples -->
+  <section class="mx-auto max-w-6xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">From Target Lux to a First Fixture Estimate</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        The calculator gives an early lighting-design estimate. Select the task first, then use the room area and fixture
+        output to turn the lux target into a starting layout. Final project layouts should still be checked against the
+        fixture photometric file, mounting height, glare and surface reflectance.
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Example project</th>
+              <th class="py-3 pr-4 font-semibold">Planning target</th>
+              <th class="py-3 pr-4 font-semibold">Area</th>
+              <th class="py-3 font-semibold">What to check next</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">Open-plan office</td>
+              <td class="py-3 pr-4">300–500 lux</td>
+              <td class="py-3 pr-4">50 m²</td>
+              <td class="py-3">Check UGR, desk-plane uniformity and fixture spacing.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Retail floor and shelving</td>
+              <td class="py-3 pr-4">300–750 lux</td>
+              <td class="py-3 pr-4">80 m²</td>
+              <td class="py-3">Use separate accent lighting for displays and verify CRI.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Warehouse aisle</td>
+              <td class="py-3 pr-4">150–300 lux</td>
+              <td class="py-3 pr-4">200 m²</td>
+              <td class="py-3">Check racking shadows, mounting height and aisle spacing.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        Next, use the <a class="font-medium text-primary underline" href={getPermalink('/tools/fixture-count-estimator')}>Fixture Count Calculator</a>
+        to turn the lumen target into a grid. Then check coverage with the <a class="font-medium text-primary underline" href={getPermalink('/beam-angle-calculator')}>Beam Angle Calculator</a>
+        and visual comfort with the <a class="font-medium text-primary underline" href={getPermalink('/tools/ugr-guide')}>UGR Guide</a>.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <FAQs
     tagline="FAQs"
@@ -168,7 +225,12 @@ const faqJson = {
       {
         title: 'How many LED track lights do I need for my space?',
         description:
-          'Divide the required total lumens (target lux × floor area × loss factor) by the lumen output of one fixture and round up. The calculator above does this automatically and suggests a grid layout.',
+          'Divide the target lux × floor area by the combined utilisation and maintenance factor, then divide by the lumen output of one fixture and round up. The calculator above does this automatically and suggests a grid layout.',
+      },
+      {
+        title: 'How many lumens do I need for a 50 m² office?',
+        description:
+          'At a 400 lux planning target, a 50 m² office needs 20,000 lumens at the work plane. With a typical combined utilisation and maintenance factor of 0.48, the initial fixture output required is about 41,700 lumens before a detailed photometric layout.',
       },
       {
         title: 'What is the difference between lux and foot-candles?',
@@ -195,6 +257,6 @@ const faqJson = {
 
   <!-- Related tools -->
   <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
-    <RelatedTools tools={['beam', 'fixture', 'cct', 'unit']} />
+    <RelatedTools tools={['fixture', 'beam', 'ugr', 'unit']} />
   </section>
 </Layout>

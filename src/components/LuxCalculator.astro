@@ -190,7 +190,7 @@ const applications = [
             {Math.round(defaultLumens).toLocaleString('en-US')} lm
           </p>
           <p class="mt-1 text-xs text-muted dark:text-slate-400">
-            Formula: total lumens = target lux × floor area × loss factor
+            Formula: required lumens = target lux × floor area ÷ (CU × MF)
           </p>
         </div>
 
@@ -226,8 +226,7 @@ const applications = [
             lux).
           </li>
           <li>
-            Multiply: <strong>total lumens = target lux × floor area × loss factor</strong> (loss factors cover dirt,
-            lamp depreciation and room utilization).
+            Divide by the combined utilisation and maintenance factor: <strong>required lumens = target lux × floor area ÷ (CU × MF)</strong>. This allowance covers room utilisation, dirt and lumen depreciation.
           </li>
           <li>
             Divide by the lumen output of your chosen fixture (<strong>fixture lumens = wattage × lm/W</strong>) and

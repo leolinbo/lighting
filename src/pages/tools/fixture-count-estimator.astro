@@ -43,7 +43,15 @@ const faqJson = {
       name: 'How many recessed downlights do I need for a living room?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'For a typical 20 m² living room at 150–300 lux with 10W LED downlights (~1100 lm each), you would need roughly 4–6 downlights. Use the fixture count calculator for a precise estimate.',
+        text: 'For a typical 20 m² living room, choose the target illuminance and the actual lumen output first. A 10W LED downlight at roughly 1100 lm may need about 6–12 fittings when typical utilisation and maintenance allowances are included. Use the calculator for a project-specific estimate.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'How far apart should LED track lights be?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Start from the beam diameter at the work plane, not a single fixed distance. Flood beams usually need 20–30% overlap for uniform light, while narrow accent beams can be spaced around display positions. Check the spot diameter with the Beam Angle Calculator, then validate the arrangement with the fixture count grid.',
       },
     },
   ],
@@ -104,6 +112,55 @@ const faqJson = {
     </div>
   </section>
 
+  <!-- Room examples -->
+  <section class="mx-auto max-w-6xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">How Many Lights Per Room? Start With the Task</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Fixture quantity is not just a room-size question. The same 20 m² space can need a different number of lights for
+        relaxed hospitality lighting, retail display lighting or a focused work plane. Use the calculator result as a
+        first grid, then check the beam overlap and photometric distribution before purchase.
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Room or task</th>
+              <th class="py-3 pr-4 font-semibold">Typical target</th>
+              <th class="py-3 pr-4 font-semibold">Planning question</th>
+              <th class="py-3 font-semibold">Next check</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">20 m² living room</td>
+              <td class="py-3 pr-4">150–300 lux</td>
+              <td class="py-3 pr-4">How many downlights create comfortable ambient light?</td>
+              <td class="py-3">Set the lumen output per fitting and check glare at seating positions.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">50 m² retail floor</td>
+              <td class="py-3 pr-4">300–750 lux</td>
+              <td class="py-3 pr-4">How many track lights provide general and accent light?</td>
+              <td class="py-3">Use a separate beam and higher-CRI check for display accents.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">100 m² office</td>
+              <td class="py-3 pr-4">300–500 lux</td>
+              <td class="py-3 pr-4">How many fixtures meet the desk-plane target?</td>
+              <td class="py-3">Confirm UGR, workstation layout and uniformity in the photometric plan.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        Use the <a class="font-medium text-primary underline" href={getPermalink('/beam-angle-calculator')}>Beam Angle Calculator</a>
+        to calculate the spot diameter at your mounting height, then review the <a class="font-medium text-primary underline" href={getPermalink('/tools/photometric-guide')}>Photometric Data Guide</a>
+        before finalising the grid.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <FAQs
     tagline="FAQs"
@@ -114,7 +171,7 @@ const faqJson = {
       {
         title: 'How do I calculate how many light fixtures I need?',
         description:
-          'Required lumens = target lux × floor area × loss factor. Then divide by the lumen output of one fixture (wattage × efficacy) and round up. The calculator above does it for you.',
+          'Start with target lux × floor area, divide by the combined utilisation and maintenance factor, then divide by the lumen output of one fixture (wattage × efficacy) and round up. The calculator above does it for you.',
       },
       {
         title: 'What spacing should I use between LED track lights?',
@@ -124,7 +181,12 @@ const faqJson = {
       {
         title: 'How many downlights do I need for a living room?',
         description:
-          'A typical 20 m² living room at 150–300 lux needs roughly 4–6 × 10W LED downlights. Precise numbers depend on target lux, fixture lumen output and loss factors.',
+          'For a typical 20 m² living room, choose the target illuminance and actual lumen output first. A 10W downlight at roughly 1100 lm may need about 6–12 fittings when typical utilisation and maintenance allowances are included. Use the calculator for the room-specific result.',
+      },
+      {
+        title: 'How far apart should LED track lights be?',
+        description:
+          'Start from the beam diameter at the work plane, not a fixed distance. Flood beams usually need 20–30% overlap for uniform light, while narrow accent beams can be spaced around display positions. Calculate the spot size first, then validate the grid and photometric layout.',
       },
       {
         title: 'Should I use more, lower-wattage fixtures or fewer, higher-wattage ones?',
@@ -146,6 +208,6 @@ const faqJson = {
 
   <!-- Related tools -->
   <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
-    <RelatedTools tools={['lux', 'beam', 'cct', 'unit']} />
+    <RelatedTools tools={['lux', 'beam', 'photo', 'ugr']} />
   </section>
 </Layout>
