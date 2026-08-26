@@ -46,7 +46,23 @@ const faqJson = {
       name: 'What color temperature do hotels and restaurants use?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Hospitality spaces typically use 2700K–3000K warm white to create a cozy, intimate atmosphere. Layered lighting with warm dimming and 3000K accents is the industry standard.',
+        text: 'Hospitality spaces typically use 2700K–3000K warm white to create a cozy, intimate atmosphere. Layered lighting with warm dimming and 3000K accents is a common starting point.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Should I choose 3000K or 4000K for retail lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'Choose 3000K when the brand needs a warm, premium or hospitality-led mood; choose 4000K when the project needs neutral task visibility and a clean, modern presentation. Check CRI separately because Kelvin does not measure color accuracy.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is 5000K too cool for an office?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'For most offices, 4000K is the more common neutral choice. 5000K can suit industrial tasks, inspection zones or very high-visibility work, but should be reviewed with glare control, working hours and the project brief before specification.',
       },
     },
   ],
@@ -106,6 +122,60 @@ const faqJson = {
     </div>
   </section>
 
+  <!-- Application matrix -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">3000K vs 4000K vs 5000K: Choose by Application</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Start with the visual task and brand atmosphere rather than treating Kelvin as a brightness setting. The same lumen
+        package can be specified at different CCTs; compare CRI and glare performance separately before final selection.
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Application</th>
+              <th class="py-3 pr-4 font-semibold">Starting CCT</th>
+              <th class="py-3 pr-4 font-semibold">Why it fits</th>
+              <th class="py-3 font-semibold">Specification check</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">Boutique, hotel or restaurant</td>
+              <td class="py-3 pr-4">2700K–3000K</td>
+              <td class="py-3 pr-4">Warm, relaxed and material-friendly ambience</td>
+              <td class="py-3">Check CRI 90+ for skin tones, food, fabric and finishes.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Office, clinic or general retail</td>
+              <td class="py-3 pr-4">3500K–4000K</td>
+              <td class="py-3 pr-4">Neutral visual clarity for extended task work</td>
+              <td class="py-3">Check UGR, desk-plane lux and color consistency.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Warehouse, inspection or workshop</td>
+              <td class="py-3 pr-4">4000K–5000K</td>
+              <td class="py-3 pr-4">High-visibility working environment</td>
+              <td class="py-3">Check mounting height, glare and target illuminance.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Museum or premium display</td>
+              <td class="py-3 pr-4">2700K–3500K</td>
+              <td class="py-3 pr-4">Controlled visual atmosphere and finish presentation</td>
+              <td class="py-3">Check CRI, R9, beam angle and conservation limits.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        After you choose a CCT range, compare <a class="font-medium text-primary underline" href={getPermalink('/tools/cri-guide')}>CRI 80, 90 and 95</a>
+        for color fidelity, then review the <a class="font-medium text-primary underline" href={getPermalink('/tools/ugr-guide')}>UGR target</a>
+        and the <a class="font-medium text-primary underline" href={getPermalink('/tools/lux-calculator')}>required lux level</a> for the task.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <FAQs
     tagline="FAQs"
@@ -127,6 +197,16 @@ const faqJson = {
         title: 'Is 3000K or 4000K better for offices?',
         description:
           '4000K is the most common office choice for alertness and a clean look. 3000K–3500K is nicer for receptions and meeting rooms where a warmer feel is wanted.',
+      },
+      {
+        title: 'Should I choose 3000K or 4000K for retail lighting?',
+        description:
+          'Choose 3000K for a warm, premium or hospitality-led atmosphere; choose 4000K for neutral task visibility and a cleaner, more modern presentation. Kelvin describes color appearance, so compare CRI separately before you specify the fixture.',
+      },
+      {
+        title: 'Is 5000K too cool for an office?',
+        description:
+          'For most offices, 4000K is the more common neutral starting point. 5000K can suit industrial tasks, inspection zones or high-visibility work, but should be reviewed with glare control and the project brief.',
       },
       {
         title: 'Can I get adjustable color temperature?',
@@ -153,6 +233,6 @@ const faqJson = {
 
   <!-- Related tools -->
   <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
-    <RelatedTools tools={['cri', 'lux', 'beam', 'photo']} />
+    <RelatedTools tools={['cri', 'lux', 'ugr', 'photo']} />
   </section>
 </Layout>

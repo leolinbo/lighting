@@ -33,7 +33,7 @@ const faqJson = {
       name: 'What UGR rating should offices use?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'EN 12464-1 recommends UGR ≤ 19 for most office and educational tasks, and UGR ≤ 16 for screen-based work (video conferencing and display rooms).',
+        text: 'UGR ≤ 19 is a common target for office and classroom work areas. More demanding visual tasks can require a stricter project-specific limit, so confirm the applicable standard and room layout before final specification.',
       },
     },
     {
@@ -41,7 +41,23 @@ const faqJson = {
       name: 'How do I reduce glare in LED lighting?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'Use deep-recessed or shielded optics, honeycomb (anti-glare) louvers, higher cut-off angles and indirect/ambient light. Fixtures with a low UGR rating already bundle these.',
+        text: 'Use deep-recessed or shielded optics, honeycomb anti-glare louvers, higher cut-off angles and a suitable layout. The final result also depends on mounting height, spacing, room surfaces and viewing direction.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is the difference between UGR 19 and UGR 22?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'UGR 19 is a common target for office and classroom task areas where people work for long periods. UGR 22 is a more permissive target often considered for general areas or tasks with lower glare sensitivity. The right limit depends on the standard and visual task for the project.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Does a light fixture have one fixed UGR rating?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'No. UGR is calculated for an installation, not just the individual fixture. Optics, mounting height, spacing, room dimensions, surface reflectance and observer position all influence the final result.',
       },
     },
   ],
@@ -53,9 +69,9 @@ const ugrRows = [
     label: 'Ideal',
     detail: 'Very dark ceilings and accent lighting; only reachable with deep-shielded optics.',
   },
-  { value: 13, label: 'Excellent', detail: 'Preferred for meeting rooms and video conferencing.' },
-  { value: 16, label: 'Very good', detail: 'General office and educational spaces.' },
-  { value: 19, label: 'Good / standard', detail: 'Maximum commonly specified for offices and retail (EN 12464-1).' },
+  { value: 13, label: 'Excellent', detail: 'Useful for visually demanding, low-glare applications.' },
+  { value: 16, label: 'Very good', detail: 'Detailed visual tasks and sensitive work areas.' },
+  { value: 19, label: 'Good / standard', detail: 'Common target for office and classroom work areas.' },
   { value: 22, label: 'Acceptable', detail: 'Industrial and utility areas where glare is less critical.' },
   { value: 25, label: 'Poor', detail: 'High glare; only for circulation and storage areas.' },
   { value: 28, label: 'Very poor', detail: 'Discomfort glare likely; should be avoided where people work.' },
@@ -152,6 +168,56 @@ const ugrRows = [
     </div>
   </section>
 
+  <!-- Application matrix -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">UGR 19 vs UGR 22: Start With the Visual Task</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        A low-UGR optic is only one part of the result. The installed UGR also changes with room geometry, mounting height,
+        spacing, surface reflectance and the observer position. Use a project photometric layout when the specification
+        requires a formal UGR target.
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[700px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Space or task</th>
+              <th class="py-3 pr-4 font-semibold">Starting UGR target</th>
+              <th class="py-3 pr-4 font-semibold">Why glare matters</th>
+              <th class="py-3 font-semibold">What to verify</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">Computer work, classrooms or meeting rooms</td>
+              <td class="py-3 pr-4">≤ 19</td>
+              <td class="py-3 pr-4">Screens and extended visual tasks increase glare sensitivity</td>
+              <td class="py-3">Check workstation orientation, luminance and the project standard.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">General office or retail floor</td>
+              <td class="py-3 pr-4">≤ 19 to ≤ 22</td>
+              <td class="py-3 pr-4">Comfort and product visibility must be balanced</td>
+              <td class="py-3">Check beam control, spacing, CRI and target lux.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Warehouse, circulation or utility area</td>
+              <td class="py-3 pr-4">Task and standard dependent</td>
+              <td class="py-3 pr-4">Safety, contrast and vertical visibility still matter</td>
+              <td class="py-3">Check mounting height, aisle geometry and working-plane lux.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        Use the <a class="font-medium text-primary underline" href={getPermalink('/tools/lux-calculator')}>Lux Calculator</a>
+        to set the illuminance target, the <a class="font-medium text-primary underline" href={getPermalink('/tools/photometric-guide')}>Photometric Data Guide</a>
+        to review IES/LDT evidence, and the <a class="font-medium text-primary underline" href={getPermalink('/tools/cri-guide')}>CRI Guide</a>
+        to specify color quality alongside visual comfort.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <FAQs
     tagline="FAQs"
@@ -167,12 +233,22 @@ const ugrRows = [
       {
         title: 'What UGR rating should offices use?',
         description:
-          'EN 12464-1 recommends UGR ≤ 19 for most office tasks and UGR ≤ 16 for screen-based work and meeting rooms with video conferencing.',
+          'UGR ≤ 19 is a common target for office and classroom work areas. More demanding visual tasks can require a stricter project-specific limit, so confirm the applicable standard and room layout before final specification.',
       },
       {
         title: 'How do I reduce glare in LED lighting?',
         description:
           'Specify deep-shielded optics, honeycomb anti-glare louvers, high cut-off angles, or indirect lighting. Low-UGR fixtures combine these features and are tested to a published UGR value.',
+      },
+      {
+        title: 'What is the difference between UGR 19 and UGR 22?',
+        description:
+          'UGR 19 is a common target for office and classroom task areas where people work for long periods. UGR 22 is a more permissive target often considered for general areas or tasks with lower glare sensitivity. Check the applicable project standard before final specification.',
+      },
+      {
+        title: 'Does a light fixture have one fixed UGR rating?',
+        description:
+          'No. UGR is calculated for an installation, not just the individual fixture. Optics, mounting height, spacing, room dimensions, surface reflectance and observer position all influence the final result.',
       },
       {
         title: 'Do ENCORE fixtures have low UGR options?',
@@ -194,7 +270,7 @@ const ugrRows = [
 
   <!-- Related tools -->
   <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
-    <RelatedTools tools={['photo', 'beam', 'cri', 'lux']} />
+    <RelatedTools tools={['photo', 'lux', 'cri', 'cct']} />
   </section>
 </Layout>
 
@@ -211,12 +287,12 @@ const ugrRows = [
         label: 'Ideal — 10',
         detail: 'Very dark ceilings and accent lighting; only reachable with deep-shielded optics.',
       },
-      { value: 13, label: 'Excellent — 13', detail: 'Preferred for meeting rooms and video conferencing.' },
-      { value: 16, label: 'Very good — 16', detail: 'General office and educational spaces.' },
+      { value: 13, label: 'Excellent — 13', detail: 'Useful for visually demanding, low-glare applications.' },
+      { value: 16, label: 'Very good — 16', detail: 'Detailed visual tasks and sensitive work areas.' },
       {
         value: 19,
         label: 'Good / standard — 19',
-        detail: 'Maximum commonly specified for offices and retail (EN 12464-1).',
+        detail: 'Common target for office and classroom work areas.',
       },
       { value: 22, label: 'Acceptable — 22', detail: 'Industrial and utility areas where glare is less critical.' },
       { value: 25, label: 'Poor — 25', detail: 'High glare; only for circulation and storage areas.' },

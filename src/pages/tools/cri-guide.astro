@@ -42,7 +42,23 @@ const faqJson = {
       name: 'What is the difference between CRI 80 and CRI 90?',
       acceptedAnswer: {
         '@type': 'Answer',
-        text: 'CRI 80 renders colors adequately but some saturated colors — especially red — can look dull or shifted. CRI 90+ reproduces reds and skin tones far more faithfully, which is why premium brands specify it.',
+        text: 'CRI 80 renders colors adequately but some saturated colors — especially red — can look dull or shifted. CRI 90+ reproduces reds and skin tones more faithfully, which is why premium brands often specify it.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'Is CRI 80 good enough for office lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'CRI 80 is commonly suitable for general office lighting where accurate color judgement is not the primary task. Specify CRI 90+ when the space depends on product, material, skin-tone or finish evaluation.',
+      },
+    },
+    {
+      '@type': 'Question',
+      name: 'What is R9 in lighting?',
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: 'R9 is the color rendering score for saturated red. It is not included in the standard CRI average, so projects involving food, cosmetics, skin tones, fabrics or artwork should review R9 alongside the general CRI score.',
       },
     },
   ],
@@ -146,6 +162,54 @@ const faqJson = {
     </div>
   </section>
 
+  <!-- Application matrix -->
+  <section class="mx-auto max-w-5xl px-4 pb-4 md:px-6">
+    <div class="rounded-2xl border border-gray-200 bg-white p-6 dark:border-slate-700 dark:bg-slate-900 md:p-10">
+      <h2 class="text-2xl font-bold md:text-3xl">CRI 80 vs 90 vs 95: Specify for the Visual Task</h2>
+      <p class="mt-2 text-muted dark:text-slate-400">
+        Higher CRI is not automatically the only answer. Match the color-rendering target to the task, the finish being
+        evaluated and the customer experience you need to create. Then check the CCT, R9 and glare requirement together.
+      </p>
+      <div class="mt-6 overflow-x-auto">
+        <table class="w-full min-w-[680px] border-collapse text-left text-sm">
+          <thead>
+            <tr class="border-b border-gray-200 dark:border-slate-700">
+              <th class="py-3 pr-4 font-semibold">Application</th>
+              <th class="py-3 pr-4 font-semibold">Starting CRI</th>
+              <th class="py-3 pr-4 font-semibold">When to check R9</th>
+              <th class="py-3 font-semibold">Related specification</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-100 dark:divide-slate-800">
+            <tr>
+              <td class="py-3 pr-4 font-medium">General office, warehouse or back-of-house</td>
+              <td class="py-3 pr-4">80+</td>
+              <td class="py-3 pr-4">Only if accurate red or finish comparison matters</td>
+              <td class="py-3">Set target lux and a UGR limit for the task.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Fashion, hospitality, food or cosmetics retail</td>
+              <td class="py-3 pr-4">90+</td>
+              <td class="py-3 pr-4">Check R9 for reds, skin tones, food and fabric</td>
+              <td class="py-3">Pair with the right CCT for brand atmosphere.</td>
+            </tr>
+            <tr>
+              <td class="py-3 pr-4 font-medium">Gallery, luxury display or color matching</td>
+              <td class="py-3 pr-4">95+</td>
+              <td class="py-3 pr-4">Review R9 and the full product spectral data</td>
+              <td class="py-3">Use controlled beam angle and conservation requirements.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="mt-4 text-sm text-muted dark:text-slate-400">
+        CRI is different from <a class="font-medium text-primary underline" href={getPermalink('/tools/cct-guide')}>color temperature</a>:
+        CCT controls whether the light appears warm or cool, while CRI controls color fidelity. For offices and screen
+        work, also review the <a class="font-medium text-primary underline" href={getPermalink('/tools/ugr-guide')}>UGR target</a> before choosing optics.
+      </p>
+    </div>
+  </section>
+
   <!-- FAQs -->
   <FAQs
     tagline="FAQs"
@@ -167,6 +231,11 @@ const faqJson = {
         title: 'What is the difference between CRI 80 and CRI 90?',
         description:
           'CRI 80 renders colors acceptably but saturated reds can look dull. CRI 90+ renders reds and skin tones much more faithfully — important for fashion, cosmetics and wood finishes.',
+      },
+      {
+        title: 'Is CRI 80 good enough for office lighting?',
+        description:
+          'CRI 80 is commonly suitable for general office lighting where accurate color judgement is not the primary task. Specify CRI 90+ when the space depends on product, material, skin-tone or finish evaluation.',
       },
       {
         title: 'What is R9 and why does it matter?',
@@ -193,7 +262,7 @@ const faqJson = {
 
   <!-- Related tools -->
   <section class="mx-auto max-w-5xl px-4 py-12 md:px-6 lg:py-16">
-    <RelatedTools tools={['cct', 'lux', 'beam', 'photo']} />
+    <RelatedTools tools={['cct', 'ugr', 'lux', 'photo']} />
   </section>
 </Layout>
 
