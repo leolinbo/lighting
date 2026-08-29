@@ -1,0 +1,67 @@
+# ENCORE — LED Track Lighting & Downlight Manufacturer
+
+> LLM-friendly summary of ENCORE (深圳市英科光电科技有限公司). Built for AI agents, crawlers and automated sourcing tools. For humans, browse https://lightoem.com.
+
+## About
+
+ENCORE is a professional **LED track lighting and downlight manufacturer** based in Shenzhen, China, serving B2B buyers since 2011. We operate an in-house factory (since 2014) and offer **OEM/ODM** manufacturing with factory-direct pricing, ETL/CE/SAA/ISO9001 certifications and a 5-year warranty. Our main product families are LED track lighting, LED downlights, magnetic track lights and commercial lighting systems.
+
+- Factory: 2/F, Bldg 8th, Zhengzhong Industrial Park, Fuyong, Shenzhen, China
+- Established: 2011 (trading) / 2014 (factory)
+- Export: 85+ countries across North America, Europe, Australia, Southeast Asia, Middle East and Latin America
+
+## Core Product Lines
+
+- **LED Track Lighting** — VEGA, OVEGA, IMAX, FLEX systems. 6–60W, 10°–90° beam, CRI 90+ (OVEGA 90–95), TRIAC/0-10V/DALI dimming.
+  - URL: https://lightoem.com/products/track-lighting
+- **LED Downlights** — DELLA Mini, ELLA, Galaxy, AVA MR16 systems. 5–20W, 24°–60° beam, CRI 90–95, TRIAC/DALI/tunable.
+  - URL: https://lightoem.com/products/led-downlights
+- **Magnetic Track Lights** — AURA, DISC, GRIDIS, NOVA, LATTICE systems. Slim 5mm/15mm/20mm profiles, 5–30W, 15°–60° beam, CRI 90+, TRIAC/Zigbee/Bluetooth.
+  - URL: https://lightoem.com/products/magnetic-track-lights
+- **Commercial Lighting** — Cylinder, Linear, Motorized Remote Controlled, Wall Luminaires & ETL Downlights. 5–60W, 10°–90° beam, CRI 90+ options.
+  - URL: https://lightoem.com/products/commercial-lighting
+- **Product Comparison** — side-by-side spec comparison of all series.
+  - URL: https://lightoem.com/products/compare
+
+## OEM / ODM Capabilities
+
+- **OEM** — build track lights/downlights to your exact spec under your brand (housing color, CCT, CRI, beam angle, wattage, dimming, packaging).
+- **ODM** — adapt an existing catalog design and brand it for you.
+- **Customization menu**: housing color & finish, CCT (2700K–6500K, SDCM ≤ 3), CRI (80/90/95+ with R9 and UV/IR filtering), beam angle & custom optics (with IES/LDT file), wattage (5–60W), dimming (TRIAC, 0-10V, DALI, Zigbee/Casambi/Matter), logo & packaging.
+- **MOQ**: ~500 units per model for OEM (flexible trial options; packaging MOQ lower; bespoke tooling 1,000+).
+- **Lead time**: samples 7–15 days; bulk 25–45 days; full first OEM cycle 8–14 weeks.
+- **Payment**: 30% deposit / 70% before shipment (T/T), L/C for large accounts.
+- URL: https://lightoem.com/oem-odm
+
+## Certifications
+
+- **ETL / UL** — North America (USA & Canada)
+- **CE (LVD + EMC)** — European Union
+- **SAA** — Australia & New Zealand
+- **ISO9001:2018** — quality management system
+- High-Technology Enterprise with multiple design and utility-model patents
+- URL: https://lightoem.com/certifications
+
+## Quality Control
+
+Four-stage process: IQC (incoming material) → IPQC (in-process) → 100% aging test → OQC (final function/electrical). Full traceability with tracking codes.
+- URL: https://lightoem.com/quality-control
+
+## Blog / Resources
+
+- Buyer guide: How to Choose an LED Track Lighting Manufacturer — https://lightoem.com/blog/how-to-choose-led-track-lighting-manufacturer-2026
+- OEM LED Lighting Manufacturer: 6-Step Sourcing Checklist — https://lightoem.com/blog/oem-led-lighting-manufacturer-6-step-sourcing-checklist
+- Custom LED Track Lighting: What You Can Customize + MOQ & Lead Time — https://lightoem.com/blog/custom-led-track-lighting-what-you-can-customize-moq-lead-time
+- Blog index: https://lightoem.com/blog
+
+## Tools
+
+Free lighting design tools: Beam Angle Calculator, Lux Calculator, Fixture Count Estimator, CCT Guide, CRI Guide, UGR Guide, Photometric Guide, Unit Converter.
+- Index: https://lightoem.com/beam-angle-calculator
+
+## Contact
+
+- Email: sales@encore-tech.com
+- WhatsApp / Tel: +852 6768 2519
+- Contact form: https://lightoem.com/contact
+- HQ: Hong Kong · Factory: Shenzhen, China
