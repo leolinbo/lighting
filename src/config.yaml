@@ -9,9 +9,9 @@ site:
 # Default SEO metadata
 metadata:
   title:
-    default: OEM LED Track Lighting Manufacturer | ETL/CE/ISO Certified Factory | ENCORE
+    default: ENCORE — Professional LED Track Lighting & Downlight Manufacturer
     template: '%s — ENCORE'
-  description: 'ETL, CE and ISO certified OEM LED track lighting and downlight manufacturer since 2011. Factory-direct custom lighting for distributors, retailers and commercial projects.'
+  description: 'Professional LED track lighting and downlight manufacturer offering OEM/ODM services. ETL/CE/ISO certified factory since 2011.'
   robots:
     index: true
     follow: true
@@ -37,7 +37,7 @@ apps:
     postsPerPage: 6
     post:
       isEnabled: true
-      permalink: '/%slug%'
+      permalink: '/blog/%slug%'
       robots:
         index: true
     list:
