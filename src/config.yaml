@@ -1,26 +1,24 @@
 site:
-  name: ENCORE
-  site: 'https://lightoem.com'
+  name: 'Rock Wong — Founder of ENCORE'
+  site: 'https://www.encore-tech.com/'
   base: '/'
   trailingSlash: false
+  googleSiteVerificationId: false
 
-  googleSiteVerificationId: 'H3l2b1Z8ab97w9lNqRUNqa1X6FuayO_EZSU2tNT8of0'
-
-# Default SEO metadata
 metadata:
   title:
-    default: OEM LED Track Lighting Manufacturer | ETL/CE/ISO Certified Factory | ENCORE
+    default: 'Rock Wong — Founder of ENCORE'
     template: '%s — ENCORE'
-  description: 'ETL, CE and ISO certified OEM LED track lighting and downlight manufacturer since 2011. Factory-direct custom lighting for distributors, retailers and commercial projects.'
+  description: 'The story, philosophy and work of Rock Wong, founder of ENCORE.'
   robots:
     index: true
     follow: true
   openGraph:
     site_name: ENCORE
     images:
-      - url: '~/assets/images/logo.png'
-        width: 4124
-        height: 834
+      - url: '~/assets/images/hero-image.png'
+        width: 1200
+        height: 630
     type: website
   twitter:
     handle: '@encore'
@@ -33,35 +31,31 @@ i18n:
 
 apps:
   blog:
-    isEnabled: true
+    isEnabled: false
     postsPerPage: 6
     post:
-      isEnabled: true
-      permalink: '/%slug%'
-      robots:
-        index: true
+      isEnabled: false
+      permalink: '/blog/%slug%'
+      robots: { index: false }
     list:
-      isEnabled: true
+      isEnabled: false
       pathname: 'blog'
-      robots:
-        index: true
+      robots: { index: false }
     category:
-      isEnabled: true
+      isEnabled: false
       pathname: 'category'
-      robots:
-        index: true
+      robots: { index: false }
     tag:
-      isEnabled: true
+      isEnabled: false
       pathname: 'tag'
-      robots:
-        index: false
-    isRelatedPostsEnabled: true
-    relatedPostsCount: 4
+      robots: { index: false }
+    isRelatedPostsEnabled: false
+    relatedPostsCount: 0
 
 analytics:
   vendors:
     googleAnalytics:
-      id: 'G-1VKFQ8ZEW6'
+      id: null
 
 ui:
-  theme: 'system'
+  theme: 'light:only'
